@@ -71,7 +71,8 @@ public class SleepEntry implements Comparable {
 		
 		if (this.restfulnessScore.equals (that.restfulnessScore) &&
 			this.restedScore.equals (that.restedScore) &&
-			this.date.equals (that.date))
+			this.date.equals (that.date) &&
+			this.numDrinks.equals (that.numDrinks))
 			return true;
 		
 		return false;
