@@ -31,4 +31,41 @@ public class SleepLog {
 	{
 		return getEntries().size() == 0;
 	}
+
+	public double getAvgRestfulness() 
+	{
+		 return getSumRestfulness() / getNumEntries();
+	}
+
+	private double getSumRestfulness() 
+	{
+		double sum = 0;
+		
+		for (SleepEntry entry : entries)
+		{
+			if (entry.getRestfulnessScore() != null)
+				sum += entry.getRestfulnessScore();
+		}
+		
+		return sum;
+	}
+	
+	public double getAvgRestedness() 
+	{
+		 return getSumRestedness() / getNumEntries();
+	}
+
+	private double getSumRestedness() 
+	{
+		double sum = 0;
+		
+		for (SleepEntry entry : entries)
+		{
+			if (entry.getRestedScore() != null)
+				sum += entry.getRestedScore();
+		}
+		
+		return sum;
+	}
+
 }
