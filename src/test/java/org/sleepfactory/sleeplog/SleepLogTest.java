@@ -1,5 +1,6 @@
 package org.sleepfactory.sleeplog;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
@@ -25,8 +26,15 @@ public class SleepLogTest {
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testAdd() 
+	{
+		assertTrue (log1.isEmtpy());
+		assertEquals (0, log1.getNumEntries());
+		
+		log1.add (entry1);
+		
+		assertFalse (log1.isEmtpy());
+		assertEquals (1, log1.getNumEntries());
 	}
-
+	
 }

@@ -17,4 +17,18 @@ public class SleepLog {
 		this.entries = entries;
 	}
 
+	public void add (SleepEntry entry) 
+	{
+		getEntries().add (entry);	
+	}
+
+	public int getNumEntries() 
+	{
+		return getEntries().size();
+	}
+
+	public boolean isEmtpy() 
+	{
+		return getEntries().size() == 0;
+	}
 }
