@@ -8,6 +8,8 @@ public class SleepEntry implements Comparable {
 
 	private Long restedScore;
 	private Long restfulnessScore;
+	
+	private Long numDrinks;
 
 	public SleepEntry() 
 	{
@@ -48,6 +50,16 @@ public class SleepEntry implements Comparable {
 		return restfulnessScore;
 	}
 
+	public Long getNumDrinks() 
+	{
+		return numDrinks;
+	}
+
+	public void setNumDrinks(Long numDrinks) 
+	{
+		this.numDrinks = numDrinks;
+	}
+
 	@Override
 	public boolean equals (Object obj)
 	{
@@ -71,4 +83,5 @@ public class SleepEntry implements Comparable {
 		SleepEntry that = (SleepEntry) obj;
 		return this.getDate().compareTo (that.getDate());
 	}
+
 }
