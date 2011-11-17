@@ -43,7 +43,7 @@ public class SleepEntry implements Comparable {
 		this.restfulnessScore = score;
 	}
 	
-	public Long getResfulnessScore() 
+	public Long getRestfulnessScore() 
 	{
 		return restfulnessScore;
 	}

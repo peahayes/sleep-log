@@ -28,7 +28,7 @@ public class SleepEntryTest {
 		entry2.setRestedScore (3L);
 		entry2.setResfulnessScore (4L);
 		
-		entry3.setResfulnessScore (entry.getResfulnessScore());
+		entry3.setResfulnessScore (entry.getRestfulnessScore());
 		entry3.setRestedScore (entry.getRestedScore());
 	}
 
