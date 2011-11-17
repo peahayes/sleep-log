@@ -10,6 +10,8 @@ public class SleepEntry implements Comparable {
 	private Long restfulnessScore;
 	
 	private Long numDrinks;
+	
+	private Date riseTime;
 
 	public SleepEntry() 
 	{
@@ -83,6 +85,14 @@ public class SleepEntry implements Comparable {
 	{
 		SleepEntry that = (SleepEntry) obj;
 		return this.getDate().compareTo (that.getDate());
+	}
+
+	public Date getRiseTime() {
+		return riseTime;
+	}
+
+	public void setRiseTime(Date riseTime) {
+		this.riseTime = riseTime;
 	}
 
 }
