@@ -12,6 +12,7 @@ public class SleepEntry implements Comparable {
 	private Long numDrinks;
 	
 	private Date riseTime;
+	private Date wakeTime;
 
 	public SleepEntry() 
 	{
@@ -93,6 +94,14 @@ public class SleepEntry implements Comparable {
 
 	public void setRiseTime(Date riseTime) {
 		this.riseTime = riseTime;
+	}
+	
+	public Date getWakeTime() {
+		return wakeTime;
+	}
+
+	public void setWakeTime(Date wakeTime) {
+		this.wakeTime = wakeTime;
 	}
 
 }
