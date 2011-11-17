@@ -9,7 +9,7 @@ public class SleepEntry implements Comparable {
 	private Long restedScore;
 	private Long restfulnessScore;
 	
-	private Long numDrinks;
+	private Integer numDrinks;
 
 	public SleepEntry() 
 	{
@@ -50,12 +50,12 @@ public class SleepEntry implements Comparable {
 		return restfulnessScore;
 	}
 
-	public Long getNumDrinks() 
+	public Integer getNumDrinks() 
 	{
 		return numDrinks;
 	}
 
-	public void setNumDrinks(Long numDrinks) 
+	public void setNumDrinks(Integer numDrinks) 
 	{
 		this.numDrinks = numDrinks;
 	}

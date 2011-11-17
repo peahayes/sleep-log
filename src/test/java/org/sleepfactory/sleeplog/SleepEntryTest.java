@@ -24,11 +24,11 @@ public class SleepEntryTest {
 
 		entry.setRestedScore (4L);
 		entry.setResfulnessScore (4L);
-		entry.setNumDrinks (0L);
+		entry.setNumDrinks (0);
 		
 		entry2.setRestedScore (3L);
 		entry2.setResfulnessScore (4L);
-		entry2.setNumDrinks (1L);
+		entry2.setNumDrinks (1);
 		
 		entry3.setResfulnessScore (entry.getRestfulnessScore());
 		entry3.setRestedScore (entry.getRestedScore());
