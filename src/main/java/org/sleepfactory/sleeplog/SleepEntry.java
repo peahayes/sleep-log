@@ -48,4 +48,20 @@ public class SleepEntry {
 		return restfulnessScore;
 	}
 
+	@Override
+	public boolean equals (Object obj)
+	{
+		if (obj == null) return false;
+		if (! (obj instanceof SleepEntry)) return false;
+		
+		SleepEntry that = (SleepEntry) obj;
+		if (this == that) return true;
+		
+		if (this.restfulnessScore.equals (that.restfulnessScore) &&
+			this.restedScore.equals (that.restedScore) &&
+			this.date.equals (that.date))
+			return true;
+		
+		return false;
+	}
 }

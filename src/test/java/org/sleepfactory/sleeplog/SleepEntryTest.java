@@ -1,5 +1,6 @@
 package org.sleepfactory.sleeplog;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
@@ -31,7 +32,31 @@ public class SleepEntryTest {
 	}
 
 	@Test
-	public void testEquals() 
+	public void testEquals_differentClass()
+	{
+		assertFalse (entry.equals (2L));
+	}
+
+	@Test
+	public void testEquals_null()
+	{
+		assertFalse (entry.equals (null));
+	}
+
+	@Test
+	public void testEquals_differentProps() 
+	{
+		assertFalse (entry.equals (entry2));
+	}
+
+	@Test
+	public void testEquals_sameProps() 
+	{
+		assertTrue (entry.equals (entry3));
+	}
+
+	@Test
+	public void testEquals_sameObject() 
 	{
 		assertTrue (entry.equals (entry));
 	}
