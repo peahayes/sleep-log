@@ -2,7 +2,7 @@ package org.sleepfactory.sleeplog;
 
 import java.util.Date;
 
-public class SleepEntry {
+public class SleepEntry implements Comparable {
 
 	private Date date;
 
@@ -63,5 +63,12 @@ public class SleepEntry {
 			return true;
 		
 		return false;
+	}
+	
+	@Override
+	public int compareTo (Object obj) 
+	{
+		SleepEntry that = (SleepEntry) obj;
+		return this.getDate().compareTo (that.getDate());
 	}
 }
