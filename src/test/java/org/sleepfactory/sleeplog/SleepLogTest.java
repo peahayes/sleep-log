@@ -26,6 +26,15 @@ public class SleepLogTest {
 	}
 
 	@Test
+	public void testSleepEntriesOrderedByDate()
+	{
+		log1.add (entry2);
+		log1.add (entry1);
+		
+		assertEquals (entry1, log1.getEntries().iterator().next());
+	}
+
+	@Test
 	public void testAdd() 
 	{
 		assertTrue (log1.isEmtpy());
