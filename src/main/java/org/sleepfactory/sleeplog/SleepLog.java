@@ -139,6 +139,13 @@ public class SleepLog {
 		return sum;
 	}
 		
+	/** 
+	 * Return a calculation of the average amount of time
+	 * the sleeper spent in bed over all SleepEntries in the 
+	 * SleepLog
+	 * 
+	 * @return A double number
+	 */
 	public double getAvgInBedAmount() 
 	{
 		 return getSumInBedAmount() / getNumEntries();
