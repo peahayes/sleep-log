@@ -85,16 +85,31 @@ public class SleepEntry implements Comparable {
 		this.restfulnessScore = score;
 	}
 	
+	/**
+	 * Returns the score indicating how restful this night of sleep was.
+	 * 
+	 * @return Number between 1 and 5.
+	 */
 	public Long getRestfulnessScore() 
 	{
 		return restfulnessScore;
 	}
 
+	/**
+	 * Return number of drinks sleeper had before going to bed.
+	 * 
+	 * @return Any number greater than or equal to 0.
+	 */
 	public Integer getNumDrinks() 
 	{
 		return numDrinks;
 	}
 
+	/**
+	 * Set number of drinks sleeper had before going to bed.
+	 * 
+	 * @param numDrinks Any number greater than or equal to 0.
+	 */
 	public void setNumDrinks(Integer numDrinks) 
 	{
 		this.numDrinks = numDrinks;
