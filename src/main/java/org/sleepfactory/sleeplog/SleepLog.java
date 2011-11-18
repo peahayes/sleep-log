@@ -101,6 +101,13 @@ public class SleepLog {
 		return sum;
 	}
 	
+	/**
+	 * Returns the average amount of sleep for all SleepEntries.
+	 * 
+	 * @return A double value
+	 * 
+	 * @throws Exception If any of the components of this calculation are null
+	 */
 	public double getAvgSleepAmount()
 		throws Exception
 	{
