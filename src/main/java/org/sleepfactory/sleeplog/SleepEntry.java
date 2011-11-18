@@ -165,6 +165,13 @@ public class SleepEntry implements Comparable {
 		return this.getDate().compareTo (that.getDate());
 	}
 
+	/**
+	 * Returns the amount of time the sleeper was asleep during
+	 * this sleep episode.
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public double getSleepAmount()
 		throws Exception
 	{
