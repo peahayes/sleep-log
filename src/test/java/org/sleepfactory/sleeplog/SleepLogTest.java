@@ -28,6 +28,13 @@ public class SleepLogTest {
 	}
 	
 	@Test
+	public void testAvgInBedAmount()
+	{
+		data.log1.add (data.entry);
+		assertEquals (data.entry.getInBedAmount(), data.log1.getAvgInBedAmount(), 0);
+	}
+
+	@Test
 	public void testAvgRestedness()
 	{
 		data.log1.add (data.entry);
