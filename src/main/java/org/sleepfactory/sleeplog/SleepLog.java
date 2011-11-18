@@ -89,6 +89,12 @@ public class SleepLog {
 		return sum;
 	}
 	
+	/**
+	 * Return the average of all rested scores in all
+	 * SleepEntries.
+	 * 
+	 * @return A double value
+	 */
 	public double getAvgRestedness() 
 	{
 		 return getSumRestedness() / getNumEntries();
