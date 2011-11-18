@@ -2,6 +2,16 @@ package org.sleepfactory.sleeplog;
 
 import java.util.Date;
 
+/**
+ * SleepEntry represents a one night of sleep.  The entry spans bedtime through riseTime, 
+ * with wakeTime in between.  There are scores for how restful the sleep was, and how rested
+ * the sleeper felt during the day.  There are calculations for the amount of time the
+ * sleeper spent in bed and the amount of sleep the sleeper got.  There are factors that might
+ * affect sleep quality, such as numDrinks.
+ * 
+ * @author phayes
+ *
+ */
 public class SleepEntry implements Comparable {
 
 	private Date date;
