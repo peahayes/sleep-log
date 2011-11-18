@@ -25,18 +25,21 @@ public class SleepEntryTest {
 		entry.setRestedScore (4L);
 		entry.setResfulnessScore (4L);
 		entry.setNumDrinks (0);
+		entry.setBedTime (entry.getDate());
 		entry.setRiseTime(new Date (entry.getDate().getTime() + 25200000));
 		entry.setWakeTime (new Date (entry.getDate().getTime() + 25200000));
 		
 		entry2.setRestedScore (3L);
 		entry2.setResfulnessScore (4L);
 		entry2.setNumDrinks (1);
+		entry2.setBedTime (entry2.getDate());
 		entry2.setRiseTime(new Date (entry2.getDate().getTime() + 25200000));
 		entry2.setWakeTime (new Date (entry2.getDate().getTime() + 25200000));
 		
 		entry3.setResfulnessScore (entry.getRestfulnessScore());
 		entry3.setRestedScore (entry.getRestedScore());
 		entry3.setNumDrinks (entry.getNumDrinks());
+		entry2.setBedTime (entry.getDate());
 		entry3.setRiseTime (entry.getRiseTime());
 		entry3.setWakeTime (entry.getWakeTime());
 	}
