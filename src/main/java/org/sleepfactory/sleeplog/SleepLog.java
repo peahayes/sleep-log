@@ -65,6 +65,12 @@ public class SleepLog {
 		return getEntries().size() == 0;
 	}
 
+	/**
+	 * Return the average of all resetfulness scores in all
+	 * SleepEntries.
+	 * 
+	 * @return A double value
+	 */
 	public double getAvgRestfulness() 
 	{
 		 return getSumRestfulness() / getNumEntries();
