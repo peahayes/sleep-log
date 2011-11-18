@@ -135,11 +135,21 @@ public class SleepEntry implements Comparable {
 		this.riseTime = riseTime;
 	}
 	
+	/**
+	 * Returns the date/time at which the sleeper awoke in the morning.
+	 * 
+	 * @return A date/time.
+	 */
 	public Date getWakeTime() 
 	{
 		return wakeTime;
 	}
 
+	/**
+	 * Set the date/time at which the sleeper awoke in the morning.
+	 * 
+	 * @param wakeTime A date/time.
+	 */
 	public void setWakeTime(Date wakeTime) 
 	{
 		this.wakeTime = wakeTime;
@@ -207,6 +217,12 @@ public class SleepEntry implements Comparable {
 		return timeInHours;
 	}
 	
+	/**
+	 * Returns the amount of time the sleeper spent in bed, including
+	 * both sleep time and wake time.
+	 * 
+	 * @return Any double
+	 */
 	public double getInBedAmount()
 	{
 		long time = riseTime.getTime() - bedTime.getTime();
