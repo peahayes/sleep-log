@@ -25,6 +25,13 @@ public class SleepLogTest {
 		entry1.setRestedScore (4L);
 		entry2.setRestedScore (5L);
 	}
+	
+	@Test
+	public void testAvgSleepAount()
+	{
+		log1.add (entry1);
+		assertEquals (entry1.getSleepAmount(), log1.getAvgSleepAmount(), 0);
+	}
 
 	@Test
 	public void testAvgRestedness()
