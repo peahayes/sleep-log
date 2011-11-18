@@ -45,6 +45,14 @@ public class SleepEntryTest {
 	}
 	
 	@Test
+	public void testGetInBedAmount()
+	{
+		assertEquals (7.0, entry.getInBedAmount(), .1);
+		assertEquals (7.0, entry2.getInBedAmount(), .1);
+		assertEquals (7.0, entry3.getInBedAmount(), .1);
+	}
+
+	@Test
 	public void testGetSleepAmount()
 	{
 		assertEquals (7.0, entry.getSleepAmount(), .1);

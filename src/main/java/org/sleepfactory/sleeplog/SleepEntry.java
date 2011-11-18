@@ -125,4 +125,12 @@ public class SleepEntry implements Comparable {
 		double timeInHours = (((time / 1000) / 60) / 60);
 		return timeInHours;
 	}
+	
+	public double getInBedAmount()
+	{
+		long time = riseTime.getTime() - bedTime.getTime();
+		double timeInHours = (((time / 1000) / 60) / 60);
+		return timeInHours;
+	}
+
 }
