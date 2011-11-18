@@ -173,6 +173,12 @@ public class SleepEntry implements Comparable {
 		return timeInHours;
 	}
 	
+	/**
+	 * Returns the amount of time the sleeper spent in bed, including
+	 * both sleep time and wake time.
+	 * 
+	 * @return Any double
+	 */
 	public double getInBedAmount()
 	{
 		long time = riseTime.getTime() - bedTime.getTime();
