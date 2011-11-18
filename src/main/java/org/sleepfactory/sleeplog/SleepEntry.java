@@ -120,6 +120,7 @@ public class SleepEntry implements Comparable {
 	}
 
 	public double getSleepAmount()
+		throws Exception
 	{
 		long time = wakeTime.getTime() - bedTime.getTime();
 		double timeInHours = (((time / 1000) / 60) / 60);

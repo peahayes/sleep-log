@@ -4,98 +4,71 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.Test;
 
 public class SleepEntryTest {
 	
-	SleepEntry entry = new SleepEntry();
-	SleepEntry entry2;
-	SleepEntry entry3;
+	TestSleepData data = new TestSleepData();
 	
 	@Before
 	public void setUp() throws Exception {
 
-		entry = new SleepEntry (new Date());
-		entry2 = new SleepEntry (new Date (entry.getDate().getTime() + 3600000));
-		entry3 = new SleepEntry (entry.getDate());
-
-		entry.setRestedScore (4L);
-		entry.setResfulnessScore (4L);
-		entry.setNumDrinks (0);
-		entry.setBedTime (entry.getDate());
-		entry.setRiseTime(new Date (entry.getDate().getTime() + 25200000));
-		entry.setWakeTime (new Date (entry.getDate().getTime() + 25200000));
-		
-		entry2.setRestedScore (3L);
-		entry2.setResfulnessScore (4L);
-		entry2.setNumDrinks (1);
-		entry2.setBedTime (entry2.getDate());
-		entry2.setRiseTime(new Date (entry2.getDate().getTime() + 25200000));
-		entry2.setWakeTime (new Date (entry2.getDate().getTime() + 25200000));
-		
-		entry3.setResfulnessScore (entry.getRestfulnessScore());
-		entry3.setRestedScore (entry.getRestedScore());
-		entry3.setNumDrinks (entry.getNumDrinks());
-		entry3.setBedTime (entry.getDate());
-		entry3.setRiseTime (entry.getRiseTime());
-		entry3.setWakeTime (entry.getWakeTime());
 	}
 	
 	@Test
 	public void testGetInBedAmount()
 	{
-		assertEquals (7.0, entry.getInBedAmount(), .1);
-		assertEquals (7.0, entry2.getInBedAmount(), .1);
-		assertEquals (7.0, entry3.getInBedAmount(), .1);
+		assertEquals (7.0, data.entry.getInBedAmount(), .1);
+		assertEquals (7.0, data.entry2.getInBedAmount(), .1);
+		assertEquals (7.0, data.entry3.getInBedAmount(), .1);
 	}
 
 	@Test
 	public void testGetSleepAmount()
+		throws Exception
 	{
-		assertEquals (7.0, entry.getSleepAmount(), .1);
-		assertEquals (7.0, entry2.getSleepAmount(), .1);
-		assertEquals (7.0, entry3.getSleepAmount(), .1);
+		assertEquals (7.0, data.entry.getSleepAmount(), .1);
+		assertEquals (7.0, data.entry2.getSleepAmount(), .1);
+		assertEquals (7.0, data.entry3.getSleepAmount(), .1);
 	}
 
 	@Test
 	public void testCompareTo()
 	{
-		assertEquals (0, entry.compareTo (entry));
-		assertEquals (-1, entry.compareTo (entry2));
-		assertEquals (1, entry2.compareTo (entry));
+		assertEquals (0, data.entry.compareTo (data.entry));
+		assertEquals (-1, data.entry.compareTo (data.entry2));
+		assertEquals (1, data.entry2.compareTo (data.entry));
 	}
 
 	@Test
 	public void testEquals_differentClass()
 	{
-		assertFalse (entry.equals (2L));
+		assertFalse (data.entry.equals (2L));
 	}
 
 	@Test
 	public void testEquals_null()
 	{
-		assertFalse (entry.equals (null));
+		assertFalse (data.entry.equals (null));
 	}
 
 	@Test
 	public void testEquals_differentProps() 
 	{
-		assertFalse (entry.equals (entry2));
+		assertFalse (data.entry.equals (data.entry2));
 	}
 
 	@Test
 	public void testEquals_sameProps() 
 	{
-		assertTrue (entry.equals (entry3));
+		assertTrue (data.entry.equals (data.entry3));
 	}
 
 	@Test
 	public void testEquals_sameObject() 
 	{
-		assertTrue (entry.equals (entry));
+		assertTrue (data.entry.equals (data.entry));
 	}
 
 }

@@ -67,5 +67,23 @@ public class SleepLog {
 		
 		return sum;
 	}
+	
+	public double getAvgSleepAmount()
+		throws Exception
+	{
+		 return getSumSleepAmount() / getNumEntries();		
+	}
 
+	private double getSumSleepAmount()
+		throws Exception
+	{
+		double sum = 0;
+		
+		for (SleepEntry entry : entries)
+		{
+			sum += entry.getSleepAmount();
+		}
+		
+		return sum;
+	}
 }
