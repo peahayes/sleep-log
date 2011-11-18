@@ -100,11 +100,21 @@ public class SleepEntry implements Comparable {
 		this.numDrinks = numDrinks;
 	}
 
+	/** 
+	 * Date/time at which sleep rose from his or her bed.
+	 * 
+	 * @return A date/time
+	 */
 	public Date getRiseTime() 
 	{
 		return riseTime;
 	}
 
+	/**
+	 * Set the date/time at which the sleeper rose from bed.
+	 * 
+	 * @param riseTime A date/time
+	 */
 	public void setRiseTime(Date riseTime) 
 	{
 		this.riseTime = riseTime;
