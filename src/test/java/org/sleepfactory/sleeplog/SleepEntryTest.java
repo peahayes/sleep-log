@@ -39,9 +39,17 @@ public class SleepEntryTest {
 		entry3.setResfulnessScore (entry.getRestfulnessScore());
 		entry3.setRestedScore (entry.getRestedScore());
 		entry3.setNumDrinks (entry.getNumDrinks());
-		entry2.setBedTime (entry.getDate());
+		entry3.setBedTime (entry.getDate());
 		entry3.setRiseTime (entry.getRiseTime());
 		entry3.setWakeTime (entry.getWakeTime());
+	}
+	
+	@Test
+	public void testGetSleepAmount()
+	{
+		assertEquals (7.0, entry.getSleepAmount(), .1);
+		assertEquals (7.0, entry2.getSleepAmount(), .1);
+		assertEquals (7.0, entry3.getSleepAmount(), .1);
 	}
 
 	@Test

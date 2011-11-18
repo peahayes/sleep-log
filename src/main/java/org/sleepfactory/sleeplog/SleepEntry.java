@@ -64,6 +64,36 @@ public class SleepEntry implements Comparable {
 		this.numDrinks = numDrinks;
 	}
 
+	public Date getRiseTime() 
+	{
+		return riseTime;
+	}
+
+	public void setRiseTime(Date riseTime) 
+	{
+		this.riseTime = riseTime;
+	}
+	
+	public Date getWakeTime() 
+	{
+		return wakeTime;
+	}
+
+	public void setWakeTime(Date wakeTime) 
+	{
+		this.wakeTime = wakeTime;
+	}
+
+	public Date getBedTime() 
+	{
+		return bedTime;
+	}
+
+	public void setBedTime(Date bedTime) 
+	{
+		this.bedTime = bedTime;
+	}
+
 	@Override
 	public boolean equals (Object obj)
 	{
@@ -89,30 +119,10 @@ public class SleepEntry implements Comparable {
 		return this.getDate().compareTo (that.getDate());
 	}
 
-	public Date getRiseTime() {
-		return riseTime;
-	}
-
-	public void setRiseTime(Date riseTime) {
-		this.riseTime = riseTime;
-	}
-	
-	public Date getWakeTime() {
-		return wakeTime;
-	}
-
-	public void setWakeTime(Date wakeTime) {
-		this.wakeTime = wakeTime;
-	}
-
-	public Date getBedTime() 
+	public double getSleepAmount()
 	{
-		return bedTime;
+		long time = wakeTime.getTime() - bedTime.getTime();
+		double timeInHours = (((time / 1000) / 60) / 60);
+		return timeInHours;
 	}
-
-	public void setBedTime(Date bedTime) 
-	{
-		this.bedTime = bedTime;
-	}
-
 }
