@@ -35,7 +35,7 @@ public class SleepEntry implements Comparable {
 	}
 
 	/**
-	 * Date of this entry. The date on which sleeper went to bed.
+	 * Date of this entry, which is the date on which sleeper went to bed.
 	 * 
 	 * @return The date on which sleeper went to bed.
 	 */
@@ -44,11 +44,21 @@ public class SleepEntry implements Comparable {
 		return date;
 	}
 	
+	/**
+	 * Set the date of this entry, which is the date on which sleeper went to bed.
+	 * 
+	 * @return The date on which sleeper went to bed.
+	 */
 	public void setDate (Date date) 
 	{
 		this.date = date;
 	}
 
+	/**
+	 * Set the score indicating how rested sleeper felt during day.
+	 * 
+	 * @return How rested sleeper felt during day
+	 */
 	public void setRestedScore (Long score) 
 	{
 		this.restedScore = score;
@@ -57,13 +67,19 @@ public class SleepEntry implements Comparable {
 	/**
 	 * Score indicating how rested sleeper felt during day.
 	 * 
-	 * @return How rested sleeper felt during day
+	 * @return How rested sleeper felt during day (a number 
+	 *         between 1 and 5)
 	 */
 	public Long getRestedScore() 
 	{
 		return restedScore;
 	}
 
+	/**
+	 * Set the score indicating how restful this night of sleep was.
+	 * 
+	 * @param score A number between 1 and 5.
+	 */
 	public void setResfulnessScore (Long score) 
 	{
 		this.restfulnessScore = score;
