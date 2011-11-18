@@ -3,6 +3,17 @@ package org.sleepfactory.sleeplog;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+/**
+ * A SleepLog represents how a sleeper slept over a span of any number of days.
+ * The SleepLog contains SleepEntries, which record detailed statistics about a
+ * single night of sleep.  SleepLog provides averages for a number of these statistics, 
+ * such as the average sleep time, the average time in bed, etc.  The SleepLog also
+ * provides a value for sleepEfficiency.
+ * 
+ * @author phayes
+ *
+ */
+
 public class SleepLog {
 
 	private SortedSet<SleepEntry> entries = new TreeSet<SleepEntry>();
