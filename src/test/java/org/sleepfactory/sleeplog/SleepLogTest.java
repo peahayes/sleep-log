@@ -24,7 +24,24 @@ public class SleepLogTest {
 		throws Exception
 	{
 		data.log1.add (data.entry);
-		assertEquals ((data.entry.getSleepAmount() / data.entry.getInBedAmount()), data.log1.getSleepEfficiency(), 0);
+		assertEquals (getAvgSleepEfficiency (new SleepEntry[] { data.entry }), data.log1.getSleepEfficiency(), 0);
+		
+		data.log1.add (data.entry2);
+		assertEquals (getAvgSleepEfficiency (new SleepEntry[] { data.entry, data.entry2 }), data.log1.getSleepEfficiency(), 0);
+		
+		data.log1.add (data.entry3);
+		assertEquals (getAvgSleepEfficiency (new SleepEntry[] { data.entry, data.entry2, data.entry3 }), data.log1.getSleepEfficiency(), 0);
+	}
+
+	private double getAvgSleepEfficiency (SleepEntry[] entries) 
+		throws Exception 
+	{
+		double sum = 0;
+		
+		for (int i = 0; i < entries.length; i++)
+			sum += entries[i].getSleepAmount() / entries[i].getInBedAmount();
+		
+		return sum / entries.length;
 	}
 	
 	@Test
@@ -32,16 +49,51 @@ public class SleepLogTest {
 		throws Exception
 	{
 		data.log1.add (data.entry);
-		assertEquals (data.log1.getAvgSleepAmount(), data.log1.getAvgSleepAmount(), 0);
+		assertEquals (getAvgSleepAmount (new SleepEntry[] { data.entry }), data.log1.getAvgSleepAmount(), 0);
+
+		data.log1.add (data.entry2);
+		assertEquals (getAvgSleepAmount (new SleepEntry[] { data.entry, data.entry2 }) , data.log1.getAvgSleepAmount(), 0);
+
+		data.log1.add (data.entry3);
+		assertEquals (getAvgSleepAmount (new SleepEntry[] { data.entry, data.entry2, data.entry3 }) , data.log1.getAvgSleepAmount(), 0);
 	}
 	
-	@Test
-	public void testAvgInBedAmount()
+	private double getAvgSleepAmount (SleepEntry[] entries) 
+		throws Exception 
 	{
-		data.log1.add (data.entry);
-		assertEquals (data.entry.getInBedAmount(), data.log1.getAvgInBedAmount(), 0);
+		double sum = 0;
+			
+		for (int i = 0; i < entries.length; i++)
+			sum += entries[i].getSleepAmount();
+			
+		return sum / entries.length;
 	}
 
+	@Test
+	public void testAvgInBedAmount() 
+		throws Exception
+	{
+		data.log1.add (data.entry);
+		assertEquals (getAvgInBedAmount (new SleepEntry[] { data.entry }), data.log1.getAvgInBedAmount(), 0);
+
+		data.log1.add (data.entry2);
+		assertEquals (getAvgInBedAmount (new SleepEntry[] { data.entry, data.entry2 }), data.log1.getAvgInBedAmount(), 0);
+
+		data.log1.add (data.entry3);
+		assertEquals (getAvgInBedAmount (new SleepEntry[] { data.entry, data.entry2, data.entry3 }), data.log1.getAvgInBedAmount(), 0);
+	}
+
+	private double getAvgInBedAmount (SleepEntry[] entries) 
+		throws Exception 
+	{
+		double sum = 0;
+				
+		for (int i = 0; i < entries.length; i++)
+			sum += entries[i].getSleepAmount();
+				
+		return sum / entries.length;
+	}
+	
 	@Test
 	public void testAvgRestedness()
 	{
