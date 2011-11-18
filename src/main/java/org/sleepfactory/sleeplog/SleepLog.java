@@ -103,4 +103,10 @@ public class SleepLog {
 		
 		return sum;
 	}
+	
+	public double getSleepEfficiency() 
+		throws Exception
+	{
+		return getSumSleepAmount() / getSumInBedAmount();
+	}
 }

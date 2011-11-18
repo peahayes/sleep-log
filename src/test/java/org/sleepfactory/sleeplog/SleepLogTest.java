@@ -20,6 +20,14 @@ public class SleepLogTest {
 	}
 	
 	@Test
+	public void testSleepEfficiency() 
+		throws Exception
+	{
+		data.log1.add (data.entry);
+		assertEquals ((data.entry.getSleepAmount() / data.entry.getInBedAmount()), data.log1.getSleepEfficiency(), 0);
+	}
+	
+	@Test
 	public void testAvgSleepAmount()
 		throws Exception
 	{
