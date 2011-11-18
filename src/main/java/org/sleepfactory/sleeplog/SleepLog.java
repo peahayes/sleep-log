@@ -28,16 +28,33 @@ public class SleepLog {
 		this.entries = entries;
 	}
 
+	/**
+	 * Add a SleepEntry to this SleepLog
+	 * 
+	 * @param entry A single SleepEntry representing a single night of sleep.
+	 */
 	public void add (SleepEntry entry) 
 	{
 		getEntries().add (entry);	
 	}
 
+	/**
+	 * The number of SleepEntrys in this SleepLog (one SleepEntry
+	 * per night of sleep).
+	 * 
+	 * @return The number of SleepEntryies
+	 */
 	public int getNumEntries() 
 	{
 		return getEntries().size();
 	}
 
+	/**
+	 * Returns true if there are entries and false if the SleepLog has
+	 * no entries.
+	 * 
+	 * @return true if there are SleepEntries and false otherwise.
+	 */
 	public boolean isEmtpy() 
 	{
 		return getEntries().size() == 0;
