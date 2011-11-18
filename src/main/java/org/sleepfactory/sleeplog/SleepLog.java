@@ -144,6 +144,15 @@ public class SleepLog {
 		return sum;
 	}
 	
+	/**
+	 * Returns a calculation of the ratio of sleep amount to time
+	 * spent in bed.  The more time spent in bed without sleeping, the
+	 * lower the sleep efficiency.
+	 * 
+	 * @return A double value greater than 0 and <= 1
+	 * 
+	 * @throws Exception
+	 */
 	public double getSleepEfficiency() 
 		throws Exception
 	{
