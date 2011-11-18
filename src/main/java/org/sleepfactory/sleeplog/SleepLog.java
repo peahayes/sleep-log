@@ -68,4 +68,20 @@ public class SleepLog {
 		return sum;
 	}
 
+	public double getAvgInBedAmount() 
+	{
+		 return getSumInBedAmount() / getNumEntries();
+	}
+
+	private double getSumInBedAmount() 
+	{
+		double sum = 0;
+		
+		for (SleepEntry entry : entries)
+		{
+			sum += entry.getInBedAmount();
+		}
+		
+		return sum;
+	}
 }
