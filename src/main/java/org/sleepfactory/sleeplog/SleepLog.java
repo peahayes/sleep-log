@@ -71,7 +71,7 @@ public class SleepLog {
 	public double getAvgSleepAmount()
 		throws Exception
 	{
-		 return getSumSleepAmount() / getNumEntries();		
+		 return getSumSleepAmount() / getNumEntries();
 	}
 
 	private double getSumSleepAmount()
