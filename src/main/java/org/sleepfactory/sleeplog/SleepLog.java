@@ -18,6 +18,11 @@ public class SleepLog {
 
 	private SortedSet<SleepEntry> entries = new TreeSet<SleepEntry>();
 
+	/**
+	 * Returns all entries in the SleepLog, sorted by date.
+	 * 
+	 * @return Sorted set of SleepEntries
+	 */
 	public SortedSet<SleepEntry> getEntries() 
 	{
 		return entries;
