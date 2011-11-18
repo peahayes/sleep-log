@@ -28,6 +28,12 @@ public class SleepLog {
 		return entries;
 	}
 
+	/**
+	 * Replace any existing SleepEntrires with the specified set of
+	 * SleepEntries.
+	 * 
+	 * @param entries A set of SleepEntries sorted by date
+	 */
 	public void setEntries (SortedSet<SleepEntry> entries) 
 	{
 		this.entries = entries;
