@@ -135,11 +135,23 @@ public class SleepEntry implements Comparable {
 		this.wakeTime = wakeTime;
 	}
 
+	/**
+	 * Returns the date/time at which the sleeper laid down to to
+	 * to sleep.
+	 * 
+	 * @return A date/time
+	 */
 	public Date getBedTime() 
 	{
 		return bedTime;
 	}
 
+	/**
+	 * Set the date/time at which the sleeper laid down to to
+	 * to sleep.
+	 * 
+	 * @param bedTime A date/time
+	 */
 	public void setBedTime(Date bedTime) 
 	{
 		this.bedTime = bedTime;
