@@ -37,4 +37,14 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping (value = "/tryThis/", method = RequestMethod.GET)
+	public String tryThis (Locale locale, Model model) 
+	{
+		logger.info ("Welcome to tryThis! the client locale is "+ locale.toString());
+		
+		model.addAttribute ("tryThis", "Yeah!");
+		
+		return "tryThis";
+	}
+
 }
