@@ -16,7 +16,7 @@ public class SleepService {
 
 	public String getHomePageURLForUser() 
 	{
-		String homePage = "secure/sleeper/home";
+		String homePage = "/secure/sleeper/home";
 		return homePage;
 	}
 

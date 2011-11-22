@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping (value = "/")
+@RequestMapping (value = "/sleep")
 public class SleepController {
 	
 	private static final Logger logger = LoggerFactory.getLogger (SleepController.class);
@@ -33,7 +33,7 @@ public class SleepController {
 	@RequestMapping(value = "/enterSleep", method = RequestMethod.GET)
 	public String displaySleepEntryForm (Locale locale) {
 		logger.debug("Welcome to sleep entry page! the client locale is "+ locale.toString());
-		return "enterSleep";
+		return "secure/enterSleep";
 	}
 
 	@RequestMapping (value = "/enterSleep", method = RequestMethod.POST)
