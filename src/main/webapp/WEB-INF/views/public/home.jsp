@@ -10,7 +10,7 @@
 	Hello world!  
 </h1>
 
-<p>  The time on the server is ${serverTime}. The number of users in the db ${users.size()}</p>
+<p>  The time on the server is ${serverTime}.</p>
 
 </body>
 </html>

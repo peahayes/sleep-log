@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>
-	Hello dude!
+	Hello generic user, you are on the home page!
 </h1>
 
 </body>
