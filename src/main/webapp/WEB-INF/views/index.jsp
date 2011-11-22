@@ -8,6 +8,6 @@
 <title>Dummy Welcome Page</title>
 </head>
 <body>
-Welcome! You can enter sleep <a href="sleep/enterSleep">here</a>
+Welcome! You can enter sleep <a href="secure/sleep/enterSleep">here</a>
 </body>
 </html>

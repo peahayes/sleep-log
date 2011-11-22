@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<c:url var="url" value="/sleep/enterSleep" /> 
+<c:url var="url" value="/secure/sleep/enterSleep" /> 
 <form:form action="${url}" modelAttribute="sleepEntry" method="POST" >
 
     <fieldset>

@@ -1,3 +1,3 @@
-<p>Create New Entry</p>
+<p><a href="../sleep/enterSleep">Create New Entry</a></p>
 
 <p>View All Entries</p>
