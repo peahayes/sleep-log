@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping (value = "/")
-public class LoginController {
+public class SleepController {
 	
-	private static final Logger logger = LoggerFactory.getLogger (LoginController.class);
+	private static final Logger logger = LoggerFactory.getLogger (SleepController.class);
 	
 	@Inject
 	@Named ("sleepService")
