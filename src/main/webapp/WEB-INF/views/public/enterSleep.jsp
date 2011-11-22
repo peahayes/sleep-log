@@ -11,8 +11,8 @@
 </head>
 <body>
 
-<c:url var="url" value="/login" /> 
-<form:form action="${url}" modelAttribute="user" method="POST" >
+<c:url var="url" value="/enterSleep" /> 
+<form:form action="${url}" modelAttribute="sleepEntry" method="POST" >
 
     <fieldset>
         <div class="form-row">

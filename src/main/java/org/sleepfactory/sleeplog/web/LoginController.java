@@ -25,19 +25,19 @@ public class LoginController {
 	@Named ("sleepService")
 	private SleepService sleepService;
 
-	@ModelAttribute (value = "user")
+	@ModelAttribute (value = "sleepEntry")
 	public SleepEntry newRequest() {
 		return new SleepEntry();
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String displayLogin (Locale locale) {
-		logger.debug("Welcome login page! the client locale is "+ locale.toString());
-		return "public/login";
+	@RequestMapping(value = "/enterSleep", method = RequestMethod.GET)
+	public String displaySleepEntryForm (Locale locale) {
+		logger.debug("Welcome to sleep entry page! the client locale is "+ locale.toString());
+		return "public/enterSleep";
 	}
 
-	@RequestMapping (value = "/login", method = RequestMethod.POST)
-	public String login (@ModelAttribute ("user") SleepEntry user, BindingResult result) {
+	@RequestMapping (value = "/enterSleep", method = RequestMethod.POST)
+	public String submitSleepEntry (@ModelAttribute ("sleepEntry") SleepEntry sleepEntry, BindingResult result) {
 		return "redirect:" + sleepService.getHomePageURLForUser();
 	}
 
