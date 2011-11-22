@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping (value="/secure")
-public class HomeController {
+public class UserController {
 	
-	private static final Logger logger = LoggerFactory.getLogger (HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger (UserController.class);
 	
 	@Inject @Named ("sleepService")
 	SleepService sleepService;
