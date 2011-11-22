@@ -1,3 +1,3 @@
-<p>Buy Sleep</p>
+<p>Create New Entry</p>
 
-<p>Trade Sleep</p>
+<p>View All Entries</p>

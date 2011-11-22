@@ -27,7 +27,7 @@ public class HomeController {
 	@Inject @Named ("sleepService")
 	SleepService sleepService;
 
-	@RequestMapping (value = "admin/home", method = RequestMethod.GET)
+	@RequestMapping (value = "sleeper/home", method = RequestMethod.GET)
 	public String adminHome (Locale locale, Model model) {
 		
 		logger.info ("Welcome home! the client locale is "+ locale.toString());
@@ -39,7 +39,7 @@ public class HomeController {
 		
 		model.addAttribute ("serverTime", formattedDate );
 		
-		return "secure/Administrator/home";
+		return "secure/sleeper/home";
 	}
 	
 	@RequestMapping (value = "home", method = RequestMethod.GET)

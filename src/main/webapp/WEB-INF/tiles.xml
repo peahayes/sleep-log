@@ -13,9 +13,9 @@
     </definition>
 
 	<!-- Definition name should match the view name returned by the controller -->
-    <definition name="secure/Administrator/**" extends="base.definition">
+    <definition name="secure/sleeper/**" extends="base.definition">
         <put-attribute name="title" value="Welcome to the Sleep Factory!" />
-        <put-attribute name="body" value="/WEB-INF/views/secure/Administrator/home.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/secure/sleeper/home.jsp" />
     </definition>
  
 </tiles-definitions>
