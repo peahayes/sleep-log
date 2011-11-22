@@ -33,7 +33,7 @@ public class SleepController {
 	@RequestMapping(value = "/enterSleep", method = RequestMethod.GET)
 	public String displaySleepEntryForm (Locale locale) {
 		logger.debug("Welcome to sleep entry page! the client locale is "+ locale.toString());
-		return "secure/enterSleep";
+		return "/secure/sleeper/enterSleep";
 	}
 
 	@RequestMapping (value = "/enterSleep", method = RequestMethod.POST)
