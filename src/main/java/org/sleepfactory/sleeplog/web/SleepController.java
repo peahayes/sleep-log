@@ -1,5 +1,6 @@
 package org.sleepfactory.sleeplog.web;
 
+import java.util.Date;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -10,6 +11,7 @@ import org.sleepfactory.sleeplog.service.SleepService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,18 +28,31 @@ public class SleepController {
 	private SleepService sleepService;
 
 	@ModelAttribute (value = "sleepEntry")
-	public SleepEntry newRequest() {
-		return new SleepEntry();
+	public SleepEntry newRequest() 
+	{
+		SleepEntry newEntry = new SleepEntry();
+		newEntry.setDate (new Date());
+		return newEntry;
 	}
 
-	@RequestMapping(value = "/enterSleep", method = RequestMethod.GET)
-	public String displaySleepEntryForm (Locale locale) {
-		logger.debug("Welcome to sleep entry page! the client locale is "+ locale.toString());
+	@RequestMapping (value = "/enterSleep", method = RequestMethod.GET)
+	public String displaySleepEntryForm (Locale locale) 
+	{
+		logger.debug ("Welcome to sleep entry page! the client locale is "+ locale.toString());
 		return "/secure/sleeper/enterSleep";
 	}
 
 	@RequestMapping (value = "/enterSleep", method = RequestMethod.POST)
-	public String submitSleepEntry (@ModelAttribute ("sleepEntry") SleepEntry sleepEntry, BindingResult result) {
+	public String submitSleepEntry (@ModelAttribute ("sleepEntry") SleepEntry sleepEntry, BindingResult result) 
+	{
+		sleepService.add (sleepEntry);
+		return "redirect:" + sleepService.getHomePageURLForUser();
+	}
+	
+	@RequestMapping (value = "/viewEntries", method = RequestMethod.GET)
+	public String viewEntries (Locale locale, Model model)
+	{
+		model.addAttribute ("entries", sleepService.getEntries());
 		return "redirect:" + sleepService.getHomePageURLForUser();
 	}
 

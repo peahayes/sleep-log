@@ -28,8 +28,8 @@ public class UserController {
 	SleepService sleepService;
 
 	@RequestMapping (value = "sleeper/home", method = RequestMethod.GET)
-	public String adminHome (Locale locale, Model model) {
-		
+	public String sleeperHome (Locale locale, Model model) 
+	{
 		logger.info ("Welcome home! the client locale is "+ locale.toString());
 		
 		Date date = new Date();
@@ -43,7 +43,8 @@ public class UserController {
 	}
 	
 	@RequestMapping (value = "home", method = RequestMethod.GET)
-	public String userHome (Locale locale, Model model) {
+	public String userHome (Locale locale, Model model) 
+	{
 		return "secure/home";
 	}
 }

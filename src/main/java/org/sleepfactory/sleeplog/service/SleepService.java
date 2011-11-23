@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 @Service ("sleepService")
 public class SleepService {
 	
-	public Set<SleepEntry> getEntries (SleepLog log)
+	private SleepLog log = new SleepLog();
+	
+	public Set<SleepEntry> getEntries()
 	{
 		return log.getEntries();
 	}
@@ -18,6 +20,11 @@ public class SleepService {
 	{
 		String homePage = "/secure/sleeper/home";
 		return homePage;
+	}
+
+	public void add (SleepEntry sleepEntry) 
+	{	
+		log.add (sleepEntry);
 	}
 
 }
