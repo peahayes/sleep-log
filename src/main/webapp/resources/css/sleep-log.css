@@ -1,0 +1,29 @@
+#header {
+    width: 850px;
+    height: 100px;
+    background: #00f000;
+    padding: 5px;
+}
+
+#sidebar {
+    width: 200px;
+    height: 400px;
+    background: #00f0f0;
+    float: left;
+    padding: 5px;
+}
+
+#page-wrap  {
+    margin: 10 auto;
+    width: 850px;
+    background: #f00fff;
+    height: 400px;
+    padding: 5px;
+}
+
+#footer {
+    width: 850px;
+    height: 50px;
+    background: #f00000;
+    padding: 5px;
+}
