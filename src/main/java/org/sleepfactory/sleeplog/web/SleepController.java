@@ -43,17 +43,18 @@ public class SleepController {
 	}
 
 	@RequestMapping (value = "/enterSleep", method = RequestMethod.POST)
-	public String submitSleepEntry (@ModelAttribute ("sleepEntry") SleepEntry sleepEntry, BindingResult result) 
+	public String submitSleepEntry (@ModelAttribute ("sleepEntry") SleepEntry sleepEntry, BindingResult result, Model model) 
 	{
 		sleepService.add (sleepEntry);
-		return "redirect:" + sleepService.getHomePageURLForUser();
+		model.addAttribute ("sleepEntry", sleepEntry);
+		return "secure/sleeper/home";
 	}
 	
 	@RequestMapping (value = "/viewEntries", method = RequestMethod.GET)
 	public String viewEntries (Locale locale, Model model)
 	{
-		model.addAttribute ("entries", sleepService.getEntries());
-		return "redirect:" + sleepService.getHomePageURLForUser();
+		model.addAttribute ("sleepLog", sleepService.getSleepLog());
+		return "secure/sleeper/viewEntries";
 	}
 
 }
