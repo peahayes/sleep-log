@@ -16,15 +16,14 @@ public class SleepService {
 		return log.getEntries();
 	}
 
-	public String getHomePageURLForUser() 
-	{
-		String homePage = "/secure/sleeper/home";
-		return homePage;
-	}
-
 	public void add (SleepEntry sleepEntry) 
 	{	
 		log.add (sleepEntry);
+	}
+
+	public SleepLog getSleepLog() 
+	{
+		return log;
 	}
 
 }
