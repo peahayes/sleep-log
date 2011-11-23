@@ -1,8 +1,9 @@
 #header {
     width: 850px;
-    height: 100px;
+    height: 75px;
     background: #00f000;
-    padding: 5px;
+    padding: 15px;
+    border: 1px solid;
 }
 
 #sidebar {
@@ -10,7 +11,8 @@
     height: 400px;
     background: #00f0f0;
     float: left;
-    padding: 5px;
+    padding: 15px;
+    border: 1px solid;
 }
 
 #page-wrap  {
@@ -18,12 +20,21 @@
     width: 850px;
     background: #f00fff;
     height: 400px;
-    padding: 5px;
+    padding: 15px;
+    border: 1px solid;
 }
 
+/* #display-area */
+/* { */
+/* 	padding: 5px; */
+/*     border: 1px solid; */
+/*     margin: 5px; */
+/* } */
+
 #footer {
-    width: 850px;
+    width: 860px;
     height: 50px;
     background: #f00000;
-    padding: 5px;
+    padding: 10px;
+    border: 1px solid;
 }
