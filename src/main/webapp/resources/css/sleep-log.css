@@ -16,10 +16,9 @@
 }
 
 #page-wrap  {
-    margin: 10 auto;
     width: 850px;
     background: #f00fff;
-    height: 400px;
+	height: 400px;
     padding: 15px;
     border: 1px solid;
 }

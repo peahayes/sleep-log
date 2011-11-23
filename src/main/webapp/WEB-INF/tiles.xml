@@ -5,7 +5,7 @@
 <tiles-definitions>
 
     <definition name="base.definition" template="/WEB-INF/views/master-views/layout.jsp">
-        <put-attribute name="title" value="Sleep Factory App" />
+        <put-attribute name="title" value="Welcome to the Sleep Factory!" />
         <put-attribute name="header" value="/WEB-INF/views/master-views/header.jsp" />
         <put-attribute name="menu" value="/WEB-INF/views/master-views/menu.jsp" />
         <put-attribute name="body" value="" />
@@ -14,12 +14,14 @@
 
 	<!-- Definition name should match the view name returned by the controller -->
     <definition name="secure/sleeper/home" extends="base.definition">
-        <put-attribute name="title" value="Welcome to the Sleep Factory!" />
         <put-attribute name="body" value="/WEB-INF/views/secure/sleeper/home.jsp" />
     </definition>
  
-   <definition name="secure/sleeper/viewEntries" extends="base.definition">
-        <put-attribute name="title" value="Welcome to the Sleep Factory!" />
+     <definition name="secure/sleeper/enterSleep" extends="base.definition">
+        <put-attribute name="body" value="/WEB-INF/views/secure/sleeper/enterSleep.jsp" />
+     </definition>
+ 
+   	<definition name="secure/sleeper/viewEntries" extends="base.definition">
         <put-attribute name="body" value="/WEB-INF/views/secure/sleeper/viewEntries.jsp" />
     </definition>
 
