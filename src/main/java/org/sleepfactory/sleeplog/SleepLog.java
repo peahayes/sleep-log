@@ -3,6 +3,9 @@ package org.sleepfactory.sleeplog;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
+
 /**
  * A SleepLog represents how a sleeper slept over a span of any number of days.
  * The SleepLog contains SleepEntries, which record detailed statistics about a
@@ -77,6 +80,7 @@ public class SleepLog {
 	 * 
 	 * @return A double value
 	 */
+	@NumberFormat (style = Style.PERCENT, pattern="#.#")
 	public double getAvgRestfulness() 
 	{
 		 return getSumRestfulness() / getNumEntries();
@@ -101,6 +105,7 @@ public class SleepLog {
 	 * 
 	 * @return A double value
 	 */
+	@NumberFormat (style = Style.PERCENT, pattern="#.#")
 	public double getAvgRestedness() 
 	{
 		 return getSumRestedness() / getNumEntries();
@@ -126,6 +131,7 @@ public class SleepLog {
 	 * 
 	 * @throws Exception If any of the components of this calculation are null
 	 */
+	@NumberFormat (style = Style.PERCENT, pattern="#.#")
 	public double getAvgSleepAmount()
 		throws Exception
 	{
@@ -152,6 +158,7 @@ public class SleepLog {
 	 * 
 	 * @return A double number
 	 */
+	@NumberFormat (style = Style.PERCENT, pattern="#.#")
 	public double getAvgInBedAmount() 
 	{
 		 return getSumInBedAmount() / getNumEntries();

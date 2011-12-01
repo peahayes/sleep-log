@@ -25,5 +25,24 @@ public class SleepService {
 	{
 		return log;
 	}
+	
+	public SleepEntry getSleepEntryById (Long id)
+	{
+		if (id == null)
+			return null;
+		
+		for (SleepEntry entry : getEntries())
+		{
+			if (id.equals (entry.getId()))
+				return entry;
+		}
+			
+		return null;
+	}
+
+	public void update (SleepEntry sleepEntry) 
+	{
+		// TODO Auto-generated method stub
+	}
 
 }

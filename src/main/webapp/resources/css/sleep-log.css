@@ -37,3 +37,26 @@
     padding: 10px;
     border: 1px solid;
 }
+
+#formLabelCol {
+	width: 160px;
+    float: left;
+}
+
+#formFieldCol {
+}
+
+#formRowSeparator {
+	height: 10px;
+}
+
+#summaryLabelCol {
+	width: 220px;
+    float: left;
+    font-weight: bold;
+}
+
+
+#tempBorder {
+	border: 1px solid;
+}

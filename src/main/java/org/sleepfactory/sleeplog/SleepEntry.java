@@ -2,6 +2,8 @@ package org.sleepfactory.sleeplog;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * SleepEntry represents a one night of sleep.  The entry spans bedtime through riseTime, 
  * with wakeTime in between.  There are scores for how restful the sleep was, and how rested
@@ -14,6 +16,11 @@ import java.util.Date;
  */
 public class SleepEntry implements Comparable {
 
+	private Long id;
+	
+	// iso = DateTimeFormat.ISO.DATE,
+	@DateTimeFormat (pattern = "MM-dd-yyyy")
+//	@DateTimeFormat (style = "F-")
 	private Date date;
 
 	private Long restedScore;
@@ -34,6 +41,26 @@ public class SleepEntry implements Comparable {
 		this.date = date;
 	}
 
+	public SleepEntry (Long id) 
+	{
+		this.id = id;
+	}
+
+	/**
+	 * Unique identifier and primary key of this SleepEntry
+	 * 
+	 * @return Unique identifier
+	 */
+	public Long getId() 
+	{
+		return id;
+	}
+
+	public void setId (Long id) 
+	{
+		this.id = id;
+	}
+	
 	/**
 	 * Date of this entry, which is the date on which sleeper went to bed.
 	 * 
@@ -80,7 +107,7 @@ public class SleepEntry implements Comparable {
 	 * 
 	 * @param score A number between 1 and 5.
 	 */
-	public void setResfulnessScore (Long score) 
+	public void setRestfulnessScore (Long score) 
 	{
 		this.restfulnessScore = score;
 	}
