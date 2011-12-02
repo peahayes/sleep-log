@@ -4,6 +4,10 @@
 	<c:url var="url" value="/secure/sleep/enterSleep/${editMode}" />
 
 	<form:form action="${url}" modelAttribute="sleepEntry" method="POST" >
+	
+		<c:if test="${editMode == 'update' }">
+			<input type="hidden" name="id" value="${id} "/>
+		</c:if>
 		
         <div class="form-row">
             <div id="formLabelCol"><label for="restedScore">Rested Score:</label></div>

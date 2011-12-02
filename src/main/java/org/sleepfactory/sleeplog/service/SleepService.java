@@ -11,6 +11,8 @@ public class SleepService {
 	
 	private SleepLog log = new SleepLog();
 	
+	private Long masterId = 1L;
+
 	public Set<SleepEntry> getEntries()
 	{
 		return log.getEntries();
@@ -18,6 +20,7 @@ public class SleepService {
 
 	public void add (SleepEntry sleepEntry) 
 	{	
+		sleepEntry.setId (masterId++);
 		log.add (sleepEntry);
 	}
 
@@ -42,7 +45,10 @@ public class SleepService {
 
 	public void update (SleepEntry sleepEntry) 
 	{
-		// TODO Auto-generated method stub
+		SleepEntry oldEntry = getSleepEntryById (sleepEntry.getId());
+		
+		log.getEntries().remove (oldEntry);
+		log.getEntries().add (sleepEntry);
 	}
 
 }

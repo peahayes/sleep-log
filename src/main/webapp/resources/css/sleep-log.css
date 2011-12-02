@@ -56,7 +56,33 @@
     font-weight: bold;
 }
 
-
 #tempBorder {
 	border: 1px solid;
 }
+
+/** See http://lesscss.org/ */
+@sleepEntryHeight: 45px;
+
+/** Below here is for viewEntriesAlt.jsp */
+
+#sleepEntryDateCol {
+	float: left;
+	width: 100px;
+	height: @sleepEntryHeight;
+}
+
+#sleepEntryInfoLeftCol {
+	float: left;
+	height: 40px;
+	width: 130px;
+}
+
+#solidBorder {
+	border: 1px solid;
+}
+
+#sleepEntryInfo {
+	height: @sleepEntryHeight;
+}
+
+/** Above here is for viewEntriesAlt.jsp */

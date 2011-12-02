@@ -176,6 +176,31 @@ public class SleepLog {
 		return sum;
 	}
 	
+	/** 
+	 * Return a calculation of the average number of drinks
+	 * the sleeper has drunk over all SleepEntries in the 
+	 * SleepLog
+	 * 
+	 * @return A double number
+	 */
+	@NumberFormat (style = Style.PERCENT, pattern="#.#")
+	public double getAvgNumDrinks()
+	{
+		return getSumNumDrinks() / getNumEntries();
+	}
+	
+	private double getSumNumDrinks() 
+	{
+		double sum = 0;
+		
+		for (SleepEntry entry : entries)
+		{
+			sum += entry.getNumDrinks();
+		}
+		
+		return sum;
+	}
+	
 	/**
 	 * Returns a calculation of the ratio of sleep amount to time
 	 * spent in bed.  The more time spent in bed without sleeping, the

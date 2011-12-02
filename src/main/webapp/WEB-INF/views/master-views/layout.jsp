@@ -4,7 +4,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/sleep-log.css'/>" />	
+	<link rel="stylesheet/less" type="text/css" href="<c:url value='/resources/css/sleep-log.css'/>" />
+	<script src="<c:url value='/resources/css/less-1.1.5.min.js'/>" type="text/javascript"></script>
 	<title><tiles:insertAttribute name="title" ignore="true" /></title>
 	</head>
 <body>

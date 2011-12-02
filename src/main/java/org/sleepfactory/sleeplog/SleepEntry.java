@@ -256,5 +256,15 @@ public class SleepEntry implements Comparable {
 		double timeInHours = (((time / 1000) / 60) / 60);
 		return timeInHours;
 	}
+	
+	@Override
+	public String toString()
+	{
+		String str = "{ [" + id + "] ";
+		str += "Rested: " + restedScore + "; ";
+		str += "Restulness: " + restfulnessScore + "; ";
+		str += "Num Drinks: " + numDrinks + "}";
+		return str;
+	}
 
 }
