@@ -94,7 +94,7 @@ $(document).ready (function() {
 	setGlobalElements();
 	setEventHandlers();
 //	setupAjax();
-	document.forms[0].reset();
+//	document.forms[0].reset();
 //	sleepForm.reset();
 
 //	sleepForm.validate ({

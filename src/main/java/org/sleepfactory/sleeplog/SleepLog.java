@@ -195,7 +195,8 @@ public class SleepLog {
 		
 		for (SleepEntry entry : entries)
 		{
-			sum += entry.getNumDrinks();
+			if (entry.getNumDrinks() != null)
+				sum += entry.getNumDrinks();
 		}
 		
 		return sum;
