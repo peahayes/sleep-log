@@ -1,15 +1,21 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet/less" type="text/css" href="<c:url value='/resources/css/sleep-log.css'/>" />
-	<script src="<c:url value='/resources/css/less-1.1.5.min.js'/>" type="text/javascript"></script>
-	<title><tiles:insertAttribute name="title" ignore="true" /></title>
-	</head>
-<body>
+<%@ page session="false" %>
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/sleep-log.css'/>" />
+	<link media="screen" rel="stylesheet" href="<c:url value='/resources/css/colorbox.css'/>" />
+	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery-1.6.1.js'/>"></script>	
+	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery.colorbox.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/scripts/popup.js'/>"></script>	
+	<script type="text/javascript" src="<c:url value='/resources/scripts/sleep-log.js'/>"></script>	
+</head>
+
+<body>
 	<div id="header">
         <tiles:insertAttribute name="header" />
     </div>
@@ -20,6 +26,5 @@
     <div id="footer">
         <tiles:insertAttribute name="footer" />
     </div>
-
 </body>
 </html>

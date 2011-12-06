@@ -18,7 +18,7 @@
     </definition>
  
      <definition name="secure/sleeper/enterSleep" extends="base.definition">
-        <put-attribute name="body" value="/WEB-INF/views/secure/sleeper/enterSleep.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/secure/sleeper/sleepForm.jsp" />
      </definition>
  
    	<definition name="secure/sleeper/viewEntries" extends="base.definition">

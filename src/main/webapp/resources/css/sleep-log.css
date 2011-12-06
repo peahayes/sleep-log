@@ -86,3 +86,9 @@
 }
 
 /** Above here is for viewEntriesAlt.jsp */
+
+#edit {
+    color: #ffffff;	
+	font-size: 16px;
+    text-decoration: none;
+}

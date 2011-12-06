@@ -33,7 +33,7 @@ public class SleepController {
 		return new SleepEntry (new Date());
 	}
 
-	@RequestMapping (value = "/enterSleep", method = RequestMethod.GET)
+	@RequestMapping (value = "/sleepHome", method = RequestMethod.GET)
 	public String displaySleepEntryForm (Locale locale, Model model) 
 	{
 		logger.debug ("Welcome to sleep entry page! the client locale is "+ locale.toString());
@@ -56,16 +56,15 @@ public class SleepController {
 		return "secure/sleeper/home";
 	}
 	
-	@RequestMapping (value = "/updateSleep/{id}", method = RequestMethod.GET)
-	public String displaySleepUpdateForm (@ModelAttribute ("id") String idStr, Model model) 
+	@RequestMapping (value = "/enterSleep", method = RequestMethod.GET)
+	public String displaySleepUpdateForm (@ModelAttribute ("id") Long id, Model model) 
 	{
-		Long id = Long.valueOf (idStr);
 		SleepEntry entry = sleepService.getSleepEntryById (id);
 		
 		model.addAttribute ("sleepEntry", entry);
 		model.addAttribute ("editMode", "update");
 		
-		return "secure/sleeper/enterSleep";
+		return "secure/sleeper/sleepForm";
 	}
 
 	@RequestMapping (value = "/viewEntries", method = RequestMethod.GET)
