@@ -6,7 +6,7 @@
 	</h1>
 
 	<c:forEach var="entry" items="${sleepLog.entries}">
-		<a href="updateSleep/${entry.id}"><spring:eval expression="entry.date" /></a> 
+		<spring:eval expression="entry.date" />
 		Rested: ${entry.restedScore}; Restfulness: ${entry.restfulnessScore}
 		Num Drinks: ${entry.numDrinks} 
 		<a class='example2' href="enterSleep?id=${entry.id}" id="edit">edit</a><br>

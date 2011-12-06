@@ -13,6 +13,12 @@
 	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery.colorbox.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/resources/scripts/popup.js'/>"></script>	
 	<script type="text/javascript" src="<c:url value='/resources/scripts/sleep-log.js'/>"></script>	
+	<script type="text/javascript" src="<c:url value="/resources/scripts/enterSleep.js" /> "></script>
+
+	<script type="text/javascript">
+		var cancelURL='<c:url value="/sleep-log/secure/sleep/viewEntries"/>';
+		setDocVars ('height=800,width=680');
+	</script>
 </head>
 
 <body>
