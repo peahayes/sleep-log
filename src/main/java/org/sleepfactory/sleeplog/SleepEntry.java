@@ -1,7 +1,6 @@
 package org.sleepfactory.sleeplog;
 
-import java.util.Date;
-
+import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -21,22 +20,22 @@ public class SleepEntry implements Comparable {
 	// iso = DateTimeFormat.ISO.DATE,
 	@DateTimeFormat (pattern = "MM-dd-yyyy")
 //	@DateTimeFormat (style = "F-")
-	private Date date;
+	private DateTime date;
 
 	private Long restedScore;
 	private Long restfulnessScore;
 	
 	private Integer numDrinks;
 	
-	private Date riseTime;
-	private Date wakeTime;
-	private Date bedTime;
+	private DateTime riseTime;
+	private DateTime wakeTime;
+	private DateTime bedTime;
 
 	public SleepEntry() 
 	{
 	}
 
-	public SleepEntry (Date date) 
+	public SleepEntry (DateTime date) 
 	{
 		this.date = date;
 	}
@@ -66,7 +65,7 @@ public class SleepEntry implements Comparable {
 	 * 
 	 * @return The date on which sleeper went to bed.
 	 */
-	public Date getDate() 
+	public DateTime getDate() 
 	{
 		return date;
 	}
@@ -76,7 +75,7 @@ public class SleepEntry implements Comparable {
 	 * 
 	 * @return The date on which sleeper went to bed.
 	 */
-	public void setDate (Date date) 
+	public void setDate (DateTime date) 
 	{
 		this.date = date;
 	}
@@ -147,7 +146,7 @@ public class SleepEntry implements Comparable {
 	 * 
 	 * @return A date/time
 	 */
-	public Date getRiseTime() 
+	public DateTime getRiseTime() 
 	{
 		return riseTime;
 	}
@@ -157,7 +156,7 @@ public class SleepEntry implements Comparable {
 	 * 
 	 * @param riseTime A date/time
 	 */
-	public void setRiseTime(Date riseTime) 
+	public void setRiseTime (DateTime riseTime) 
 	{
 		this.riseTime = riseTime;
 	}
@@ -167,7 +166,7 @@ public class SleepEntry implements Comparable {
 	 * 
 	 * @return A date/time.
 	 */
-	public Date getWakeTime() 
+	public DateTime getWakeTime() 
 	{
 		return wakeTime;
 	}
@@ -177,7 +176,7 @@ public class SleepEntry implements Comparable {
 	 * 
 	 * @param wakeTime A date/time.
 	 */
-	public void setWakeTime(Date wakeTime) 
+	public void setWakeTime (DateTime wakeTime) 
 	{
 		this.wakeTime = wakeTime;
 	}
@@ -188,7 +187,7 @@ public class SleepEntry implements Comparable {
 	 * 
 	 * @return A date/time
 	 */
-	public Date getBedTime() 
+	public DateTime getBedTime() 
 	{
 		return bedTime;
 	}
@@ -199,7 +198,7 @@ public class SleepEntry implements Comparable {
 	 * 
 	 * @param bedTime A date/time
 	 */
-	public void setBedTime(Date bedTime) 
+	public void setBedTime (DateTime bedTime) 
 	{
 		this.bedTime = bedTime;
 	}
@@ -226,7 +225,16 @@ public class SleepEntry implements Comparable {
 	public int compareTo (Object obj) 
 	{
 		SleepEntry that = (SleepEntry) obj;
-		return this.getDate().compareTo (that.getDate());
+		
+		if (this.date != null)
+			return this.date.compareTo (that.date);
+		
+		// they're both null
+		else if (that.date == null)
+			return 0;
+		
+		// only this.date is null
+		return -1;
 	}
 
 	/**
@@ -239,7 +247,7 @@ public class SleepEntry implements Comparable {
 	public double getSleepAmount()
 		throws Exception
 	{
-		long time = wakeTime.getTime() - bedTime.getTime();
+		long time = wakeTime.getMillis() - bedTime.getMillis();
 		double timeInHours = (((time / 1000) / 60) / 60);
 		return timeInHours;
 	}
@@ -252,7 +260,7 @@ public class SleepEntry implements Comparable {
 	 */
 	public double getInBedAmount()
 	{
-		long time = riseTime.getTime() - bedTime.getTime();
+		long time = riseTime.getMillis() - bedTime.getMillis();
 		double timeInHours = (((time / 1000) / 60) / 60);
 		return timeInHours;
 	}
