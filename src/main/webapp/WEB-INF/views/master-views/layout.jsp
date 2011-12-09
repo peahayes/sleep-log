@@ -18,7 +18,6 @@
 
 	<script type="text/javascript">
 		var cancelURL='<c:url value="/sleep-log/secure/sleep/viewEntries"/>';
-		setDocVars ('height=300,width=1000');
 	</script>
 </head>
 
