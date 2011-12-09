@@ -51,7 +51,17 @@
 
         <div class="form-row">
             <div id="formLabelCol"><label for="restfulnessScore">Restfulness Score:</label></div>
-            <div id="formFieldCol"><span class="input"><form:input path="restfulnessScore"/></span></div>
+            <div id="formFieldCol">
+            	<span class="input">
+            		<form:select path="restfulnessScore">
+	            		<form:option value="1">Not at all</form:option>
+	             		<form:option value="2">Slightly</form:option>
+	             		<form:option value="3">Somewhat</form:option>
+	             		<form:option value="4">Rested</form:option>
+		             	<form:option value="5">Well rested</form:option>
+             		</form:select>
+            	</span>
+            </div>
         </div>       
         <div id="formRowSeparator"></div>
 
