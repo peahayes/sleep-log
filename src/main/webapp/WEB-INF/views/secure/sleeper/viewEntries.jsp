@@ -18,7 +18,7 @@
 			<span id="sleepLogDataCol">${entry.restfulnessScore}</span>
 			<span id="sleepLogDataCol">${entry.numDrinks}</span>
 			<a href="updateSleep/${entry.id}" id="edit">edit</a> |
-			<a class='example2' href="enterSleep?id=${entry.id}" id="editInPopup">edit in popup</a> |
+			<a class='editFrame' href="enterSleep?id=${entry.id}" id="editInPopup">edit in popup</a> |
 			<a href="#" onClick="processDeleteClick (${entry.id}, 'deleteEntry');" id="delete">delete</a><br>
 		</div>
 	</c:forEach>
