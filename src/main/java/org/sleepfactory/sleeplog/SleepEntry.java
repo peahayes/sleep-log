@@ -1,10 +1,8 @@
 package org.sleepfactory.sleeplog;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
+import org.sleepfactory.sleeplog.scale.Restfulness;
+import org.sleepfactory.sleeplog.scale.SleepQuality;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -24,8 +22,8 @@ public class SleepEntry implements Comparable {
 	@DateTimeFormat (pattern = "EEE MMM dd")
 	private DateTime date;
 
-	private SLEEP_QUALITY restedScore;
-	private Long restfulnessScore;
+	private SleepQuality restedScore;
+	private Restfulness restfulnessScore;
 	
 	private Integer numDrinks;
 	
@@ -89,7 +87,7 @@ public class SleepEntry implements Comparable {
 	 */
 	public void setRestedScore (Long score) 
 	{
-		this.restedScore = SLEEP_QUALITY.enumValueOf (score);
+		this.restedScore = SleepQuality.enumValueOf (score);
 	}
 
 	/**
@@ -112,7 +110,7 @@ public class SleepEntry implements Comparable {
 	 */
 	public void setRestfulnessScore (Long score) 
 	{
-		this.restfulnessScore = score;
+		this.restfulnessScore = Restfulness.enumValueOf (score);
 	}
 	
 	/**
@@ -122,7 +120,9 @@ public class SleepEntry implements Comparable {
 	 */
 	public Long getRestfulnessScore() 
 	{
-		return restfulnessScore;
+		if (restfulnessScore == null)
+			return null;
+		return restfulnessScore.valueOf();
 	}
 
 	/**
@@ -280,56 +280,4 @@ public class SleepEntry implements Comparable {
 		return str;
 	}
 	
-	public enum SLEEP_QUALITY
-	{
-		VERY_POOR (1L), POOR (2L), FAIR (3L), GOOD (4L), EXCELLENT (5L);
-		
-		private Long value;
-		
-		private SLEEP_QUALITY (Long value)
-		{
-			this.value = value;
-		}
-		
-		public Long valueOf()
-		{
-			return value;
-		}
-		
-		public static SLEEP_QUALITY enumValueOf (Long value)
-		{
-			int intVal = value.intValue();
-			
-			switch (intVal)
-			{
-				case 1:
-					return VERY_POOR;
-				case 2: 
-					return POOR;
-				case 3:
-					return FAIR;
-				case 4:
-					return GOOD;
-				case 5:
-					return EXCELLENT;
-				default:
-					return null;
-			}
-		}
-		
-		public String qualitative()
-		{
-			String[] parts = String.valueOf (this).split ("_");
-			for (int i = 0; i < parts.length; i++) firstLetterCaps (parts, i);
-			List<String> list = Arrays.asList (parts);
-			return StringUtils.join (list, ' ');
-		}
-
-		private void firstLetterCaps (String parts[], int i) 
-		{
-			parts[i] = parts[i].toLowerCase();
-			parts[i] = StringUtils.capitalize (parts[i]);
-		}
-	}
-
 }
