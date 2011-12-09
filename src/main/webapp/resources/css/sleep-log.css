@@ -10,6 +10,22 @@ body {
 	margin-top: 10px;
 }
 
+#miniBody {
+	background-color: #FFFFFF;
+	margin-left: -10px;
+	margin-top: -16px;
+	height: 350px;
+}
+
+#popupBody {
+	border: 1px solid;
+	color: #0F0F0F;
+}
+
+#formBody {
+/* 	background-image:none; */
+}
+
 #header {
     width: 850px;
     height: 75px;
@@ -117,9 +133,22 @@ body {
 	font-weight: bold;
 }
 
+#sleepLogHeaderLongCol {
+	width: 160px;
+	height: 20px;
+	display: inline-block;
+	font-weight: bold;
+}
+
 #sleepLogDataCol {
 	width: 85px;
-	height: 30px;
+	height: 20px;
+	display: inline-block;
+}
+
+#sleepLogDataLongCol {
+	width: 160x;
+	height: 20px;
 	display: inline-block;
 }
 
