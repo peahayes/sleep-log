@@ -6,7 +6,8 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.sleepfactory.sleeplog.SleepEntry;
-import org.sleepfactory.sleeplog.SleepEntry.SLEEP_QUALITY;
+import org.sleepfactory.sleeplog.scale.Restfulness;
+import org.sleepfactory.sleeplog.scale.SleepQuality;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,17 +17,17 @@ public class ExampleWebTestCase {
 	
 	DateTime firstDate = new DateTime (2011, 3, 1, 6, 0, 0, 0);
 	
-	final long firstRestful = 4;
 	final int firstDrinks = 0;
-	final SLEEP_QUALITY firstRested = SLEEP_QUALITY.EXCELLENT;
+	final SleepQuality firstRested = SleepQuality.EXCELLENT;
+	final Restfulness firstRestful = Restfulness.RESTED;
 	
-	final long secondRestful = 1;
 	final int secondDrinks = 6;
-	final SLEEP_QUALITY secondRested = SLEEP_QUALITY.POOR;
+	final SleepQuality secondRested = SleepQuality.POOR;
+	final Restfulness secondRestful = Restfulness.NOT_AT_ALL;
 
-	final long thirdRestful = 4;
 	final int thirdDrinks = 3;
-	final SLEEP_QUALITY thirdRested = SLEEP_QUALITY.EXCELLENT;
+	final SleepQuality thirdRested = SleepQuality.EXCELLENT;
+	final Restfulness thirdRestful = Restfulness.RESTED;
 
 	private static final Logger logger = LoggerFactory.getLogger (ExampleWebTestCase.class);
 
@@ -99,6 +100,9 @@ public class ExampleWebTestCase {
 		tester.gotoFrame ("editFrame");
 		
 		setFieldValues (thirdRested, thirdRestful, thirdDrinks);
+		
+		tester.assertButtonPresent ("save");
+		tester.assertButtonPresentWithText ("Update Entry");
 
 		System.out.println ("Clicked Update Entry...");
 		tester.clickButtonWithText ("Update Entry");
@@ -155,7 +159,7 @@ public class ExampleWebTestCase {
 		tester.assertTextPresent (avgStr.substring (0, avgStr.indexOf (".")));
 	}
 
-	private SleepEntry addEntry (DateTime date, SLEEP_QUALITY rested, Long restful, int numDrinks) 
+	private SleepEntry addEntry (DateTime date, SleepQuality rested, Restfulness restful, int numDrinks) 
 	{
 		System.out.println ("Going to home page...");
 		tester.beginAt ("/");
@@ -163,7 +167,7 @@ public class ExampleWebTestCase {
 		SleepEntry entry = new SleepEntry ();
 		
 		entry.setRestedScore (rested.valueOf());
-		entry.setRestfulnessScore (restful);
+		entry.setRestfulnessScore (restful.valueOf());
 		entry.setNumDrinks (numDrinks);
 		entry.setDate (date);
 		entry.setBedTime (date.minusHours (8));
@@ -181,14 +185,14 @@ public class ExampleWebTestCase {
 	private void setFieldValues (SleepEntry entry) 
 	{
 		tester.selectOptionByValue ("restedScore", String.valueOf (entry.getRestedScore()));
-		tester.setTextField ("restfulnessScore", String.valueOf (entry.getRestfulnessScore()));
+		tester.selectOptionByValue ("restfulnessScore", String.valueOf (entry.getRestfulnessScore()));
 		tester.setTextField ("numDrinks", String.valueOf (entry.getNumDrinks()));
 	}
 	
-	private void setFieldValues (SLEEP_QUALITY rested, Long restful, int numDrinks) 
+	private void setFieldValues (SleepQuality rested, Restfulness restful, int numDrinks) 
 	{
 		tester.selectOptionByValue ("restedScore", String.valueOf (rested.valueOf()));
-		tester.setTextField ("restfulnessScore", String.valueOf (restful));
+		tester.selectOptionByValue ("restfulnessScore", String.valueOf (restful.valueOf()));
 		tester.setTextField ("numDrinks", String.valueOf (numDrinks));
 	}
 	
@@ -213,17 +217,17 @@ public class ExampleWebTestCase {
 		tester.assertTextPresent (String.valueOf (entry.getNumDrinks()));
 	}
 
-	private void assertEntryValuesPresentAsText (SLEEP_QUALITY rested, Long restful, int numDrinks) 
+	private void assertEntryValuesPresentAsText (SleepQuality rested, Restfulness restful, int numDrinks) 
 	{
 		tester.assertTextPresent (String.valueOf (rested.valueOf()));
-		tester.assertTextPresent (String.valueOf (restful));
+		tester.assertTextPresent (String.valueOf (restful.valueOf()));
 		tester.assertTextPresent (String.valueOf (numDrinks));
 	}
 
-	private void assertTextFieldsForEntryEqual (SLEEP_QUALITY rested, Long restful, int numDrinks) 
+	private void assertTextFieldsForEntryEqual (SleepQuality rested, Restfulness restful, int numDrinks) 
 	{
 		tester.assertSelectedOptionEquals ("restedScore", rested.qualitative());
-		tester.assertTextFieldEquals ("restfulnessScore", String.valueOf (restful));
+		tester.assertSelectedOptionEquals ("restfulnessScore", restful.qualitative());
 		tester.assertTextFieldEquals ("numDrinks", String.valueOf (numDrinks));
 	}
 
