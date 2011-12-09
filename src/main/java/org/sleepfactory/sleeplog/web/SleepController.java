@@ -1,11 +1,11 @@
 package org.sleepfactory.sleeplog.web;
 
-import java.util.Date;
 import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.joda.time.DateTime;
 import org.sleepfactory.sleeplog.SleepEntry;
 import org.sleepfactory.sleeplog.service.SleepService;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class SleepController {
 	@ModelAttribute (value = "sleepEntry")
 	public SleepEntry newRequest() 
 	{
-		return new SleepEntry (new Date());
+		return new SleepEntry (new DateTime());
 	}
 
 	@RequestMapping (value = "/sleepHome", method = RequestMethod.GET)
@@ -55,8 +55,8 @@ public class SleepController {
 
 		return "secure/sleeper/home";
 	}
-	
-	@RequestMapping (value = "/enterSleep", method = RequestMethod.GET)
+
+	@RequestMapping (value = "/updateSleep/{id}", method = RequestMethod.GET)
 	public String displaySleepUpdateForm (@ModelAttribute ("id") Long id, Model model) 
 	{
 		SleepEntry entry = sleepService.getSleepEntryById (id);
@@ -64,7 +64,29 @@ public class SleepController {
 		model.addAttribute ("sleepEntry", entry);
 		model.addAttribute ("editMode", "update");
 		
+		return "secure/sleeper/enterSleep";
+	}
+	
+	// use this to show the edit screen in a popup iframe
+	@RequestMapping (value = "/enterSleep", method = RequestMethod.GET)
+	public String displayPopupUpdateForm (@ModelAttribute ("id") Long id, Model model) 
+	{
+		SleepEntry entry = sleepService.getSleepEntryById (id);
+		
+		model.addAttribute ("sleepEntry", entry);
+		model.addAttribute ("editMode", "update");
+		
 		return "secure/sleeper/sleepForm";
+	}
+	
+	@RequestMapping (value = "/deleteEntry", method = RequestMethod.GET)
+	public String deleteSleepEntry (@ModelAttribute ("id") Long id, Model model)
+	{
+		sleepService.removeEntry (id);
+		
+		model.addAttribute ("sleepLog", sleepService.getSleepLog());
+
+		return "secure/sleeper/viewEntries";
 	}
 
 	@RequestMapping (value = "/viewEntries", method = RequestMethod.GET)
