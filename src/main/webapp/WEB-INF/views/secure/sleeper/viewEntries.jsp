@@ -9,7 +9,9 @@
 		<spring:eval expression="entry.date" />
 		Rested: ${entry.restedScore}; Restfulness: ${entry.restfulnessScore}
 		Num Drinks: ${entry.numDrinks} 
-		<a class='example2' href="enterSleep?id=${entry.id}" id="edit">edit</a><br>
+		<a href="updateSleep/${entry.id}" id="edit">edit</a> |
+		<a class='example2' href="enterSleep?id=${entry.id}" id="editInPopup">edit in popup</a> |
+		<a href="#" onClick="processDeleteClick (${entry.id}, 'deleteEntry');" id="delete">delete</a><br>
 	</c:forEach>
 	
 	<p></p>
