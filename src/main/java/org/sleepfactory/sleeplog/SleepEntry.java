@@ -1,6 +1,9 @@
 package org.sleepfactory.sleeplog;
 
+import java.util.Collection;
+
 import org.joda.time.DateTime;
+import org.sleepfactory.sleeplog.scale.Activity;
 import org.sleepfactory.sleeplog.scale.EnergyLevel;
 import org.sleepfactory.sleeplog.scale.Restfulness;
 import org.sleepfactory.sleeplog.scale.SleepQuality;
@@ -26,6 +29,8 @@ public class SleepEntry implements Comparable {
 	private SleepQuality restedScore;
 	private Restfulness restfulnessScore;
 	private EnergyLevel energyLevel;
+	
+	private Collection<Long> activities;
 	
 	private Integer numDrinks;
 	
@@ -147,6 +152,21 @@ public class SleepEntry implements Comparable {
 	public void setEnergyLevel (Long score) 
 	{
 		this.energyLevel = EnergyLevel.enumValueOf (score);
+	}
+	
+	public Collection<Long> getActivities() 
+	{
+		return activities;
+	}
+
+	public void setActivities (Collection<Long> activities) 
+	{
+		this.activities = activities;
+	}
+	
+	public String getActivitiesAsString()
+	{
+		return Activity.asString (activities);
 	}
 	
 	/**
