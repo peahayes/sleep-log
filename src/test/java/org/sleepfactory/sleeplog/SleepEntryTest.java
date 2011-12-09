@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.sleepfactory.sleeplog.SleepEntry.SLEEP_QUALITY;
 
 public class SleepEntryTest {
 	
@@ -14,6 +15,25 @@ public class SleepEntryTest {
 	@Before
 	public void setUp() throws Exception {
 
+	}
+	
+	@Test
+	public void testSleepQualityEnum()
+	{
+		SLEEP_QUALITY qual = SLEEP_QUALITY.POOR;
+		assertEquals ("Poor", qual.qualitative());
+		
+		qual = SLEEP_QUALITY.VERY_POOR;
+		assertEquals ("Very Poor", qual.qualitative());
+
+		qual = SLEEP_QUALITY.FAIR;
+		assertEquals ("Fair", qual.qualitative());
+
+		qual = SLEEP_QUALITY.GOOD;
+		assertEquals ("Good", qual.qualitative());
+
+		qual = SLEEP_QUALITY.EXCELLENT;
+		assertEquals ("Excellent", qual.qualitative());
 	}
 	
 	@Test
