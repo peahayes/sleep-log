@@ -1,5 +1,9 @@
 package org.sleepfactory.sleeplog;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,12 +21,10 @@ public class SleepEntry implements Comparable {
 
 	private Long id;
 	
-	// iso = DateTimeFormat.ISO.DATE,
-	@DateTimeFormat (pattern = "MM-dd-yyyy")
-//	@DateTimeFormat (style = "F-")
+	@DateTimeFormat (pattern = "EEE MMM dd")
 	private DateTime date;
 
-	private Long restedScore;
+	private SLEEP_QUALITY restedScore;
 	private Long restfulnessScore;
 	
 	private Integer numDrinks;
@@ -79,7 +81,7 @@ public class SleepEntry implements Comparable {
 	{
 		this.date = date;
 	}
-
+	
 	/**
 	 * Set the score indicating how rested sleeper felt during day.
 	 * 
@@ -87,7 +89,7 @@ public class SleepEntry implements Comparable {
 	 */
 	public void setRestedScore (Long score) 
 	{
-		this.restedScore = score;
+		this.restedScore = SLEEP_QUALITY.enumValueOf (score);
 	}
 
 	/**
@@ -98,7 +100,9 @@ public class SleepEntry implements Comparable {
 	 */
 	public Long getRestedScore() 
 	{
-		return restedScore;
+		if (restedScore == null)
+			return null;
+		return restedScore.valueOf();
 	}
 
 	/**
@@ -212,10 +216,10 @@ public class SleepEntry implements Comparable {
 		SleepEntry that = (SleepEntry) obj;
 		if (this == that) return true;
 		
-		if (this.restfulnessScore.equals (that.restfulnessScore) &&
-			this.restedScore.equals (that.restedScore) &&
-			this.date.equals (that.date) &&
-			this.numDrinks.equals (that.numDrinks))
+		if ((this.restfulnessScore != null && this.restfulnessScore.equals (that.restfulnessScore)) &&
+			(this.restedScore != null && this.restedScore.equals (that.restedScore)) &&
+			(this.date != null && this.date.equals (that.date)) &&
+			(this.numDrinks != null && this.numDrinks.equals (that.numDrinks)))
 			return true;
 		
 		return false;
@@ -269,10 +273,63 @@ public class SleepEntry implements Comparable {
 	public String toString()
 	{
 		String str = "{ [" + id + "] ";
+		str += "Date: " + date + "; ";
 		str += "Rested: " + restedScore + "; ";
 		str += "Restulness: " + restfulnessScore + "; ";
 		str += "Num Drinks: " + numDrinks + "}";
 		return str;
+	}
+	
+	public enum SLEEP_QUALITY
+	{
+		VERY_POOR (1L), POOR (2L), FAIR (3L), GOOD (4L), EXCELLENT (5L);
+		
+		private Long value;
+		
+		private SLEEP_QUALITY (Long value)
+		{
+			this.value = value;
+		}
+		
+		public Long valueOf()
+		{
+			return value;
+		}
+		
+		public static SLEEP_QUALITY enumValueOf (Long value)
+		{
+			int intVal = value.intValue();
+			
+			switch (intVal)
+			{
+				case 1:
+					return VERY_POOR;
+				case 2: 
+					return POOR;
+				case 3:
+					return FAIR;
+				case 4:
+					return GOOD;
+				case 5:
+					return EXCELLENT;
+				default:
+					return null;
+			}
+		}
+		
+		public String qualitative()
+		{
+			String[] parts = String.valueOf (this).split ("_");
+			for (int i = 0; i < parts.length; i++) firstLetterCaps (parts, i);
+			List<String> list = Arrays.asList (parts);
+			return StringUtils.join (list, ' ');
+		}
+
+		private void firstLetterCaps (String parts[], int i) 
+		{
+			parts[i] = parts[i].toLowerCase();
+			parts[i] = StringUtils.capitalize (parts[i]);
+		}
 	}
 
 }
