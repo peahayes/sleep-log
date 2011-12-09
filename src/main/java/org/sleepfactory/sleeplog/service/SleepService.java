@@ -51,4 +51,10 @@ public class SleepService {
 		log.getEntries().add (sleepEntry);
 	}
 
+	public void removeEntry (Long id) 
+	{
+		SleepEntry entry = getSleepEntryById (id);
+		log.getEntries().remove (entry);
+	}
+
 }
