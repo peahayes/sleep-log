@@ -2,7 +2,7 @@ package org.sleepfactory.sleeplog.scale;
 
 import org.sleepfactory.sleeplog.util.SleepUtils;
 
-public enum EnergyLevel implements FiveScaleEnum 
+public enum EnergyLevel implements SleepAttributeEnum 
 {
 	EXTREMELY_FATIGUED (1L), MODERATELY_FATIGUED (2L), MILDLY_FATIGUED (3L), 
 	SOMEWHAT_ENERGETIC (4L), VERY_ENERGETIC (5L);

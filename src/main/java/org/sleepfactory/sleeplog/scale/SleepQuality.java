@@ -4,7 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.sleepfactory.sleeplog.util.SleepUtils;
 
 
-public enum SleepQuality implements FiveScaleEnum
+public enum SleepQuality implements SleepAttributeEnum
 {
 	VERY_POOR (1L), POOR (2L), FAIR (3L), GOOD (4L), EXCELLENT (5L);
 	

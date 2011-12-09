@@ -2,7 +2,7 @@ package org.sleepfactory.sleeplog.scale;
 
 import org.sleepfactory.sleeplog.util.SleepUtils;
 
-public enum Restfulness implements FiveScaleEnum
+public enum Restfulness implements SleepAttributeEnum
 {
 	NOT_AT_ALL (1L), SLIGHTLY (2L), SOMEWHAT (3L), RESTED (4L), WELL_RESTED (5L);
 	
