@@ -1,3 +1,11 @@
+body { 
+	font-size: 14px; 
+	font-family: Helvetica, Arial, Sans-Serif; 	
+	margin: 0; 
+	padding: 0px;
+	line-height: 150%;
+}
+
 #header {
     width: 850px;
     height: 75px;
@@ -41,6 +49,7 @@
 #formLabelCol {
 	width: 160px;
     float: left;
+    font-weight: bold;
 }
 
 #formFieldCol {
