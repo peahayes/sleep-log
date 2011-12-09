@@ -21,6 +21,8 @@
 </head>
 
 <body>
+	<h3>Edit Sleep Entry</h3>
+	
 	<c:url var="url" value="/secure/sleep/enterSleep/${editMode}" />
 
 	<form:form id="sleepForm" action="${url}" modelAttribute="sleepEntry" method="POST" target="_top">
