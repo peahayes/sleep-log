@@ -51,11 +51,11 @@
             <div id="formLabelCol"><label for="restedScore">Rested Score:</label></div>
             <div id="formFieldCol">
              	<span class="input">
-            		<form:radiobutton path="restedScore" value="1"/>Very poor&nbsp;&nbsp;&nbsp;
-            		<form:radiobutton path="restedScore" value="2"/>Poor&nbsp;&nbsp;&nbsp;
-            		<form:radiobutton path="restedScore" value="3"/>Fair&nbsp;&nbsp;&nbsp;
-            		<form:radiobutton path="restedScore" value="4"/>Good&nbsp;&nbsp;&nbsp;
-            		<form:radiobutton path="restedScore" value="5"/>Excellent
+            		<span id="radioButton"><form:radiobutton path="restedScore" value="1"/>Very poor</span>
+            		<span id="radioButton"><form:radiobutton path="restedScore" value="2"/>Poor</span>
+            		<span id="radioButton"><form:radiobutton path="restedScore" value="3"/>Fair</span>
+            		<span id="radioButton"><form:radiobutton path="restedScore" value="4"/>Good</span>
+            		<span id="radioButton"><form:radiobutton path="restedScore" value="5"/>Excellent</span>
              	</span>
             </div>
         </div>
@@ -65,13 +65,11 @@
             <div id="formLabelCol"><label for="restfulnessScore">Restfulness Score:</label></div>
             <div id="formFieldCol">
             	<span class="input">
-            		<form:select path="restfulnessScore">
-	            		<form:option value="1">Not at all</form:option>
-	             		<form:option value="2">Slightly</form:option>
-	             		<form:option value="3">Somewhat</form:option>
-	             		<form:option value="4">Rested</form:option>
-		             	<form:option value="5">Well rested</form:option>
-             		</form:select>
+            		<span id="radioButton"><form:radiobutton path="restfulnessScore" value="1"/>Not at all</span>
+            		<span id="radioButton"><form:radiobutton path="restfulnessScore" value="2"/>Slightly</span>
+            		<span id="radioButton"><form:radiobutton path="restfulnessScore" value="3"/>Somewhat</span>
+            		<span id="radioButton"><form:radiobutton path="restfulnessScore" value="4"/>Rested</span>
+            		<span id="radioButton"><form:radiobutton path="restfulnessScore" value="5"/>Well rested</span>
             	</span>
             </div>
         </div>       
