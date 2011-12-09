@@ -114,3 +114,9 @@ body {
 	height: 30px;
 	display: inline-block;
 }
+
+#radioButton {
+	width: 88px;
+	height: 20px;
+	display: inline-block;
+}
