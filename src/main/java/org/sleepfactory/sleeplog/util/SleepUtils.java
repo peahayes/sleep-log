@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.sleepfactory.sleeplog.scale.FiveScaleEnum;
+import org.sleepfactory.sleeplog.scale.SleepAttributeEnum;
 
 public class SleepUtils {
 
-	public static String qualitative (FiveScaleEnum value)
+	public static String qualitative (SleepAttributeEnum value)
 	{
 		String[] parts = String.valueOf (value).split ("_");
 		for (int i = 0; i < parts.length; i++) firstLetterCaps (parts, i);
