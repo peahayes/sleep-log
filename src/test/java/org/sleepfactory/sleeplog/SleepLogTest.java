@@ -4,8 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Date;
-
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -103,7 +102,7 @@ public class SleepLogTest {
 		data.log1.add (data.entry2);
 		assertEquals (3.5, data.log1.getAvgRestedness(), 0);
 		
-		data.log1.add (new SleepEntry (new Date (data.entry2.getDate().getTime() + 86400000)));
+		data.log1.add (new SleepEntry (new DateTime (data.entry2.getDate().getMillis() + 86400000)));
 		assertEquals (2.333, data.log1.getAvgRestedness(), .333);
 	}
 
@@ -116,7 +115,7 @@ public class SleepLogTest {
 		data.log1.add (data.entry2);
 		assertEquals (4.0, data.log1.getAvgRestfulness(), 0);
 		
-		data.log1.add (new SleepEntry (new Date (data.entry2.getDate().getTime() + 86400000)));
+		data.log1.add (new SleepEntry (new DateTime (data.entry2.getDate().getMillis() + 86400000)));
 		assertEquals (2.666666, data.log1.getAvgRestfulness(), .1);
 	}
 
