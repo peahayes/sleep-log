@@ -1,11 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
 	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/sleep-log.css'/>" />
 	<link media="screen" rel="stylesheet" href="<c:url value='/resources/css/colorbox.css'/>" />
 	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery-1.6.1.js'/>"></script>	
@@ -14,13 +9,7 @@
 	<script type="text/javascript" src="<c:url value='/resources/scripts/sleep-log.js'/>"></script>	
 	<script type="text/javascript" src="<c:url value="/resources/scripts/enterSleep.js" /> "></script>
 
-<!-- 	<script type="text/javascript">
- 		var cancelURL='<c:url value="/sleep-log/secure/sleep/viewEntries"/>';
- 		setDocVars ('height=300,width=1000');
-	</script> -->
-</head>
-
-<body>
+<div id="miniBody">
 	<h3>Edit Sleep Entry</h3>
 	
 	<c:url var="url" value="/secure/sleep/enterSleep/${editMode}" />
@@ -75,7 +64,21 @@
         </div>       
         <div id="formRowSeparator"></div>
 
-         <div class="form-row">
+        <div class="form-row">
+            <div id="formLabelCol"><label for="activities">Activities:</label></div>
+            <div id="formFieldCol">
+             	<span class="input">
+            		<span id="radioButton"><form:checkbox path="activities" value="1"/>Biking</span>
+            		<span id="radioButton"><form:checkbox path="activities" value="2"/>Weights</span>
+            		<span id="radioButton"><form:checkbox path="activities" value="3"/>Hiking</span>
+            		<span id="radioButton"><form:checkbox path="activities" value="4"/>Walking</span>
+            		<span id="radioButton"><form:checkbox path="activities" value="5"/>Workout</span>
+             	</span>
+            </div>
+        </div>
+        <div id="formRowSeparator"></div>
+
+        <div class="form-row">
             <div id="formLabelCol"><label for="numDrinks">Number of Drinks:</label></div>
             <div id="formFieldCol"><span class="input"><form:input path="numDrinks"/></span></div>
         </div>       
@@ -94,5 +97,4 @@
             </div>
         </div>
 	</form:form>
-</body>
-</html>
+</div>
