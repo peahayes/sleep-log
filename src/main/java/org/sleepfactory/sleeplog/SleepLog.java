@@ -100,6 +100,31 @@ public class SleepLog {
 	}
 	
 	/**
+	 * Return the average of all energy level scores in all
+	 * SleepEntries.
+	 * 
+	 * @return A double value
+	 */
+	@NumberFormat (style = Style.PERCENT, pattern="#.#")
+	public double getAvgEnergyLevel() 
+	{
+		 return getSumEnergyLevel() / getNumEntries();
+	}
+
+	private double getSumEnergyLevel() 
+	{
+		double sum = 0;
+		
+		for (SleepEntry entry : entries)
+		{
+			if (entry.getEnergyLevel() != null)
+				sum += entry.getEnergyLevel();
+		}
+		
+		return sum;
+	}
+
+	/**
 	 * Return the average of all rested scores in all
 	 * SleepEntries.
 	 * 
