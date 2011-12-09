@@ -1,6 +1,6 @@
 package org.sleepfactory.sleeplog;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
 public class TestSleepData {
 
@@ -12,23 +12,23 @@ public class TestSleepData {
 	
 	public TestSleepData()
 	{
-		entry = new SleepEntry (new Date());
-		entry2 = new SleepEntry (new Date (entry.getDate().getTime() + 3600000));
+		entry = new SleepEntry (new DateTime());
+		entry2 = new SleepEntry (new DateTime (entry.getDate().getMillis() + 3600000));
 		entry3 = new SleepEntry (entry.getDate());
 
 		entry.setRestedScore (4L);
 		entry.setRestfulnessScore (4L);
 		entry.setNumDrinks (0);
 		entry.setBedTime (entry.getDate());
-		entry.setRiseTime(new Date (entry.getDate().getTime() + 25200000));
-		entry.setWakeTime (new Date (entry.getDate().getTime() + 25200000));
+		entry.setRiseTime (new DateTime (entry.getDate().getMillis() + 25200000));
+		entry.setWakeTime (new DateTime (entry.getDate().getMillis() + 25200000));
 		
 		entry2.setRestedScore (3L);
 		entry2.setRestfulnessScore (4L);
 		entry2.setNumDrinks (1);
 		entry2.setBedTime (entry2.getDate());
-		entry2.setRiseTime(new Date (entry2.getDate().getTime() + 25200000));
-		entry2.setWakeTime (new Date (entry2.getDate().getTime() + 25200000));
+		entry2.setRiseTime (new DateTime (entry2.getDate().getMillis() + 25200000));
+		entry2.setWakeTime (new DateTime (entry2.getDate().getMillis() + 25200000));
 		
 		entry3.setRestfulnessScore (entry.getRestfulnessScore());
 		entry3.setRestedScore (entry.getRestedScore());
