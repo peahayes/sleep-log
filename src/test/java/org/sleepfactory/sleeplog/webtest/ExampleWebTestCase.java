@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.sleepfactory.sleeplog.SleepEntry;
+import org.sleepfactory.sleeplog.scale.EnergyLevel;
 import org.sleepfactory.sleeplog.scale.Restfulness;
 import org.sleepfactory.sleeplog.scale.SleepQuality;
 import org.slf4j.Logger;
@@ -20,14 +21,17 @@ public class ExampleWebTestCase {
 	final int firstDrinks = 0;
 	final SleepQuality firstRested = SleepQuality.EXCELLENT;
 	final Restfulness firstRestful = Restfulness.RESTED;
+	final EnergyLevel firstEnergy = EnergyLevel.VERY_ENERGETIC;
 	
 	final int secondDrinks = 6;
 	final SleepQuality secondRested = SleepQuality.POOR;
 	final Restfulness secondRestful = Restfulness.NOT_AT_ALL;
+	final EnergyLevel secondEnergy = EnergyLevel.EXTREMELY_FATIGUED;
 
 	final int thirdDrinks = 3;
 	final SleepQuality thirdRested = SleepQuality.EXCELLENT;
 	final Restfulness thirdRestful = Restfulness.RESTED;
+	final EnergyLevel thirdEnergy = EnergyLevel.VERY_ENERGETIC;
 
 	private static final Logger logger = LoggerFactory.getLogger (ExampleWebTestCase.class);
 
@@ -66,11 +70,11 @@ public class ExampleWebTestCase {
 	@Test
 	public void testAddEntry()
 	{
-		SleepEntry entry = addEntry (firstDate, firstRested, firstRestful, firstDrinks);
+		SleepEntry entry = addEntry (firstDate, firstEnergy, firstRested, firstRestful, firstDrinks);
 		assertEntryAttributeLabelsPresent();
 		assertEntryValuesPresentAsText (entry);
 		
-		SleepEntry entry2 = addEntry (firstDate.plusDays (1), secondRested, secondRestful, secondDrinks);
+		SleepEntry entry2 = addEntry (firstDate.plusDays (1), secondEnergy, secondRested, secondRestful, secondDrinks);
 		assertEntryValuesPresentAsText (entry2);
 
 		tester.clickLink ("viewEntries");
@@ -99,7 +103,7 @@ public class ExampleWebTestCase {
 		System.out.println ("Going to editFrame...");
 		tester.gotoFrame ("editFrame");
 		
-		setFieldValues (thirdRested, thirdRestful, thirdDrinks);
+		setFieldValues (thirdEnergy, thirdRested, thirdRestful, thirdDrinks);
 		
 		tester.assertButtonPresent ("save");
 		tester.assertButtonPresentWithText ("Update Entry");
@@ -108,7 +112,7 @@ public class ExampleWebTestCase {
 		tester.clickButtonWithText ("Update Entry");
 
 		tester.assertTextPresent ("Your Sleep Entry Summary");
-		assertEntryValuesPresentAsText (thirdRested, thirdRestful, thirdDrinks);
+		assertEntryValuesPresentAsText (thirdEnergy, thirdRested, thirdRestful, thirdDrinks);
 	}
 
 	@Test
@@ -129,7 +133,7 @@ public class ExampleWebTestCase {
 		tester.beginAt ("/");
 		tester.clickLink ("viewEntries");
 	
-		assertEntryValuesPresentAsText (thirdRested, thirdRestful, thirdDrinks);
+		assertEntryValuesPresentAsText (thirdEnergy, thirdRested, thirdRestful, thirdDrinks);
 
 		tester.clickLink ("edit");
 		
@@ -141,7 +145,7 @@ public class ExampleWebTestCase {
 		tester.assertButtonPresent ("save");
 		tester.assertButtonPresentWithText ("Update Entry");
 		
-		assertTextFieldsForEntryEqual (thirdRested, thirdRestful, thirdDrinks);
+		assertTextFieldsForEntryEqual (thirdEnergy, thirdRested, thirdRestful, thirdDrinks);
 	}
 
 	private void assertAverages (SleepEntry entry1, SleepEntry entry2) 
@@ -159,13 +163,14 @@ public class ExampleWebTestCase {
 		tester.assertTextPresent (avgStr.substring (0, avgStr.indexOf (".")));
 	}
 
-	private SleepEntry addEntry (DateTime date, SleepQuality rested, Restfulness restful, int numDrinks) 
+	private SleepEntry addEntry (DateTime date, EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks) 
 	{
 		System.out.println ("Going to home page...");
 		tester.beginAt ("/");
 		
 		SleepEntry entry = new SleepEntry ();
 		
+		entry.setEnergyLevel (energy.valueOf());
 		entry.setRestedScore (rested.valueOf());
 		entry.setRestfulnessScore (restful.valueOf());
 		entry.setNumDrinks (numDrinks);
@@ -184,20 +189,23 @@ public class ExampleWebTestCase {
 
 	private void setFieldValues (SleepEntry entry) 
 	{
-		tester.selectOptionByValue ("restedScore", String.valueOf (entry.getRestedScore()));
+		tester.selectOptionByValue ("energyLevel", String.valueOf (entry.getEnergyLevel()));
+		tester.clickRadioOption ("restedScore", String.valueOf (entry.getRestedScore()));
 		tester.selectOptionByValue ("restfulnessScore", String.valueOf (entry.getRestfulnessScore()));
 		tester.setTextField ("numDrinks", String.valueOf (entry.getNumDrinks()));
 	}
 	
-	private void setFieldValues (SleepQuality rested, Restfulness restful, int numDrinks) 
+	private void setFieldValues (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks) 
 	{
-		tester.selectOptionByValue ("restedScore", String.valueOf (rested.valueOf()));
+		tester.selectOptionByValue ("energyLevel", String.valueOf (energy.valueOf()));
+		tester.clickRadioOption ("restedScore", String.valueOf (rested.valueOf()));
 		tester.selectOptionByValue ("restfulnessScore", String.valueOf (restful.valueOf()));
 		tester.setTextField ("numDrinks", String.valueOf (numDrinks));
 	}
 	
 	private void assertEntryAttributeLabelsPresent() 
 	{
+		tester.assertTextPresent ("Energy Level");
 		tester.assertTextPresent ("Rested Score");
 		tester.assertTextPresent ("Restfulness Score");
 		tester.assertTextPresent ("Number of drinks");
@@ -205,6 +213,7 @@ public class ExampleWebTestCase {
 
 	private void assertAveragesLabelsPresent() 
 	{
+		tester.assertTextPresent ("Avg energy");
 		tester.assertTextPresent ("Avg rested");
 		tester.assertTextPresent ("Avg restfulness");
 		tester.assertTextPresent ("Avg drinks");
@@ -212,21 +221,24 @@ public class ExampleWebTestCase {
 
 	private void assertEntryValuesPresentAsText (SleepEntry entry) 
 	{
+		tester.assertTextPresent (String.valueOf (entry.getEnergyLevel()));
 		tester.assertTextPresent (String.valueOf (entry.getRestedScore()));
 		tester.assertTextPresent (String.valueOf (entry.getRestfulnessScore()));
 		tester.assertTextPresent (String.valueOf (entry.getNumDrinks()));
 	}
 
-	private void assertEntryValuesPresentAsText (SleepQuality rested, Restfulness restful, int numDrinks) 
+	private void assertEntryValuesPresentAsText (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks) 
 	{
+		tester.assertTextPresent (String.valueOf (energy.valueOf()));
 		tester.assertTextPresent (String.valueOf (rested.valueOf()));
 		tester.assertTextPresent (String.valueOf (restful.valueOf()));
 		tester.assertTextPresent (String.valueOf (numDrinks));
 	}
 
-	private void assertTextFieldsForEntryEqual (SleepQuality rested, Restfulness restful, int numDrinks) 
+	private void assertTextFieldsForEntryEqual (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks) 
 	{
-		tester.assertSelectedOptionEquals ("restedScore", rested.qualitative());
+		tester.assertSelectedOptionEquals ("energyLevel", energy.qualitative());
+		tester.assertRadioOptionSelected ("restedScore", String.valueOf (rested.valueOf()));
 		tester.assertSelectedOptionEquals ("restfulnessScore", restful.qualitative());
 		tester.assertTextFieldEquals ("numDrinks", String.valueOf (numDrinks));
 	}
