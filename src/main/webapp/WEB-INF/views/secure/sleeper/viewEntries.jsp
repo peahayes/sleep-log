@@ -28,6 +28,11 @@
 	<div>
 		<div id="formRowSeparator"></div>
 		<div>
+			<div id="summaryLabelCol">Avg energy:</div>
+			<div id="formFieldCol"><spring:eval expression="sleepLog.avgEnergyLevel" /></div>
+		</div>
+		<div id="formRowSeparator"></div>
+		<div>
 			<div id="summaryLabelCol">Avg rested:</div>
 			<div id="formFieldCol"><spring:eval expression="sleepLog.avgRestedness" /></div>
 		</div>
