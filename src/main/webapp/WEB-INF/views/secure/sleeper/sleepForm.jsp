@@ -14,10 +14,10 @@
 	<script type="text/javascript" src="<c:url value='/resources/scripts/sleep-log.js'/>"></script>	
 	<script type="text/javascript" src="<c:url value="/resources/scripts/enterSleep.js" /> "></script>
 
-	<script type="text/javascript">
-		var cancelURL='<c:url value="/sleep-log/secure/sleep/viewEntries"/>';
-		setDocVars ('height=800,width=680');
-	</script>
+<!-- 	<script type="text/javascript">
+ 		var cancelURL='<c:url value="/sleep-log/secure/sleep/viewEntries"/>';
+ 		setDocVars ('height=300,width=1000');
+	</script> -->
 </head>
 
 <body>
@@ -34,16 +34,28 @@
 		</c:if>
 		
         <div class="form-row">
+            <div id="formLabelCol"><label for="energyLevel">Energy Level:</label></div>
+            <div id="formFieldCol">
+            	<form:select path="energyLevel">
+	            	<form:option value="1">Extremely Fatigued</form:option>
+	            	<form:option value="2">Moderately Fatigued</form:option>
+	            	<form:option value="3">Mildly Fatigued</form:option>
+	            	<form:option value="4">Somewhat Energetic</form:option>
+		            <form:option value="5">Very Energetic</form:option>
+             	</form:select>
+            </div>
+        </div>
+        <div id="formRowSeparator"></div>
+
+        <div class="form-row">
             <div id="formLabelCol"><label for="restedScore">Rested Score:</label></div>
             <div id="formFieldCol">
-            	<span class="input">
-            		<form:select path="restedScore">
-	            		<form:option value="1">Very poor</form:option>
-	             		<form:option value="2">Poor</form:option>
-	             		<form:option value="3">Fair</form:option>
-	             		<form:option value="4">Good</form:option>
-		             	<form:option value="5">Excellent</form:option>
-             		</form:select>
+             	<span class="input">
+            		<form:radiobutton path="restedScore" value="1"/>Very poor&nbsp;&nbsp;&nbsp;
+            		<form:radiobutton path="restedScore" value="2"/>Poor&nbsp;&nbsp;&nbsp;
+            		<form:radiobutton path="restedScore" value="3"/>Fair&nbsp;&nbsp;&nbsp;
+            		<form:radiobutton path="restedScore" value="4"/>Good&nbsp;&nbsp;&nbsp;
+            		<form:radiobutton path="restedScore" value="5"/>Excellent
              	</span>
             </div>
         </div>
