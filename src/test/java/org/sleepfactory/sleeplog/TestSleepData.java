@@ -1,6 +1,7 @@
 package org.sleepfactory.sleeplog;
 
 import org.joda.time.DateTime;
+import org.sleepfactory.sleeplog.scale.EnergyLevel;
 import org.sleepfactory.sleeplog.scale.SleepQuality;
 
 public class TestSleepData {
@@ -17,6 +18,7 @@ public class TestSleepData {
 		entry2 = new SleepEntry (new DateTime (entry.getDate().getMillis() + 3600000));
 		entry3 = new SleepEntry (entry.getDate());
 
+		entry.setEnergyLevel (EnergyLevel.SOMEWHAT_ENERGETIC.valueOf());
 		entry.setRestedScore (SleepQuality.GOOD.valueOf());
 		entry.setRestfulnessScore (4L);
 		entry.setNumDrinks (0);
@@ -31,6 +33,7 @@ public class TestSleepData {
 		entry2.setRiseTime (new DateTime (entry2.getDate().getMillis() + 25200000));
 		entry2.setWakeTime (new DateTime (entry2.getDate().getMillis() + 25200000));
 		
+		entry3.setEnergyLevel (entry.getEnergyLevel());
 		entry3.setRestfulnessScore (entry.getRestfulnessScore());
 		entry3.setRestedScore (entry.getRestedScore());
 		entry3.setNumDrinks (entry.getNumDrinks());
