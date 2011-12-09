@@ -1,6 +1,7 @@
 package org.sleepfactory.sleeplog;
 
 import org.joda.time.DateTime;
+import org.sleepfactory.sleeplog.scale.EnergyLevel;
 import org.sleepfactory.sleeplog.scale.Restfulness;
 import org.sleepfactory.sleeplog.scale.SleepQuality;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,6 +25,7 @@ public class SleepEntry implements Comparable {
 
 	private SleepQuality restedScore;
 	private Restfulness restfulnessScore;
+	private EnergyLevel energyLevel;
 	
 	private Integer numDrinks;
 	
@@ -126,6 +128,28 @@ public class SleepEntry implements Comparable {
 	}
 
 	/**
+	 * Returns the score indicating how energetic the sleeper felt.
+	 * 
+	 * @return Number between 1 and 5.
+	 */
+	public Long getEnergyLevel() 
+	{
+		if (energyLevel == null)
+			return null;
+		return energyLevel.valueOf();
+	}
+
+	/**
+	 * Set the score indicating how energetic the sleeper felt.
+	 * 
+	 * @param energyLevel Number between 1 and 5.
+	 */
+	public void setEnergyLevel (Long score) 
+	{
+		this.energyLevel = EnergyLevel.enumValueOf (score);
+	}
+	
+	/**
 	 * Return number of drinks sleeper had before going to bed.
 	 * 
 	 * @return Any number greater than or equal to 0.
@@ -216,7 +240,8 @@ public class SleepEntry implements Comparable {
 		SleepEntry that = (SleepEntry) obj;
 		if (this == that) return true;
 		
-		if ((this.restfulnessScore != null && this.restfulnessScore.equals (that.restfulnessScore)) &&
+		if ((this.energyLevel != null && this.energyLevel.equals (that.energyLevel)) &&
+			(this.restfulnessScore != null && this.restfulnessScore.equals (that.restfulnessScore)) &&
 			(this.restedScore != null && this.restedScore.equals (that.restedScore)) &&
 			(this.date != null && this.date.equals (that.date)) &&
 			(this.numDrinks != null && this.numDrinks.equals (that.numDrinks)))
@@ -274,10 +299,11 @@ public class SleepEntry implements Comparable {
 	{
 		String str = "{ [" + id + "] ";
 		str += "Date: " + date + "; ";
+		str += "Energy: " + energyLevel + "; ";
 		str += "Rested: " + restedScore + "; ";
 		str += "Restulness: " + restfulnessScore + "; ";
 		str += "Num Drinks: " + numDrinks + "}";
 		return str;
 	}
-	
+
 }
