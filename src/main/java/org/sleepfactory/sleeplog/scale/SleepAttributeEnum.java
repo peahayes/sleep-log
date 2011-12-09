@@ -1,6 +1,6 @@
 package org.sleepfactory.sleeplog.scale;
 
-public interface FiveScaleEnum {
+public interface SleepAttributeEnum {
 	
 	public Long valueOf();
 	public String qualitative();
