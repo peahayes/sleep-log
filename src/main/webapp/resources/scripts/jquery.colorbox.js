@@ -661,7 +661,7 @@
 			// IFrame element won't be added to the DOM until it is ready to be displayed,
 			// to avoid problems with DOM-ready JS that might be trying to run in that iframe.
 			$box.one(event_loaded, function () {
-				var iframe = $("<iframe frameborder='0' style='width:100%; height:100%; border:0; display:block'/>")[0];
+				var iframe = $("<iframe id='editFrame' frameborder='0' style='width:100%; height:100%; border:0; display:block'/>")[0];
 				iframe.name = prefix + (+new Date());
 				iframe.src = settings.href;
 				
