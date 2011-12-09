@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.sleepfactory.sleeplog.SleepEntry;
+import org.sleepfactory.sleeplog.SleepEntry.SLEEP_QUALITY;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,14 +15,18 @@ public class ExampleWebTestCase {
 	private WebTester tester;
 	
 	DateTime firstDate = new DateTime (2011, 3, 1, 6, 0, 0, 0);
-	final long firstRested = 9, firstRestful = 8;
-	final int firstDrinks = 0;
 	
-	final long secondRested = 7, secondRestful = 6;
-	final int secondDrinks = 1;
+	final long firstRestful = 4;
+	final int firstDrinks = 0;
+	final SLEEP_QUALITY firstRested = SLEEP_QUALITY.EXCELLENT;
+	
+	final long secondRestful = 1;
+	final int secondDrinks = 6;
+	final SLEEP_QUALITY secondRested = SLEEP_QUALITY.POOR;
 
-	final long thirdRested = 5, thirdRestful = 4;
+	final long thirdRestful = 4;
 	final int thirdDrinks = 3;
+	final SLEEP_QUALITY thirdRested = SLEEP_QUALITY.EXCELLENT;
 
 	private static final Logger logger = LoggerFactory.getLogger (ExampleWebTestCase.class);
 
@@ -98,6 +103,7 @@ public class ExampleWebTestCase {
 		System.out.println ("Clicked Update Entry...");
 		tester.clickButtonWithText ("Update Entry");
 
+		tester.assertTextPresent ("Your Sleep Entry Summary");
 		assertEntryValuesPresentAsText (thirdRested, thirdRestful, thirdDrinks);
 	}
 
@@ -149,14 +155,14 @@ public class ExampleWebTestCase {
 		tester.assertTextPresent (avgStr.substring (0, avgStr.indexOf (".")));
 	}
 
-	private SleepEntry addEntry (DateTime date, Long rested, Long restful, int numDrinks) 
+	private SleepEntry addEntry (DateTime date, SLEEP_QUALITY rested, Long restful, int numDrinks) 
 	{
 		System.out.println ("Going to home page...");
 		tester.beginAt ("/");
 		
 		SleepEntry entry = new SleepEntry ();
 		
-		entry.setRestedScore (rested);
+		entry.setRestedScore (rested.valueOf());
 		entry.setRestfulnessScore (restful);
 		entry.setNumDrinks (numDrinks);
 		entry.setDate (date);
@@ -174,14 +180,14 @@ public class ExampleWebTestCase {
 
 	private void setFieldValues (SleepEntry entry) 
 	{
-		tester.setTextField ("restedScore", String.valueOf (entry.getRestedScore()));
+		tester.selectOptionByValue ("restedScore", String.valueOf (entry.getRestedScore()));
 		tester.setTextField ("restfulnessScore", String.valueOf (entry.getRestfulnessScore()));
 		tester.setTextField ("numDrinks", String.valueOf (entry.getNumDrinks()));
 	}
 	
-	private void setFieldValues (Long rested, Long restful, int numDrinks) 
+	private void setFieldValues (SLEEP_QUALITY rested, Long restful, int numDrinks) 
 	{
-		tester.setTextField ("restedScore", String.valueOf (rested));
+		tester.selectOptionByValue ("restedScore", String.valueOf (rested.valueOf()));
 		tester.setTextField ("restfulnessScore", String.valueOf (restful));
 		tester.setTextField ("numDrinks", String.valueOf (numDrinks));
 	}
@@ -195,9 +201,9 @@ public class ExampleWebTestCase {
 
 	private void assertAveragesLabelsPresent() 
 	{
-		tester.assertTextPresent ("Average rested score");
-		tester.assertTextPresent ("Average restfulness score");
-		tester.assertTextPresent ("Average num drinks");
+		tester.assertTextPresent ("Avg rested");
+		tester.assertTextPresent ("Avg restfulness");
+		tester.assertTextPresent ("Avg drinks");
 	}
 
 	private void assertEntryValuesPresentAsText (SleepEntry entry) 
@@ -207,16 +213,16 @@ public class ExampleWebTestCase {
 		tester.assertTextPresent (String.valueOf (entry.getNumDrinks()));
 	}
 
-	private void assertEntryValuesPresentAsText (Long rested, Long restful, int numDrinks) 
+	private void assertEntryValuesPresentAsText (SLEEP_QUALITY rested, Long restful, int numDrinks) 
 	{
-		tester.assertTextPresent (String.valueOf (rested));
+		tester.assertTextPresent (String.valueOf (rested.valueOf()));
 		tester.assertTextPresent (String.valueOf (restful));
 		tester.assertTextPresent (String.valueOf (numDrinks));
 	}
 
-	private void assertTextFieldsForEntryEqual (Long rested, Long restful, int numDrinks) 
+	private void assertTextFieldsForEntryEqual (SLEEP_QUALITY rested, Long restful, int numDrinks) 
 	{
-		tester.assertTextFieldEquals ("restedScore", String.valueOf (rested));
+		tester.assertSelectedOptionEquals ("restedScore", rested.qualitative());
 		tester.assertTextFieldEquals ("restfulnessScore", String.valueOf (restful));
 		tester.assertTextFieldEquals ("numDrinks", String.valueOf (numDrinks));
 	}
