@@ -35,7 +35,17 @@
 		
         <div class="form-row">
             <div id="formLabelCol"><label for="restedScore">Rested Score:</label></div>
-            <div id="formFieldCol"><span class="input"><form:input path="restedScore"/></span></div>
+            <div id="formFieldCol">
+            	<span class="input">
+            		<form:select path="restedScore">
+	            		<form:option value="1">Very poor</form:option>
+	             		<form:option value="2">Poor</form:option>
+	             		<form:option value="3">Fair</form:option>
+	             		<form:option value="4">Good</form:option>
+		             	<form:option value="5">Excellent</form:option>
+             		</form:select>
+             	</span>
+            </div>
         </div>
         <div id="formRowSeparator"></div>
 
