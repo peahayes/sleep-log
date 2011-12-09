@@ -7,6 +7,7 @@ import javax.inject.Named;
 
 import org.joda.time.DateTime;
 import org.sleepfactory.sleeplog.SleepEntry;
+import org.sleepfactory.sleeplog.scale.EnergyLevel;
 import org.sleepfactory.sleeplog.service.SleepService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,10 @@ public class SleepController {
 	public String displaySleepEntryForm (Locale locale, Model model) 
 	{
 		logger.debug ("Welcome to sleep entry page! the client locale is "+ locale.toString());
+		
 		model.addAttribute ("editMode", "add");
+		model.addAttribute ("energyLevelEnum", EnergyLevel.values());
+		
 		return "secure/sleeper/enterSleep";
 	}
 
