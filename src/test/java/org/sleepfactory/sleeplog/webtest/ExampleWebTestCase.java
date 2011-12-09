@@ -191,7 +191,7 @@ public class ExampleWebTestCase {
 	{
 		tester.selectOptionByValue ("energyLevel", String.valueOf (entry.getEnergyLevel()));
 		tester.clickRadioOption ("restedScore", String.valueOf (entry.getRestedScore()));
-		tester.selectOptionByValue ("restfulnessScore", String.valueOf (entry.getRestfulnessScore()));
+		tester.clickRadioOption ("restfulnessScore", String.valueOf (entry.getRestfulnessScore()));
 		tester.setTextField ("numDrinks", String.valueOf (entry.getNumDrinks()));
 	}
 	
@@ -199,7 +199,7 @@ public class ExampleWebTestCase {
 	{
 		tester.selectOptionByValue ("energyLevel", String.valueOf (energy.valueOf()));
 		tester.clickRadioOption ("restedScore", String.valueOf (rested.valueOf()));
-		tester.selectOptionByValue ("restfulnessScore", String.valueOf (restful.valueOf()));
+		tester.clickRadioOption ("restfulnessScore", String.valueOf (restful.valueOf()));
 		tester.setTextField ("numDrinks", String.valueOf (numDrinks));
 	}
 	
@@ -239,7 +239,7 @@ public class ExampleWebTestCase {
 	{
 		tester.assertSelectedOptionEquals ("energyLevel", energy.qualitative());
 		tester.assertRadioOptionSelected ("restedScore", String.valueOf (rested.valueOf()));
-		tester.assertSelectedOptionEquals ("restfulnessScore", restful.qualitative());
+		tester.assertRadioOptionSelected ("restfulnessScore", String.valueOf (restful.valueOf()));
 		tester.assertTextFieldEquals ("numDrinks", String.valueOf (numDrinks));
 	}
 
