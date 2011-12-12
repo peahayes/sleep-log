@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-	<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/sleep-log.css'/>" />
+	<link rel="stylesheet/less" type="text/css" href="<c:url value='/resources/css/sleep-log.css'/>" />
+	<script type="text/javascript" src="<c:url value='/resources/scripts/less-1.1.5.min.js'/>"></script>	
 	<link media="screen" rel="stylesheet" href="<c:url value='/resources/css/colorbox.css'/>" />
 	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery-1.6.1.js'/>"></script>	
 	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery.colorbox.js'/>"></script>
@@ -9,7 +10,7 @@
 	<script type="text/javascript" src="<c:url value='/resources/scripts/sleep-log.js'/>"></script>	
 	<script type="text/javascript" src="<c:url value="/resources/scripts/enterSleep.js" /> "></script>
 
-<div id="miniBody">
+<div id="popupBody">
 	<h3>Edit Sleep Entry</h3>
 	
 	<c:url var="url" value="/secure/sleep/enterSleep/${editMode}" />
