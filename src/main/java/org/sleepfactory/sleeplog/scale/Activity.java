@@ -49,6 +49,9 @@ public enum Activity implements SleepAttributeEnum
 
 	public static String asString (Collection<Long> activities) 
 	{
+		if (activities == null)
+			return "";
+		
 		String str = "";
 		
 		for (Long actId : activities)
