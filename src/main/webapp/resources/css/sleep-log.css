@@ -1,7 +1,17 @@
+@body-color: #777777;
+@header-footer-color: #F5FFFF;
+@panel-border-color: #A1DDF7;
+
+@middle-panels-height: 450px;
+@typical-line-height: 20px;
+@sleepEntryHeight: 45px;
+
+/* Overall panel layout */
+
 body { 
 	font-size: 14px; 
 	font-family: Helvetica, Arial, Sans-Serif; 	
-	color: #777777;
+	color: @body-color;
 	margin: 0; 
 	padding: 0px;
 	line-height: 150%;
@@ -10,61 +20,47 @@ body {
 	margin-top: 10px;
 }
 
-#miniBody {
+#popupBody {
 	background-color: #FFFFFF;
 	margin-left: -10px;
 	margin-top: -16px;
 	height: 350px;
 }
 
-#popupBody {
-	border: 1px solid;
-	color: #0F0F0F;
-}
-
-#formBody {
-/* 	background-image:none; */
-}
-
 #header {
     width: 850px;
     height: 75px;
-    background: #F5FFFF;
+    background: @header-footer-color;
 	padding: 15px;
-    border-bottom: 1px solid #A1DDF7;
+    border-bottom: 1px solid @panel-border-color
 }
 
 #sidebar {
     width: 200px;
-    height: 400px;
+    height: @middle-panels-height;
     background: #FBFFFF;
     float: left;
     padding: 15px;
-    border-right: 1px solid #A1DDF7;
+    border-right: 1px solid @panel-border-color
 }
 
 #page-wrap  {
     width: 850px;
     background: #FBFFFF;
-	height: 400px;
+	height: @middle-panels-height;
     padding: 15px;
     border: 1px thin #000000;
 }
 
-/* #display-area */
-/* { */
-/* 	padding: 5px; */
-/*     border: 1px solid; */
-/*     margin: 5px; */
-/* } */
-
 #footer {
     width: 860px;
     height: 50px;
-    background: #F5FFFF;
+    background: @header-footer-color;
     padding: 10px;
-    border-top: 1px solid #A1DDF7;
+    border-top: 1px solid @panel-border-color
 }
+
+/* Edit sleep entry form */
 
 #formLabelCol {
 	width: 160px;
@@ -79,18 +75,13 @@ body {
 	height: 10px;
 }
 
+/* Summary table */
+
 #summaryLabelCol {
 	width: 220px;
     float: left;
     font-weight: bold;
 }
-
-#tempBorder {
-	border: 1px solid;
-}
-
-/** See http://lesscss.org/ */
-@sleepEntryHeight: 45px;
 
 /** Below here is for viewEntriesAlt.jsp */
 
@@ -116,6 +107,8 @@ body {
 
 /** Above here is for viewEntriesAlt.jsp */
 
+/* links to app functionality */
+
 #edit, #editInPopup {
     color: #5A6DE8;	
     text-decoration: none;
@@ -126,38 +119,38 @@ body {
     text-decoration: none;
 }
 
+/* For listing all the sleep entries in a tabular fashion */
+
 #sleepLogHeaderCol {
 	width: 85px;
-	height: 20px;
+	height: @typical-line-height;
 	display: inline-block;
 	font-weight: bold;
 }
 
 #sleepLogHeaderLongCol {
 	width: 160px;
-	height: 20px;
+	height: @typical-line-height;
 	display: inline-block;
 	font-weight: bold;
 }
 
 #sleepLogDataCol {
 	width: 85px;
-	height: 20px;
+	height: @typical-line-height;
 	display: inline-block;
 }
 
 #sleepLogDataLongCol {
 	width: 160x;
-	height: 20px;
+	height: @typical-line-height;
 	display: inline-block;
 }
+
+/* Form elements */
 
 #radioButton {
 	width: 88px;
-	height: 20px;
+	height: @typical-line-height;
 	display: inline-block;
-}
-
-#contents {
-	border: 1px solid;
 }
