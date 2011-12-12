@@ -1,12 +1,46 @@
 @body-color: #777777;
 @header-footer-color: #F5FFFF;
-@panel-border-color: #A1DDF7;
+@middle-panel-color: #FBFFFF;
 
-@middle-panels-height: 450px;
+@panel-border: 1px solid #A1DDF7;
+
+@layout-height: 650px;
 @typical-line-height: 20px;
 @sleepEntryHeight: 45px;
 
+@layout-width: 850px;
+@short-column-width: 85px;
+@long-column-width: 160px;
+
+@panel-padding: 15px;
+
 @base-url: "http://localhost:8180/sleep-log/resources";
+
+/* styles that will be inherited */
+
+.left-float (@width: 5px) {
+	width: @width;
+	float: left;
+}
+
+.app-link-style (@color: #5A6DE8, @dec: none) {
+	color: @color;
+	text-decoration: @dec;
+}
+
+.inline-text-block (@width: 10px, @weight: normal) {
+	height: @typical-line-height;
+	display: inline-block;
+	width: @width;
+	font-weight: @weight;
+}
+
+.panel (@height: 5px, @width: 5px, @padding: 5px, @backgd: #FFFFFF) {
+	height: @height;
+	width: @width;
+	padding: @padding;
+	background: @backgd;
+}
 
 /* Overall panel layout */
 
@@ -30,43 +64,29 @@ body {
 }
 
 #header {
-    width: 850px;
-    height: 75px;
-    background: @header-footer-color;
-	padding: 15px;
-    border-bottom: 1px solid @panel-border-color
+	.panel (@layout-height * .08,  @layout-width, @panel-padding, @header-footer-color);
+    border-bottom: @panel-border;
 }
 
 #sidebar {
-    width: 200px;
-    height: @middle-panels-height;
-    background: #FBFFFF;
+	.panel (@layout-height * .87, @layout-width *.16, @panel-padding, @middle-panel-color);
     float: left;
-    padding: 15px;
-    border-right: 1px solid @panel-border-color
+    border-right: @panel-border;
 }
 
 #page-wrap  {
-    width: 850px;
-    background: #FBFFFF;
-	height: @middle-panels-height;
-    padding: 15px;
-    border: 1px thin #000000;
+	.panel (@layout-height * .87, @layout-width, @panel-padding, @middle-panel-color);
 }
 
 #footer {
-    width: 860px;
-    height: 50px;
-    background: @header-footer-color;
-    padding: 10px;
-    border-top: 1px solid @panel-border-color
+	.panel (@layout-height * .05, @layout-width, @panel-padding, @header-footer-color);
+    border-top: @panel-border;
 }
 
 /* Edit sleep entry form */
 
 #formLabelCol {
-	width: 160px;
-    float: left;
+	.left-float (160px);
     font-weight: bold;
 }
 
@@ -80,23 +100,20 @@ body {
 /* Summary table */
 
 #summaryLabelCol {
-	width: 220px;
-    float: left;
+    .left-float (220px);
     font-weight: bold;
 }
 
 /** Below here is for viewEntriesAlt.jsp */
 
 #sleepEntryDateCol {
-	float: left;
-	width: 100px;
+	.left-float (100px);
 	height: @sleepEntryHeight;
 }
 
 #sleepEntryInfoLeftCol {
-	float: left;
+	.left-float (130px);
 	height: 40px;
-	width: 130px;
 }
 
 #solidBorder {
@@ -112,47 +129,33 @@ body {
 /* links to app functionality */
 
 #edit, #editInPopup {
-    color: #5A6DE8;	
-    text-decoration: none;
+	.app-link-style;
 }
 
 #delete {
-    color: #E85A79;	
-    text-decoration: none;
+    .app-link-style (#E85A79);	
 }
 
 /* For listing all the sleep entries in a tabular fashion */
 
 #sleepLogHeaderCol {
-	width: 85px;
-	height: @typical-line-height;
-	display: inline-block;
-	font-weight: bold;
+	.inline-text-block (@short-column-width, bold);
 }
 
 #sleepLogHeaderLongCol {
-	width: 160px;
-	height: @typical-line-height;
-	display: inline-block;
-	font-weight: bold;
+	.inline-text-block (@long-column-width, bold);
 }
 
 #sleepLogDataCol {
-	width: 85px;
-	height: @typical-line-height;
-	display: inline-block;
+	.inline-text-block (@short-column-width);
 }
 
 #sleepLogDataLongCol {
-	width: 160x;
-	height: @typical-line-height;
-	display: inline-block;
+	.inline-text-block (@long-column-width);
 }
 
 /* Form elements */
 
 #radioButton {
-	width: 88px;
-	height: @typical-line-height;
-	display: inline-block;
+	.inline-text-block (100px);
 }
