@@ -6,6 +6,8 @@
 @typical-line-height: 20px;
 @sleepEntryHeight: 45px;
 
+@base-url: "http://localhost:8180/sleep-log/resources";
+
 /* Overall panel layout */
 
 body { 
@@ -15,7 +17,7 @@ body {
 	margin: 0; 
 	padding: 0px;
 	line-height: 150%;
-	background-image:url('../images/cumulus_clouds.jpg');
+	background-image: url("@{base-url}/images/cumulus_clouds.jpg");
 	margin-left: 10px;
 	margin-top: 10px;
 }
@@ -24,7 +26,7 @@ body {
 	background-color: #FFFFFF;
 	margin-left: -10px;
 	margin-top: -16px;
-	height: 350px;
+	height: 450px;
 }
 
 #header {
