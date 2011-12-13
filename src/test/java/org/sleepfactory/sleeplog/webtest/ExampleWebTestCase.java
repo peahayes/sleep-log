@@ -24,7 +24,7 @@ public class ExampleWebTestCase {
 	
 	final int firstDrinks = 0;
 	final SleepQuality firstRested = SleepQuality.EXCELLENT;
-	final Restfulness firstRestful = Restfulness.RESTED;
+	final Restfulness firstRestful = Restfulness.WELL_RESTED;
 	final EnergyLevel firstEnergy = EnergyLevel.VERY_ENERGETIC;
 	final Set<Long> firstActivities = new HashSet<Long>();
 	
@@ -34,12 +34,12 @@ public class ExampleWebTestCase {
 	final EnergyLevel secondEnergy = EnergyLevel.EXTREMELY_FATIGUED;
 	final Set<Long> secondActivities = new HashSet<Long>();
 
-	final int thirdDrinks = 3;
-	final SleepQuality thirdRested = SleepQuality.EXCELLENT;
+	final int thirdDrinks = 2;
+	final SleepQuality thirdRested = SleepQuality.GOOD;
 	final Restfulness thirdRestful = Restfulness.RESTED;
-	final EnergyLevel thirdEnergy = EnergyLevel.VERY_ENERGETIC;
+	final EnergyLevel thirdEnergy = EnergyLevel.SOMEWHAT_ENERGETIC;
 	final Set<Long> thirdActivities = new HashSet<Long>();
-
+	
 	private static final Logger logger = LoggerFactory.getLogger (ExampleWebTestCase.class);
 
 	@Before
@@ -51,8 +51,8 @@ public class ExampleWebTestCase {
 		secondActivities.add (Activity.WALKING.valueOf());
 		secondActivities.add (Activity.WORKOUT.valueOf());
 		
-		thirdActivities.add (Activity.WEIGHTS.valueOf());
-
+		thirdActivities.add (Activity.HIKING.valueOf());
+		
 		tester = new WebTester();
 		tester.setBaseUrl ("http://localhost:8180/sleep-log");
 	}
@@ -86,6 +86,7 @@ public class ExampleWebTestCase {
 	public void testAddEntry()
 	{
 		SleepEntry entry = addEntry (firstDate, firstEnergy, firstRested, firstRestful, firstDrinks, firstActivities);
+		
 		assertEntryAttributeLabelsPresent();
 		assertEntryValuesPresentAsText (entry);
 		
@@ -118,14 +119,18 @@ public class ExampleWebTestCase {
 		System.out.println ("Going to editFrame...");
 		tester.gotoFrame ("editFrame");
 		
+		assertTextFieldsForEntryEqual (firstEnergy, firstRested, firstRestful, firstDrinks, firstActivities);
 		setFieldValues (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
 		
 		tester.assertButtonPresent ("save");
 		tester.assertButtonPresentWithText ("Update Entry");
 
-		System.out.println ("Clicked Update Entry...");
+		System.out.println ("Clicking Update Entry...");
 		tester.clickButtonWithText ("Update Entry");
 
+		// focus back on the main window again
+		tester.gotoRootWindow();
+		
 		tester.assertTextPresent ("Your Sleep Entry Summary");
 		assertEntryValuesPresentAsText (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
 	}
@@ -142,16 +147,17 @@ public class ExampleWebTestCase {
 	}
 
 	@Test
-	public void testEditEntry()
+	public void testEditEntry() 
+		throws InterruptedException
 	{
 		System.out.println ("Clicked View Entries...");
 		tester.beginAt ("/");
-		tester.clickLink ("viewEntries");
-	
-		assertEntryValuesPresentAsText (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
 
+		tester.clickLink ("viewEntries");
 		tester.clickLink ("edit");
 		
+		tester.setWorkingForm ("sleepForm");
+
 		tester.assertTextPresent ("Edit Sleep Entry");
 		
 		tester.assertLinkPresent ("cancel");
@@ -163,19 +169,28 @@ public class ExampleWebTestCase {
 		assertTextFieldsForEntryEqual (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
 	}
 
+	/**
+	 * We use assertTextInElement() here instead of assertTextPresent() because avgEnergy,
+	 * avgRested, avgRestfulness, and avgDrinks are just numbers that could appear elsewhere
+	 * on the screen for some other reason (e.g., the date).
+	 */
 	private void assertAverages (SleepEntry entry1, SleepEntry entry2) 
 	{
-		double avg = entry1.getRestedScore() + entry2.getRestedScore();
+		double avg = entry1.getEnergyLevel() + entry2.getEnergyLevel();
 		String avgStr = String.valueOf (avg / 2); 
-		tester.assertTextPresent (avgStr.substring (0, avgStr.indexOf (".")));
+		tester.assertTextInElement ("jwebunit_avgEnergy", avgStr.substring (0, avgStr.indexOf (".")));
+		
+		avg = entry1.getRestedScore() + entry2.getRestedScore();
+		avgStr = String.valueOf (avg / 2); 
+		tester.assertTextInElement ("jwebunit_avgRested", avgStr.substring (0, avgStr.indexOf (".")));
 
 		avg = entry1.getRestfulnessScore() + entry2.getRestfulnessScore();
 		avgStr = String.valueOf (avg / 2);
-		tester.assertTextPresent (avgStr.substring (0, avgStr.indexOf (".")));
+		tester.assertTextInElement ("jwebunit_avgRestful", avgStr.substring (0, avgStr.indexOf (".")));
 
 		avg = entry1.getNumDrinks() + entry2.getNumDrinks();
 		avgStr = String.valueOf (avg / 2);
-		tester.assertTextPresent (avgStr.substring (0, avgStr.indexOf (".")));
+		tester.assertTextInElement ("jwebunit_avgDrinks", avgStr.substring (0, avgStr.indexOf (".")));
 	}
 
 	private SleepEntry addEntry (DateTime date, EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) 
@@ -241,24 +256,36 @@ public class ExampleWebTestCase {
 		tester.assertTextPresent ("Avg drinks");
 	}
 
+	/**
+	 * We use assertTextInElement() here instead of assertTextPresent() because energyLevel,
+	 * restedScore, restfulnessScore, and numDrinks are just numbers that could appear elsewhere
+	 * on the screen for some other reason (e.g., the date).
+	 */
 	private void assertEntryValuesPresentAsText (SleepEntry entry) 
 	{
-		tester.assertTextPresent (String.valueOf (entry.getEnergyLevel()));
-		tester.assertTextPresent (String.valueOf (entry.getRestedScore()));
-		tester.assertTextPresent (String.valueOf (entry.getRestfulnessScore()));
-		tester.assertTextPresent (String.valueOf (entry.getNumDrinks()));
+		tester.assertTextInElement ("jwebunit_energy", String.valueOf (entry.getEnergyLevel()));
+		tester.assertTextInElement ("jwebunit_rested", String.valueOf (entry.getRestedScore()));
+		tester.assertTextInElement ("jwebunit_restfulness", String.valueOf (entry.getRestfulnessScore()));
+		tester.assertTextInElement ("jwebunit_drinks", String.valueOf (entry.getNumDrinks()));
+		tester.assertTextInElement ("jwebunit_activities", String.valueOf (entry.getActivitiesAsString()));
 	}
 
+	/**
+	 * We use assertTextInElement() here instead of assertTextPresent() because energyLevel,
+	 * restedScore, restfulnessScore, and numDrinks are just numbers that could appear elsewhere
+	 * on the screen for some other reason (e.g., the date).
+	 */
 	private void assertEntryValuesPresentAsText (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) 
 	{
-		tester.assertTextPresent (String.valueOf (energy.valueOf()));
-		tester.assertTextPresent (String.valueOf (rested.valueOf()));
-		tester.assertTextPresent (String.valueOf (restful.valueOf()));
-		tester.assertTextPresent (String.valueOf (numDrinks));
-		tester.assertTextPresent (Activity.asString (activities));
+		tester.assertTextInElement ("jwebunit_rested", String.valueOf (rested.valueOf()));
+		tester.assertTextInElement ("jwebunit_restfulness", String.valueOf (restful.valueOf()));
+		tester.assertTextInElement ("jwebunit_drinks", String.valueOf (numDrinks));
+		tester.assertTextInElement ("jwebunit_activities", Activity.asString (activities));
+		tester.assertTextInElement ("jwebunit_energy", String.valueOf (energy.valueOf()));
 	}
 
 	private void assertTextFieldsForEntryEqual (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) 
+		throws InterruptedException 
 	{
 		tester.assertSelectedOptionEquals ("energyLevel", energy.qualitative());
 		tester.assertRadioOptionSelected ("restedScore", String.valueOf (rested.valueOf()));
