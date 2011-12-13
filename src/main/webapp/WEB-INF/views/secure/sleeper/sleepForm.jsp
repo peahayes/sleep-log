@@ -7,8 +7,8 @@
 	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery-1.6.1.js'/>"></script>	
 	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery.colorbox.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/resources/scripts/popup.js'/>"></script>	
-	<script type="text/javascript" src="<c:url value='/resources/scripts/sleep-log.js'/>"></script>	
 	<script type="text/javascript" src="<c:url value="/resources/scripts/enterSleep.js" /> "></script>
+	<script type="text/javascript" src="<c:url value="/resources/scripts/createSleep.js" /> "></script>
 
 <div id="popupBody">
 	<h3>Edit Sleep Entry</h3>
@@ -18,21 +18,21 @@
 	<form:form id="sleepForm" action="${url}" modelAttribute="sleepEntry" method="POST" target="_top">
 
 		<span id="spnWaitImage"><img src="<c:url value='/resources/images/wait.gif'/>"/>Please wait...</span>
-	
-		<c:if test="${editMode == 'update' }">
+		
+		<c:if test="${editMode == 'update' && sleepEntry.energyLevel != null}">
+			<input id="savedEnergyLevel" type="hidden" value="${sleepEntry.energyLevel}"/>
+		</c:if>
+		
+		<c:if test="${editMode == 'update'}">
 			<input type="hidden" name="id" value="${id} "/>
 		</c:if>
 		
         <div class="form-row">
             <div id="formLabelCol"><label for="energyLevel">Energy Level:</label></div>
             <div id="formFieldCol">
-            	<form:select path="energyLevel">
-	            	<form:option value="1">Extremely Fatigued</form:option>
-	            	<form:option value="2">Moderately Fatigued</form:option>
-	            	<form:option value="3">Mildly Fatigued</form:option>
-	            	<form:option value="4">Somewhat Energetic</form:option>
-		            <form:option value="5">Very Energetic</form:option>
-             	</form:select>
+            	<span id="energyLevel">
+            		<!-- This will be populated by Ajax -->
+             	</span>
             </div>
         </div>
         <div id="formRowSeparator"></div>
