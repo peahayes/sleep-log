@@ -9,8 +9,9 @@
 @sleepEntryHeight: 45px;
 
 @layout-width: 850px;
-@short-column-width: 85px;
-@long-column-width: 160px;
+@short-column-width: 55px;
+@med-column-width: 85px;
+@long-column-width: 280px;
 
 @panel-padding: 15px;
 
@@ -138,24 +139,32 @@ body {
 
 /* For listing all the sleep entries in a tabular fashion */
 
-#sleepLogHeaderCol {
+#shortHeaderCol {
 	.inline-text-block (@short-column-width, bold);
 }
 
-#sleepLogHeaderLongCol {
+#mediumHeaderCol {
+	.inline-text-block (@med-column-width, bold);
+}
+
+#longHeaderCol {
 	.inline-text-block (@long-column-width, bold);
 }
 
-#sleepLogDataCol {
+#mediumDataCol {
+	.inline-text-block (@med-column-width);
+}
+
+#shortDataCol {
 	.inline-text-block (@short-column-width);
 }
 
-#sleepLogDataLongCol {
+#longDataCol {
 	.inline-text-block (@long-column-width);
 }
 
 /* Form elements */
 
 #radioButton {
-	.inline-text-block (100px);
+	.inline-text-block (92px);
 }
