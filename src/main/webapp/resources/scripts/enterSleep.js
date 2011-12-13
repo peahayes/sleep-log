@@ -1,21 +1,8 @@
-/**
- * @author: Melih Gunal 07/19/2011
- * @fileoverview Supports Add/Edit Sites. Depends on JQuery and JQuery
- *               Validation. Tested with JQuery ver 1.4.x, JQuery validation
- *               plug-in 1.8.0
- * @param cancelURL, duplicateSiteErrorMsg
- *            Global variables should be set in the page referencing this js
- *            file.
- */
-
 var sleepForm;
 var save;
 var cancel;
 var spnWaitImage;
-
-//var ajaxErrBox;
-//var shortName;
-//var oldShortName;
+var ajaxErrBox;
 
 /**
  * @function Sets the global variables to the most frequently used UI elements.
@@ -25,10 +12,7 @@ function setGlobalElements() {
 	save = $("#save");
 	cancel = $("#cancel");
 	spnWaitImage = $("#spnWaitImage");
-	
-//	ajaxErrBox = $("#message");
-//	shortName = $("#SHORTNAMe");
-//	oldShortName=shortName.val();
+	ajaxErrBox = $("#message");
 }
 
 /**
@@ -79,21 +63,10 @@ function setSaveHandlers() {
 	});
 }
 
-//function siteExists(name) {
-//	var duplicate = false;
-//	var ajaxParam = {
-//		siteShortName : name
-//	};
-//	$.getJSON("../rest/siteExists", ajaxParam, function(exists) {
-//		duplicate = exists;
-//	});
-//	return duplicate;
-//}
-
 $(document).ready (function() {
 	setGlobalElements();
 	setEventHandlers();
-//	setupAjax();
+	setupAjax();
 //	document.forms[0].reset();
 //	sleepForm.reset();
 
@@ -114,21 +87,53 @@ $(document).ready (function() {
 //	});
 });
 
+function displayEnergyLevelsForURL (restUrl)
+{
+	$.getJSON (restUrl, {
+		
+	}, function (levels) {
+		
+		if (levels.length > 0) 
+		{
+			var energyLevel = $('input#savedEnergyLevel').val();
+			var options = '<select id="energyLevel" name="energyLevel" size="1">';
+			options += '<option value="">- Choose Level -</option>';
+			
+			for (var i = 0; i < levels.length; i++)
+			{
+				if (energyLevel != null && energyLevel == levels[i].value)
+					options += '<option value="' + levels[i].value + '" selected>';
+				else
+					options += '<option value="' + levels[i].value + '">';
+				
+				options += levels[i].description + '</option>';
+			}
+			
+			options += "</select>";
+			
+			$('#energyLevel').html (options);
+		}
+		else
+			$('#energyLevel').html ("Could not retrieve energy levels!");
+	});
+}
+
 /**
  * @function Defines the default settings for Jquery Ajax calls to be issued.
  */
-//function setupAjax() {
-//	$.ajaxSetup({
-//		cache : false, // required for IE to download data at each request
-//		async : false, // Ajax call should be synchronous to decide whether to submit or not.
-//		beforeSend : function() {
-//			ajaxErrBox.html('');
-//		},
-//		error : function(jqXHR, textStatus, errorThrown) {
-//			ajaxErrBox.html(errorThrown);
-//		}
-//	});
-//}
+function setupAjax() {
+	$.ajaxSetup({
+		cache : false, // required for IE to download data at each request
+		async : false, // Ajax call should be synchronous to decide whether to
+						// submit or not.
+		beforeSend : function() {
+			ajaxErrBox.html('');
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			ajaxErrBox.html(errorThrown);
+		}
+	});
+}
 
 /**
  * @function Whenever an Ajax call is made a wait image is displayed and hidden
@@ -142,4 +147,12 @@ function displayHideWaitImage() {
 		save.attr('disabled', false);
 		$(this).hide();
 	});
+}
+
+function processDeleteClick (id, action)
+{
+	if (confirm ("Are you sure you want to delete?"))
+		window.location = action + "?id=" + id;
+	else
+		return false;
 }
