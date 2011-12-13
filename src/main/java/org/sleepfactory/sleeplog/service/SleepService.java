@@ -1,9 +1,12 @@
 package org.sleepfactory.sleeplog.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.sleepfactory.sleeplog.SleepEntry;
 import org.sleepfactory.sleeplog.SleepLog;
+import org.sleepfactory.sleeplog.scale.EnergyLevel;
 import org.springframework.stereotype.Service;
 
 @Service ("sleepService")
@@ -55,6 +58,31 @@ public class SleepService {
 	{
 		SleepEntry entry = getSleepEntryById (id);
 		log.getEntries().remove (entry);
+	}
+
+	public List<Energy> getEnergyLevels() 
+	{
+		List<Energy> levels = new ArrayList<Energy>();
+		
+		levels.add (new Energy (EnergyLevel.EXTREMELY_FATIGUED.valueOf(), EnergyLevel.EXTREMELY_FATIGUED.qualitative()));
+		levels.add (new Energy (EnergyLevel.MODERATELY_FATIGUED.valueOf(), EnergyLevel.MODERATELY_FATIGUED.qualitative()));
+		levels.add (new Energy (EnergyLevel.MILDLY_FATIGUED.valueOf(), EnergyLevel.MILDLY_FATIGUED.qualitative()));
+		levels.add (new Energy (EnergyLevel.SOMEWHAT_ENERGETIC.valueOf(), EnergyLevel.SOMEWHAT_ENERGETIC.qualitative()));
+		levels.add (new Energy (EnergyLevel.VERY_ENERGETIC.valueOf(), EnergyLevel.VERY_ENERGETIC.qualitative()));
+		
+		return levels;
+	}
+	
+	public class Energy 
+	{
+		public String description;
+		public String value;
+		
+		public Energy (Long val, String desc)
+		{
+			this.description = desc;
+			this.value = String.valueOf (val);
+		}
 	}
 
 }
