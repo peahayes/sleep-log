@@ -119,6 +119,9 @@ public class ExampleWebTestCase {
 		System.out.println ("Going to editFrame...");
 		tester.gotoFrame ("editFrame");
 		
+		System.out.println ("Waiting for potentially long-running Ajax calls...");
+		Thread.sleep (1000);
+
 		assertTextFieldsForEntryEqual (firstEnergy, firstRested, firstRestful, firstDrinks, firstActivities);
 		setFieldValues (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
 		
@@ -166,6 +169,9 @@ public class ExampleWebTestCase {
 		tester.assertButtonPresent ("save");
 		tester.assertButtonPresentWithText ("Update Entry");
 		
+		System.out.println ("Waiting for potentially long-running Ajax calls...");
+		Thread.sleep (1000);
+
 		assertTextFieldsForEntryEqual (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
 	}
 
@@ -287,13 +293,14 @@ public class ExampleWebTestCase {
 	private void assertTextFieldsForEntryEqual (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) 
 		throws InterruptedException 
 	{
-		tester.assertSelectedOptionEquals ("energyLevel", energy.qualitative());
 		tester.assertRadioOptionSelected ("restedScore", String.valueOf (rested.valueOf()));
-		tester.assertRadioOptionSelected ("restfulnessScore", String.valueOf (restful.valueOf()));
 		tester.assertTextFieldEquals ("numDrinks", String.valueOf (numDrinks));
 		
 		for (Long act : activities)
 			tester.assertCheckboxSelected ("activities", String.valueOf (act));
+
+		tester.assertSelectedOptionEquals ("energyLevel", energy.qualitative());
+		tester.assertRadioOptionSelected ("restfulnessScore", String.valueOf (restful.valueOf()));
 	}
 
 }
