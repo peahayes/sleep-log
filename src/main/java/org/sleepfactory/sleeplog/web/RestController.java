@@ -7,7 +7,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import org.sleepfactory.sleeplog.service.SleepService;
-import org.sleepfactory.sleeplog.service.SleepService.Energy;
+import org.sleepfactory.sleeplog.service.SleepService.Score;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -27,10 +27,20 @@ public class RestController {
 
 	@RequestMapping (value = "/getEnergyLevels", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Energy> getEnergyLevels (HttpServletRequest request)
+	public List<Score> getEnergyLevels (HttpServletRequest request)
+		throws InterruptedException
 	{
 		log.info ("Entering getEnergyLevels");
 		return sleepService.getEnergyLevels();
+	}
+
+	@RequestMapping (value = "/getRestfulnessScores", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Score> getRestfulnessScores (HttpServletRequest request)
+		throws InterruptedException
+	{
+		log.info ("Entering getRestfulnessScores");
+		return sleepService.getRestfulnessScores();
 	}
 
 }
