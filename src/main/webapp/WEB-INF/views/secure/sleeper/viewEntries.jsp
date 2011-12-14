@@ -11,14 +11,12 @@
 		Sleep Entries
 	</h1>
 
-	<div>
-		<span id="mediumHeaderCol">Date</span>
-		<span id="shortHeaderCol">Rested</span>
-		<span id="shortHeaderCol">Restful</span>
-		<span id="shortHeaderCol">Energy</span>
-		<span id="shortHeaderCol">Drinks</span> 
-		<span id="longHeaderCol">Activities</span> 
-	</div>
+	<span id="mediumHeaderCol">Date</span>
+	<span id="shortHeaderCol">Rested</span>
+	<span id="shortHeaderCol">Restful</span>
+	<span id="shortHeaderCol">Energy</span>
+	<span id="shortHeaderCol">Drinks</span> 
+	<span id="longHeaderCol">Activities</span> 
 
 	<c:forEach var="entry" items="${sleepLog.entries}">
 		<div>
@@ -49,33 +47,18 @@
 	<!-- We use spans with IDs here for JWebUnit; do not change these without also changing
 		 the associated JWebUnit tests! -->
 
-	<div>
-		<div>
-			<div id="summaryLabelCol">Avg energy:</div>
-			<div id="formFieldCol">
-				<span id="jwebunit_avgEnergy"><spring:eval expression="sleepLog.avgEnergyLevel" /></span>
-			</div>
-		</div>
+		<div id="summaryLabelCol">Avg energy:</div>
+		<div id="jwebunit_avgEnergy"><spring:eval expression="sleepLog.avgEnergyLevel" /></div>
 		<div id="formRowSeparator"></div>
-		<div>
-			<div id="summaryLabelCol">Avg rested:</div>
-			<div id="formFieldCol">
-				<span id="jwebunit_avgRested"><spring:eval expression="sleepLog.avgRestedness" /></span>
-			</div>
-		</div>
+		
+		<div id="summaryLabelCol">Avg rested:</div>
+		<div id="jwebunit_avgRested"><spring:eval expression="sleepLog.avgRestedness" /></div>
 		<div id="formRowSeparator"></div>
-		<div>
-			<div id="summaryLabelCol">Avg restfulness:</div>
-			<div id="formFieldCol">
-				<span id="jwebunit_avgRestful"><spring:eval expression="sleepLog.avgRestfulness" /></span>
-			</div>
-		</div>
+		
+		<div id="summaryLabelCol">Avg restfulness:</div>
+		<div id="jwebunit_avgRestful"><spring:eval expression="sleepLog.avgRestfulness" /></div>
 		<div id="formRowSeparator"></div>
-		<div>
-			<div id="summaryLabelCol">Avg drinks:</div>
-			<div id="formFieldCol">
-				<span id="jwebunit_avgDrinks"><spring:eval expression="sleepLog.avgNumDrinks" /></span>
-			</div>
-		</div>
+		
+		<div id="summaryLabelCol">Avg drinks:</div>
+		<div id="jwebunit_avgDrinks"><spring:eval expression="sleepLog.avgNumDrinks" /></div>
 		<div id="formRowSeparator"></div>
-	</div>
