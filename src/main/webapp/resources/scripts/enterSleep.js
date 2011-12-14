@@ -4,6 +4,40 @@ var cancel;
 var spnWaitImage;
 var ajaxErrBox;
 
+$(document).ready (function() 
+{
+	setGlobalElements();
+	setEventHandlers();
+	setupAjax();
+	
+	var restfulScore = $('#savedRestfulScore');
+	
+	if (restfulScore != null && restfulScore.length > 0)
+		showRestulness();
+	else
+		$("#restfulRow").hide();
+	
+//	document.forms[0].reset();
+//	sleepForm.reset();
+
+//	sleepForm.validate ({
+//
+//		rules : {
+//			shortName : {
+//				required : true,
+//				minlength : 2
+//			}
+//		},
+//
+//		debug : false,
+//
+//		messages : {
+//			shortName : "<br/>Enter a short name"
+//		}
+//	});
+});
+
+
 /**
  * @function Sets the global variables to the most frequently used UI elements.
  */
@@ -25,8 +59,7 @@ function setEventHandlers() {
 }
 
 /**
- * @function When cancel button is hit the user is sent back to manage studies
- *           screen.
+ * @function When cancel link is clicked, the user is sent back to main screen.
  */
 function setCancelHandlers() {
 	cancel.click(function() {
@@ -41,8 +74,7 @@ function setCancelHandlers() {
 }
 
 /**
- * @function Before the form is posted the site short name should be checked
- *           against the database to prevent duplicating site
+ * @function Before the form is posted, we do some validation.
  */
 function setSaveHandlers() {
 	sleepForm.submit(function() {
@@ -63,29 +95,35 @@ function setSaveHandlers() {
 	});
 }
 
-$(document).ready (function() {
-	setGlobalElements();
-	setEventHandlers();
-	setupAjax();
-//	document.forms[0].reset();
-//	sleepForm.reset();
+function displayRestulnessScoresForURL (restUrl)
+{
+	$.getJSON (restUrl, {
+		
+	}, function (scores) {
+		
+		if (scores.length > 0) 
+		{
+			var restfulScore = $('input#savedRestfulScore').val();
+			var buttons = '';
+			
+    		for (var i = 0; i < scores.length; i++)
+			{
+    			buttons += '<div style="height:20px; display:inline-block; width:96px;"><input name="restfulnessScore" type="radio" value="';
+    			
+				if (restfulScore != null && restfulScore == scores[i].value)
+					buttons += scores[i].value + '" checked/>';
+				else
+					buttons += scores[i].value + '"/>';
 
-//	sleepForm.validate ({
-//
-//		rules : {
-//			shortName : {
-//				required : true,
-//				minlength : 2
-//			}
-//		},
-//
-//		debug : false,
-//
-//		messages : {
-//			shortName : "<br/>Enter a short name"
-//		}
-//	});
-});
+				buttons += scores[i].description + '</div>';
+			}
+			
+			$('#restfulness').html (buttons);
+		}
+		else
+			$('#restfulness').html ("Could not retrieve restfulness scores!");
+	});
+}
 
 function displayEnergyLevelsForURL (restUrl)
 {
