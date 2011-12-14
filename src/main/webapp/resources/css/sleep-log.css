@@ -105,28 +105,6 @@ body {
     font-weight: bold;
 }
 
-/** Below here is for viewEntriesAlt.jsp */
-
-#sleepEntryDateCol {
-	.left-float (100px);
-	height: @sleepEntryHeight;
-}
-
-#sleepEntryInfoLeftCol {
-	.left-float (130px);
-	height: 40px;
-}
-
-#solidBorder {
-	border: 1px solid;
-}
-
-#sleepEntryInfo {
-	height: @sleepEntryHeight;
-}
-
-/** Above here is for viewEntriesAlt.jsp */
-
 /* links to app functionality */
 
 #edit, #editInPopup {
