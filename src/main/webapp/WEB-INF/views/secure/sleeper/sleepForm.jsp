@@ -5,6 +5,7 @@
 	<script type="text/javascript" src="<c:url value='/resources/scripts/less-1.1.5.min.js'/>"></script>	
 	<link media="screen" rel="stylesheet" href="<c:url value='/resources/css/colorbox.css'/>" />
 	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery-1.6.1.js'/>"></script>	
+	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery.validation.1.9.0.js'/>"></script>	
 	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery.colorbox.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/resources/scripts/popup.js'/>"></script>	
 	<script type="text/javascript" src="<c:url value="/resources/scripts/enterSleep.js" /> "></script>
@@ -14,8 +15,8 @@
 	<h3>Edit Sleep Entry</h3>
 	
 	<c:url var="url" value="/secure/sleep/enterSleep/${editMode}" />
-
-	<form:form id="sleepForm" action="${url}" modelAttribute="sleepEntry" method="POST" target="_top">
+	
+	<form:form id="sleepForm" class="cmxform" action="${url}" modelAttribute="sleepEntry" method="POST" target="_top">
 
 		<span id="spnWaitImage"><img src="<c:url value='/resources/images/wait.gif'/>"/>Please wait...</span>
 		
@@ -35,11 +36,7 @@
         <div id="formRowSeparator"></div>
 
         <div id="formLabelCol"><label for="restedScore">Rested Score:</label></div>
-        <div id="radioButton"><form:radiobutton path="restedScore" value="1" onChange="showRestulness();"/>Very poor</div>
-        <div id="radioButton"><form:radiobutton path="restedScore" value="2" onChange="showRestulness();"/>Poor</div>
-        <div id="radioButton"><form:radiobutton path="restedScore" value="3" onChange="showRestulness();"/>Fair</div>
-        <div id="radioButton"><form:radiobutton path="restedScore" value="4" onChange="showRestulness();"/>Good</div>
-        <div id="radioButton"><form:radiobutton path="restedScore" value="5" onChange="showRestulness();"/>Excellent</div>
+        <form:radiobuttons path="restedScore" items="${restedScores}" element="div id='radioButton'"  onChange="showRestulness();"/>
        	<div id="formRowSeparator"></div>
 
 		<!-- Hidden until needed -->
@@ -52,11 +49,7 @@
         </div>       
 
         <div id="formLabelCol"><label for="activities">Activities:</label></div>
-        <div id="radioButton"><form:checkbox path="activities" value="1"/>Biking</div>
-        <div id="radioButton"><form:checkbox path="activities" value="2"/>Weights</div>
-        <div id="radioButton"><form:checkbox path="activities" value="3"/>Hiking</div>
-        <div id="radioButton"><form:checkbox path="activities" value="4"/>Walking</div>
-        <div id="radioButton"><form:checkbox path="activities" value="5"/>Workout</div>
+        <form:checkboxes path="activities" items="${activities}" element="div id='radioButton'" />
         <div id="formRowSeparator"></div>
 
         <div id="formLabelCol"><label for="numDrinks">Number of Drinks:</label></div>
