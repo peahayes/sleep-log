@@ -1,13 +1,17 @@
 package org.sleepfactory.sleeplog.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.sleepfactory.sleeplog.SleepEntry;
 import org.sleepfactory.sleeplog.SleepLog;
+import org.sleepfactory.sleeplog.scale.Activity;
 import org.sleepfactory.sleeplog.scale.EnergyLevel;
 import org.sleepfactory.sleeplog.scale.Restfulness;
+import org.sleepfactory.sleeplog.scale.SleepQuality;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -94,6 +98,32 @@ public class SleepService {
 		
 		logger.info ("Sleeping for 800 milliseconds");
 		Thread.sleep (300);
+		
+		return levels;
+	}
+
+	public Map<String, String> getRestedScores() 
+	{
+		Map<String, String> levels = new HashMap<String, String>();
+		
+		levels.put (String.valueOf (SleepQuality.VERY_POOR.valueOf()), SleepQuality.VERY_POOR.qualitative());
+		levels.put (String.valueOf (SleepQuality.POOR.valueOf()), SleepQuality.POOR.qualitative());
+		levels.put (String.valueOf (SleepQuality.FAIR.valueOf()), SleepQuality.FAIR.qualitative());
+		levels.put (String.valueOf (SleepQuality.GOOD.valueOf()), SleepQuality.GOOD.qualitative());
+		levels.put (String.valueOf (SleepQuality.EXCELLENT.valueOf()), SleepQuality.EXCELLENT.qualitative());
+		
+		return levels;
+	}
+
+	public Map<String, String> getActivities() 
+	{
+		Map<String, String> levels = new HashMap<String, String>();
+		
+		levels.put (String.valueOf (Activity.BIKING.valueOf()), Activity.BIKING.qualitative());
+		levels.put (String.valueOf (Activity.HIKING.valueOf()), Activity.HIKING.qualitative());
+		levels.put (String.valueOf (Activity.WALKING.valueOf()), Activity.WALKING.qualitative());
+		levels.put (String.valueOf (Activity.WEIGHTS.valueOf()), Activity.WEIGHTS.qualitative());
+		levels.put (String.valueOf (Activity.WORKOUT.valueOf()), Activity.WORKOUT.qualitative());
 		
 		return levels;
 	}
