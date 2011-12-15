@@ -35,6 +35,7 @@
         </div>
         <div id="formRowSeparator"></div>
 
+		<!-- You can bind enums directly to <form:radiobuttons/> but it was more work than I had time for just to demo JWebUnit -->
         <div id="formLabelCol"><label for="restedScore">Rested Score:</label></div>
         <form:radiobuttons path="restedScore" items="${restedScores}" element="div id='radioButton'"  onChange="showRestulness();"/>
        	<div id="formRowSeparator"></div>
