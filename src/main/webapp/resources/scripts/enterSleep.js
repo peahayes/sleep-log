@@ -10,6 +10,28 @@ $(document).ready (function()
 	setEventHandlers();
 	setupAjax();
 	
+	$("#sleepForm").validate({
+		rules: {
+			energyLevel: "required",
+// don't validate these for now -- I haven't gotten the display working right
+//			restedScore: "required",
+//			restfulnessScore: "required",
+			numDrinks: {
+				required: true,
+				minlength: 1
+			}
+		},
+		messages: {
+			energyLevel: "<span style='color:red;'>&nbsp;&nbsp;&nbsp;Please select your level of energy</span>",
+//			restedScore: "Please choose how rested you feel",
+//			restfulnessScore: "Please choose how restful your sleep was",
+			numDrinks: {
+				required: "<span style='color:red;'>&nbsp;&nbsp;&nbsp;Please enter the number of drinks you consumed</span>",
+				minlength: "Number of drinks must be at least 1 digit"
+			}
+		}
+	});
+
 	var restfulScore = $('#savedRestfulScore');
 	
 	if (restfulScore != null && restfulScore.length > 0)
@@ -19,22 +41,6 @@ $(document).ready (function()
 	
 //	document.forms[0].reset();
 //	sleepForm.reset();
-
-//	sleepForm.validate ({
-//
-//		rules : {
-//			shortName : {
-//				required : true,
-//				minlength : 2
-//			}
-//		},
-//
-//		debug : false,
-//
-//		messages : {
-//			shortName : "<br/>Enter a short name"
-//		}
-//	});
 });
 
 
@@ -108,7 +114,7 @@ function displayRestulnessScoresForURL (restUrl)
 			
     		for (var i = 0; i < scores.length; i++)
 			{
-    			buttons += '<div style="height:20px; display:inline-block; width:96px;"><input name="restfulnessScore" type="radio" value="';
+    			buttons += '<div style="height:20px; display:inline-block; width:93px;"><input name="restfulnessScore" type="radio" value="';
     			
 				if (restfulScore != null && restfulScore == scores[i].value)
 					buttons += scores[i].value + '" checked/>';
