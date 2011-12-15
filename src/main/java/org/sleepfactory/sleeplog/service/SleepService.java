@@ -76,7 +76,7 @@ public class SleepService {
 		levels.add (new Score (EnergyLevel.VERY_ENERGETIC.valueOf(), EnergyLevel.VERY_ENERGETIC.qualitative()));
 		
 		logger.info ("Sleeping for 800 milliseconds");
-		Thread.sleep (800);
+		Thread.sleep (300);
 		
 		return levels;
 	}
@@ -93,7 +93,7 @@ public class SleepService {
 		levels.add (new Score (Restfulness.WELL_RESTED.valueOf(), Restfulness.WELL_RESTED.qualitative()));
 		
 		logger.info ("Sleeping for 800 milliseconds");
-		Thread.sleep (800);
+		Thread.sleep (300);
 		
 		return levels;
 	}
