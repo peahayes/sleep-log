@@ -45,8 +45,8 @@ public class ExampleWebTestCase {
 	@Before
 	public void prepare() 
 	{
-		firstActivities.add (Activity.BIKING.valueOf());
 		firstActivities.add (Activity.WEIGHTS.valueOf());
+		firstActivities.add (Activity.BIKING.valueOf());
 		
 		secondActivities.add (Activity.WALKING.valueOf());
 		secondActivities.add (Activity.WORKOUT.valueOf());
@@ -175,6 +175,44 @@ public class ExampleWebTestCase {
 		assertTextFieldsForEntryEqual (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
 	}
 
+	@Test
+	public void testValidation()
+	{
+		System.out.println ("Going to home page...");
+		tester.beginAt ("/");
+		
+		SleepEntry entry = new SleepEntry ();
+		
+		entry.setRestedScore (firstRested.valueOf());
+		entry.setRestfulnessScore (firstRestful.valueOf());
+		entry.setActivities (firstActivities);
+		entry.setDate (firstDate);
+		
+		tester.clickRadioOption ("restedScore", String.valueOf (firstRested.valueOf()));
+		tester.clickRadioOption ("restfulnessScore", String.valueOf (firstRestful.valueOf()));
+		
+		for (Long act : entry.getActivities())
+			tester.checkCheckbox ("activities", String.valueOf (act));
+		
+		tester.submit();
+		
+		tester.assertTextPresent ("Please select your level of energy");
+		tester.assertTextPresent ("Please enter the number of drinks you consumed");
+		
+		entry.setEnergyLevel (firstEnergy.valueOf());
+		tester.selectOptionByValue ("energyLevel", String.valueOf (firstEnergy.valueOf()));
+		
+		tester.submit();
+		tester.assertTextPresent ("Please enter the number of drinks you consumed");
+
+		entry.setNumDrinks (firstDrinks);
+		tester.setTextField ("numDrinks", String.valueOf (firstDrinks));
+		tester.submit();
+
+		assertEntryAttributeLabelsPresent();
+		assertEntryValuesPresentAsText (entry);	
+	}
+	
 	/**
 	 * We use assertTextInElement() here instead of assertTextPresent() because avgEnergy,
 	 * avgRested, avgRestfulness, and avgDrinks are just numbers that could appear elsewhere
@@ -273,7 +311,12 @@ public class ExampleWebTestCase {
 		tester.assertTextInElement ("jwebunit_rested", String.valueOf (entry.getRestedScore()));
 		tester.assertTextInElement ("jwebunit_restfulness", String.valueOf (entry.getRestfulnessScore()));
 		tester.assertTextInElement ("jwebunit_drinks", String.valueOf (entry.getNumDrinks()));
-		tester.assertTextInElement ("jwebunit_activities", String.valueOf (entry.getActivitiesAsString()));
+		
+		String activities = entry.getActivitiesAsString();
+		String[] parts = activities.split (",");
+		
+		tester.assertTextInElement ("jwebunit_activities", parts[0].trim());
+		tester.assertTextInElement ("jwebunit_activities", parts[1].trim());
 	}
 
 	/**
