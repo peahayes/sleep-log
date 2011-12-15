@@ -11,6 +11,7 @@
 	<link rel="stylesheet/less" type="text/css" href="<c:url value='/resources/css/sleep-log.css'/>" />
 	<script type="text/javascript" src="<c:url value='/resources/scripts/less-1.1.5.min.js'/>"></script>	
 	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery-1.6.1.js'/>"></script>	
+	<script type="text/javascript" src="<c:url value='/resources/scripts/jquery.validation.1.9.0.js'/>"></script>	
 
 	<script type="text/javascript">
 		var cancelURL='<c:url value="/sleep-log/secure/sleep/viewEntries"/>';
