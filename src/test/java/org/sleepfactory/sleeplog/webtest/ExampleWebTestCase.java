@@ -55,20 +55,23 @@ public class ExampleWebTestCase {
 		
 		tester = new WebTester();
 		tester.setBaseUrl ("http://localhost:8180/sleep-log");
+
+		tester.getTestContext().setResourceBundleName ("messages");
 	}
 	
 	@Test
 	public void testViewEntries_noEntries() 
 	{
-		System.out.println ("Going to home page...");
+		logger.info ("Going to home page...");
 		tester.beginAt ("/");
 		
+		tester.assertKeyPresent ("header.title");
 		tester.assertLinkPresent ("viewEntries");
 
-		System.out.println ("Clicked View Entries...");
+		logger.info ("Clicked View Entries...");
 		tester.clickLink ("viewEntries");
 		
-		tester.assertTitleEquals ("Sleep Factory");
+		tester.assertTitleEqualsKey ("window.title");
 		
 		assertAveragesLabelsPresent();
 	}
@@ -77,7 +80,7 @@ public class ExampleWebTestCase {
 	public void testBeginAtViewEntries_noEntries() 
 	{
 		tester.beginAt ("/secure/sleep/viewEntries");
-		tester.assertTitleEquals ("Sleep Factory");
+		tester.assertTitleEqualsKey ("window.title");
 		assertAveragesLabelsPresent();
 		tester.assertLinkPresent ("viewEntries");
 	}
@@ -286,18 +289,19 @@ public class ExampleWebTestCase {
 	
 	private void assertEntryAttributeLabelsPresent() 
 	{
-		tester.assertTextPresent ("Energy Level");
-		tester.assertTextPresent ("Rested Score");
-		tester.assertTextPresent ("Restfulness Score");
-		tester.assertTextPresent ("Number of drinks");
+		tester.assertKeyPresent ("energy.label");
+		tester.assertKeyPresent ("rested.label");
+		tester.assertKeyPresent ("restful.label");
+		tester.assertKeyPresent ("drinks.label");
+		tester.assertKeyPresent ("activities.label");
 	}
 
 	private void assertAveragesLabelsPresent() 
 	{
-		tester.assertTextPresent ("Avg energy");
-		tester.assertTextPresent ("Avg rested");
-		tester.assertTextPresent ("Avg restfulness");
-		tester.assertTextPresent ("Avg drinks");
+		tester.assertKeyPresent ("avg.energy.label");
+		tester.assertKeyPresent ("avg.rested.label");
+		tester.assertKeyPresent ("avg.restfulness.label");
+		tester.assertKeyPresent ("avg.drinks.label");
 	}
 
 	/**
