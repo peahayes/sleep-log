@@ -3,6 +3,7 @@ package org.sleepfactory.sleeplog.webtest;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.sourceforge.jwebunit.htmlunit.HtmlUnitTestingEngineImpl;
 import net.sourceforge.jwebunit.junit.WebTester;
 
 import org.joda.time.DateTime;
@@ -15,6 +16,9 @@ import org.sleepfactory.sleeplog.scale.Restfulness;
 import org.sleepfactory.sleeplog.scale.SleepQuality;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 
 public class ExampleWebTestCase {
 
@@ -40,6 +44,8 @@ public class ExampleWebTestCase {
 	final EnergyLevel thirdEnergy = EnergyLevel.SOMEWHAT_ENERGETIC;
 	final Set<Long> thirdActivities = new HashSet<Long>();
 	
+	protected BrowserVersion defaultBrowserVersion = BrowserVersion.INTERNET_EXPLORER_7;
+
 	private static final Logger logger = LoggerFactory.getLogger (ExampleWebTestCase.class);
 
 	@Before
@@ -57,6 +63,11 @@ public class ExampleWebTestCase {
 		tester.setBaseUrl ("http://localhost:8180/sleep-log");
 
 		tester.getTestContext().setResourceBundleName ("messages");
+
+		tester.getTestContext().setUserAgent (defaultBrowserVersion.getUserAgent());
+		
+		if (tester.getTestingEngine() instanceof HtmlUnitTestingEngineImpl)
+			((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).setDefaultBrowserVersion (defaultBrowserVersion);
 	}
 	
 	@Test
@@ -107,6 +118,12 @@ public class ExampleWebTestCase {
 	{
 		logger.info ("Clicked View Entries...");
 		
+		if (tester.getTestingEngine() instanceof HtmlUnitTestingEngineImpl)
+		{
+			if (((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).getWebClient() != null)
+				((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).getWebClient().setAjaxController (new NicelyResynchronizingAjaxController());
+		}
+
 		tester.beginAt ("/");
 		tester.clickLink ("viewEntries");
 
@@ -122,8 +139,8 @@ public class ExampleWebTestCase {
 		logger.info ("Going to editFrame...");
 		tester.gotoFrame ("editFrame");
 		
-		logger.info ("Waiting for potentially long-running Ajax calls...");
-		Thread.sleep (1000);
+		logger.info ("Waiting for goToFrame()...");
+		Thread.sleep (400);
 
 		assertTextFieldsForEntryEqual (firstEnergy, firstRested, firstRestful, firstDrinks, firstActivities);
 		setFieldValues (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
@@ -156,13 +173,22 @@ public class ExampleWebTestCase {
 	public void testEditEntry() 
 		throws InterruptedException
 	{
+		if (tester.getTestingEngine() instanceof HtmlUnitTestingEngineImpl)
+		{
+			if (((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).getWebClient() != null)
+				((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).getWebClient().setAjaxController (new NicelyResynchronizingAjaxController());
+		}
+
 		logger.info ("Clicked View Entries...");
 		tester.beginAt ("/");
 
 		tester.clickLink ("viewEntries");
 		tester.clickLink ("edit");
 		
-		tester.setWorkingForm ("sleepForm");
+		logger.info ("Waiting for setWorkingForm()...");
+		Thread.sleep (400);
+
+		assertTextFieldsForEntryEqual (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
 
 		tester.assertTextPresent ("Edit Sleep Entry");
 		
@@ -171,11 +197,6 @@ public class ExampleWebTestCase {
 		
 		tester.assertButtonPresent ("save");
 		tester.assertButtonPresentWithText ("Update Entry");
-		
-		logger.info ("Waiting for potentially long-running Ajax calls...");
-		Thread.sleep (1000);
-
-		assertTextFieldsForEntryEqual (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
 	}
 
 	@Test
