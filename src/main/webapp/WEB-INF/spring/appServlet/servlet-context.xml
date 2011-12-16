@@ -17,6 +17,11 @@
 		 up static resources in the ${webappRoot}/resources directory -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
+	<!-- Messages should also be defined in root.xml (Spring application context) for services to be able to access messages -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages"/>
+    </bean>	
+
 	<context:component-scan base-package="org.sleepfactory.sleeplog" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
