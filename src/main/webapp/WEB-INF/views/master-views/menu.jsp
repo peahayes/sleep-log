@@ -1,3 +1,5 @@
-<p><a href="/sleep-log/secure/sleep/sleepHome">Create New Entry</a></p>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
-<p><a id="viewEntries" href="/sleep-log/secure/sleep/viewEntries">View All Entries</a></p>
+<p><a href="/sleep-log/secure/sleep/sleepHome"><spring:message code="menu.create.entry"/></a></p>
+
+<p><a id="viewEntries" href="/sleep-log/secure/sleep/viewEntries"><spring:message code="menu.view.entries"/></a></p>
