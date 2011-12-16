@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 	<link rel="stylesheet/less" type="text/css" href="<c:url value='/resources/css/sleep-log.css'/>" />
 	<script type="text/javascript" src="<c:url value='/resources/scripts/less-1.1.5.min.js'/>"></script>	
@@ -12,7 +13,7 @@
 	<script type="text/javascript" src="<c:url value="/resources/scripts/createSleep.js" /> "></script>
 
 <div id="popupBody">
-	<h3>Edit Sleep Entry</h3>
+	<h3><spring:message code="sleep.form.title"/></h3>
 	
 	<c:url var="url" value="/secure/sleep/enterSleep/${editMode}" />
 	
@@ -29,31 +30,31 @@
 			<input type="hidden" name="id" value="${id} "/>
 		</c:if>
 		
-        <div id="formLabelCol"><label for="energyLevel">Energy Level:</label></div>
+        <div id="formLabelCol"><label for="energyLevel"><spring:message code="energy.label"/>:</label></div>
         <div id="energyLevel">
             <!-- This will be populated by Ajax -->
         </div>
         <div id="formRowSeparator"></div>
 
-		<!-- You can bind enums directly to <form:radiobuttons/> but it was more work than I had time for just to demo JWebUnit -->
-        <div id="formLabelCol"><label for="restedScore">Rested Score:</label></div>
+		<!-- You can bind enums directly to form:radiobuttons but it was more work than I had time for just to demo JWebUnit -->
+        <div id="formLabelCol"><label for="restedScore"><spring:message code="rested.label"/>:</label></div>
         <form:radiobuttons path="restedScore" items="${restedScores}" element="div id='radioButton'"  onChange="showRestulness();"/>
        	<div id="formRowSeparator"></div>
 
 		<!-- Hidden until needed -->
         <div id="restfulRow">
-            <div id="formLabelCol"><label for="restfulnessScore">Restfulness Score:</label></div>
+            <div id="formLabelCol"><label for="restfulnessScore"><spring:message code="restful.label"/>:</label></div>
             <div id="restfulness" class="input">
             		<!-- This will be populated by Ajax -->
             </div>
          	<div id="formRowSeparator"></div>
         </div>       
 
-        <div id="formLabelCol"><label for="activities">Activities:</label></div>
+        <div id="formLabelCol"><label for="activities"><spring:message code="activities.label"/>:</label></div>
         <form:checkboxes path="activities" items="${activities}" element="div id='radioButton'" />
         <div id="formRowSeparator"></div>
 
-        <div id="formLabelCol"><label for="numDrinks">Number of Drinks:</label></div>
+        <div id="formLabelCol"><label for="numDrinks"><spring:message code="drinks.label"/>:</label></div>
         <div class="input"><form:input path="numDrinks"/></div>
         <div id="formRowSeparator"></div>
         

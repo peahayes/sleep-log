@@ -47,18 +47,18 @@
 	<!-- We use spans with IDs here for JWebUnit; do not change these without also changing
 		 the associated JWebUnit tests! -->
 
-		<div id="summaryLabelCol">Avg energy:</div>
+		<div id="summaryLabelCol"><spring:message code="avg.energy.label"/>:</div>
 		<div id="jwebunit_avgEnergy"><spring:eval expression="sleepLog.avgEnergyLevel" /></div>
 		<div id="formRowSeparator"></div>
 		
-		<div id="summaryLabelCol">Avg rested:</div>
+		<div id="summaryLabelCol"><spring:message code="avg.rested.label"/>:</div>
 		<div id="jwebunit_avgRested"><spring:eval expression="sleepLog.avgRestedness" /></div>
 		<div id="formRowSeparator"></div>
 		
-		<div id="summaryLabelCol">Avg restfulness:</div>
+		<div id="summaryLabelCol"><spring:message code="avg.restfulness.label"/>:</div>
 		<div id="jwebunit_avgRestful"><spring:eval expression="sleepLog.avgRestfulness" /></div>
 		<div id="formRowSeparator"></div>
 		
-		<div id="summaryLabelCol">Avg drinks:</div>
+		<div id="summaryLabelCol"><spring:message code="avg.drinks.label"/>:</div>
 		<div id="jwebunit_avgDrinks"><spring:eval expression="sleepLog.avgNumDrinks" /></div>
 		<div id="formRowSeparator"></div>
