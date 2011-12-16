@@ -105,24 +105,24 @@ public class ExampleWebTestCase {
 	@Test
 	public void testEditInPopup() throws InterruptedException
 	{
-		System.out.println ("Clicked View Entries...");
+		logger.info ("Clicked View Entries...");
 		
 		tester.beginAt ("/");
 		tester.clickLink ("viewEntries");
 
-		System.out.println ("Clicked edit in popup...");
+		logger.info ("Clicked edit in popup...");
 		tester.clickLink ("editInPopup");
 		
-		System.out.println ("Waiting so popup has time to display...");
+		logger.info ("Waiting so popup has time to display...");
 		Thread.sleep (2000);
 		
 		// focus on the popup iframe
 		tester.assertFramePresent ("editFrame");
 
-		System.out.println ("Going to editFrame...");
+		logger.info ("Going to editFrame...");
 		tester.gotoFrame ("editFrame");
 		
-		System.out.println ("Waiting for potentially long-running Ajax calls...");
+		logger.info ("Waiting for potentially long-running Ajax calls...");
 		Thread.sleep (1000);
 
 		assertTextFieldsForEntryEqual (firstEnergy, firstRested, firstRestful, firstDrinks, firstActivities);
@@ -131,7 +131,7 @@ public class ExampleWebTestCase {
 		tester.assertButtonPresent ("save");
 		tester.assertButtonPresentWithText ("Update Entry");
 
-		System.out.println ("Clicking Update Entry...");
+		logger.info ("Clicking Update Entry...");
 		tester.clickButtonWithText ("Update Entry");
 
 		// focus back on the main window again
@@ -144,7 +144,7 @@ public class ExampleWebTestCase {
 	@Test
 	public void testDeleteEntries()
 	{
-		System.out.println ("Clicked View Entries...");
+		logger.info ("Clicked View Entries...");
 		tester.beginAt ("/");
 		tester.clickLink ("viewEntries");
 		
@@ -156,7 +156,7 @@ public class ExampleWebTestCase {
 	public void testEditEntry() 
 		throws InterruptedException
 	{
-		System.out.println ("Clicked View Entries...");
+		logger.info ("Clicked View Entries...");
 		tester.beginAt ("/");
 
 		tester.clickLink ("viewEntries");
@@ -172,7 +172,7 @@ public class ExampleWebTestCase {
 		tester.assertButtonPresent ("save");
 		tester.assertButtonPresentWithText ("Update Entry");
 		
-		System.out.println ("Waiting for potentially long-running Ajax calls...");
+		logger.info ("Waiting for potentially long-running Ajax calls...");
 		Thread.sleep (1000);
 
 		assertTextFieldsForEntryEqual (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
@@ -181,7 +181,7 @@ public class ExampleWebTestCase {
 	@Test
 	public void testValidation()
 	{
-		System.out.println ("Going to home page...");
+		logger.info ("Going to home page...");
 		tester.beginAt ("/");
 		
 		SleepEntry entry = new SleepEntry ();
@@ -242,7 +242,7 @@ public class ExampleWebTestCase {
 
 	private SleepEntry addEntry (DateTime date, EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) 
 	{
-		System.out.println ("Going to home page...");
+		logger.info ("Going to home page...");
 		tester.beginAt ("/");
 		
 		SleepEntry entry = new SleepEntry ();
