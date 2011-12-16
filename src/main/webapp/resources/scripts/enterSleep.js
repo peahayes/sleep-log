@@ -13,7 +13,7 @@ $(document).ready (function()
 	$("#sleepForm").validate({
 		rules: {
 			energyLevel: "required",
-// don't validate these for now -- I haven't gotten the display working right
+// don't validate these for now -- I haven't gotten the display for radio button validation working right
 //			restedScore: "required",
 //			restfulnessScore: "required",
 			numDrinks: {
