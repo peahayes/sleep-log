@@ -47,6 +47,11 @@ public enum Activity implements SleepAttributeEnum
 		return SleepUtils.qualitative (this);
 	}
 
+	public static String stringValueOf (Long value)
+	{
+		return SleepUtils.qualitative (Activity.enumValueOf (value));
+	}
+	
 	public static String asString (Collection<Long> activities) 
 	{
 		if (activities == null)
