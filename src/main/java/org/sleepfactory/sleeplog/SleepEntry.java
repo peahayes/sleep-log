@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author phayes
  *
  */
-public class SleepEntry implements Comparable {
+public class SleepEntry implements Comparable<SleepEntry> {
 
 	private Long id;
 	
@@ -283,10 +283,8 @@ public class SleepEntry implements Comparable {
 	}
 	
 	@Override
-	public int compareTo (Object obj) 
+	public int compareTo (SleepEntry that) 
 	{
-		SleepEntry that = (SleepEntry) obj;
-		
 		if (this.date != null)
 			return this.date.compareTo (that.date);
 		
