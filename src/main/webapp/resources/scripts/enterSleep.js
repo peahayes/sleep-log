@@ -84,18 +84,6 @@ function setCancelHandlers() {
  */
 function setSaveHandlers() {
 	sleepForm.submit(function() {
-
-//		var msg = validateNoSpecialChar ($('#shortName'), ',', $('#message'), commaErrorMessage);
-		
-//		if(oldShortName.toLowerCase()==shortName.val().toLowerCase()) // While editing site if the site name has not been changed do not run validation for duplicates.
-//			return true;
-		
-//		ajaxErrBox.text('');
-		
-//		if (siteExists (shortName.val())) {
-//			ajaxErrBox.text (msg + " " + duplicateSiteErrorMsg);
-//			return false;
-//		}
 		parent.$.fn.colorbox.close();
 		return true;
 	});
