@@ -134,6 +134,12 @@
             <scope>test</scope>
         </dependency>
        
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
        	<!--Needed to be able to use wildcards in Tiles configuration -->
 		<dependency>
 			<groupId>aopalliance</groupId>
