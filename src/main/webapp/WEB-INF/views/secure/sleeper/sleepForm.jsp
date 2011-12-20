@@ -22,8 +22,8 @@
 		<span id="spnWaitImage"><img src="<c:url value='/resources/images/wait.gif'/>"/>Please wait...</span>
 		
 		<c:if test="${editMode == 'update' && sleepEntry.energyLevel != null}">
-			<input id="savedEnergyLevel" type="hidden" value="${sleepEntry.energyLevel}"/>
-			<input id="savedRestfulScore" type="hidden" value="${sleepEntry.restfulnessScore}"/>
+			<input name="savedEnergyLevel" id="savedEnergyLevel" type="hidden" value="${sleepEntry.energyLevel}"/>
+			<input name="savedRestfulScore" id="savedRestfulScore" type="hidden" value="${sleepEntry.restfulnessScore}"/>
 		</c:if>
 		
 		<c:if test="${editMode == 'update'}">
