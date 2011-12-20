@@ -154,14 +154,13 @@ public class ExampleWebTestCase {
 		logger.info ("Waiting for goToFrame()...");
 		Thread.sleep (400);
 
-		assertTextFieldsForEntryEqual (energy1, rested1, restful1, drinks1, activities1);
+		assertFormFieldsForEntryEqual (energy1, rested1, restful1, drinks1, activities1);
 		setFieldValues (energy3, rested3, restful3, drinks3, activities3);
 		
 		tester.assertButtonPresent ("save");
-		tester.assertButtonPresentWithText ("Update Entry");
 
 		logger.info ("Clicking Update Entry...");
-		tester.clickButtonWithText ("Update Entry");
+		tester.clickButton ("save");
 
 		// focus back on the main window again
 		tester.gotoRootWindow();
@@ -194,7 +193,7 @@ public class ExampleWebTestCase {
 		tester.beginAt ("secure/sleep/viewEntries");
 		tester.clickLink ("edit");
 		
-		assertTextFieldsForEntryEqual (energy3, rested3, restful3, drinks3, activities3);
+		assertFormFieldsForEntryEqual (energy3, rested3, restful3, drinks3, activities3);
 
 		tester.assertTextPresent ("Edit Sleep Entry");
 		
@@ -323,8 +322,11 @@ public class ExampleWebTestCase {
 			tester.assertTextInElement ("jwebunit_activities", Activity.stringValueOf (act));
 	}
 
-	private void assertTextFieldsForEntryEqual (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) throws InterruptedException 
+	private void assertFormFieldsForEntryEqual (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) throws InterruptedException 
 	{
+		tester.assertHiddenFieldPresent ("savedEnergyLevel", String.valueOf (energy.valueOf()));
+		tester.assertHiddenFieldPresent ("savedRestfulScore", String.valueOf (restful.valueOf()));
+
 		tester.assertSelectedOptionEquals ("energyLevel", energy.qualitative());
 		tester.assertRadioOptionSelected ("restedScore", String.valueOf (rested.valueOf()));
 		tester.assertRadioOptionSelected ("restfulnessScore", String.valueOf (restful.valueOf()));
