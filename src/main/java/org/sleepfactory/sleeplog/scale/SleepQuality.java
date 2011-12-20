@@ -1,6 +1,5 @@
 package org.sleepfactory.sleeplog.scale;
 
-import org.apache.commons.lang.StringUtils;
 import org.sleepfactory.sleeplog.util.SleepUtils;
 
 
