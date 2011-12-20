@@ -1,6 +1,7 @@
 package org.sleepfactory.sleeplog;
 
 import java.util.Collection;
+import java.util.Set;
 
 import org.joda.time.DateTime;
 import org.sleepfactory.sleeplog.scale.Activity;
@@ -50,6 +51,17 @@ public class SleepEntry implements Comparable {
 	public SleepEntry (Long id) 
 	{
 		this.id = id;
+	}
+
+	public SleepEntry (DateTime date, EnergyLevel energy, SleepQuality rested,
+					   Restfulness restful, int numDrinks, Set<Long> activities) 
+	{
+		this (date);
+		this.energyLevel = energy;
+		this.restedScore = rested;
+		this.restfulnessScore = restful;
+		this.numDrinks = numDrinks;
+		this.activities = activities;
 	}
 
 	/**
