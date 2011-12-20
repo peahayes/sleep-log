@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.sleepfactory.sleeplog.SleepEntry;
 import org.sleepfactory.sleeplog.SleepLog;
@@ -104,9 +106,9 @@ public class SleepService {
 		return levels;
 	}
 
-	public Map<String, String> getRestedScores() 
+	public SortedMap<String, String> getRestedScores() 
 	{
-		Map<String, String> levels = new HashMap<String, String>();
+		SortedMap<String, String> levels = new TreeMap<String, String>();
 		
 		levels.put (String.valueOf (SleepQuality.VERY_POOR.valueOf()), SleepQuality.VERY_POOR.qualitative());
 		levels.put (String.valueOf (SleepQuality.POOR.valueOf()), SleepQuality.POOR.qualitative());
@@ -117,9 +119,9 @@ public class SleepService {
 		return levels;
 	}
 
-	public Map<String, String> getActivities() 
+	public SortedMap<String, String> getActivities() 
 	{
-		Map<String, String> levels = new HashMap<String, String>();
+		SortedMap<String, String> levels = new TreeMap<String, String>();
 		
 		levels.put (String.valueOf (Activity.BIKING.valueOf()), Activity.BIKING.qualitative());
 		levels.put (String.valueOf (Activity.HIKING.valueOf()), Activity.HIKING.qualitative());
