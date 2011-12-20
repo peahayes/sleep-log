@@ -7,7 +7,9 @@ import net.sourceforge.jwebunit.htmlunit.HtmlUnitTestingEngineImpl;
 import net.sourceforge.jwebunit.junit.WebTester;
 
 import org.joda.time.DateTime;
-import org.junit.Before;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.sleepfactory.sleeplog.SleepEntry;
 import org.sleepfactory.sleeplog.scale.Activity;
@@ -22,52 +24,72 @@ import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 
 public class ExampleWebTestCase {
 
-	private WebTester tester;
+	private static WebTester tester = new WebTester();
 	
 	DateTime firstDate = new DateTime (2011, 3, 1, 6, 0, 0, 0);
 	
-	final int firstDrinks = 0;
-	final SleepQuality firstRested = SleepQuality.EXCELLENT;
-	final Restfulness firstRestful = Restfulness.WELL_RESTED;
-	final EnergyLevel firstEnergy = EnergyLevel.VERY_ENERGETIC;
-	final Set<Long> firstActivities = new HashSet<Long>();
+	final int drinks1 = 0, drinks2 = 6, drinks3 = 2;
+	final SleepQuality rested1 = SleepQuality.EXCELLENT,  rested2 = SleepQuality.POOR, rested3 = SleepQuality.GOOD;
+	final Restfulness restful1 = Restfulness.WELL_RESTED, restful2 = Restfulness.NOT_AT_ALL, restful3 = Restfulness.RESTED;
+	final EnergyLevel energy1 = EnergyLevel.VERY_ENERGETIC, energy2 = EnergyLevel.EXTREMELY_FATIGUED, energy3 = EnergyLevel.SOMEWHAT_ENERGETIC;
+	final static Set<Long> activities1 = new HashSet<Long>(), activities2 = new HashSet<Long>(), activities3 = new HashSet<Long>();
 	
-	final int secondDrinks = 6;
-	final SleepQuality secondRested = SleepQuality.POOR;
-	final Restfulness secondRestful = Restfulness.NOT_AT_ALL;
-	final EnergyLevel secondEnergy = EnergyLevel.EXTREMELY_FATIGUED;
-	final Set<Long> secondActivities = new HashSet<Long>();
+	final static BrowserVersion defaultBrowserVersion = BrowserVersion.INTERNET_EXPLORER_7;
+	final static String baseUrl = "http://localhost:8080/sleep-log";
 
-	final int thirdDrinks = 2;
-	final SleepQuality thirdRested = SleepQuality.GOOD;
-	final Restfulness thirdRestful = Restfulness.RESTED;
-	final EnergyLevel thirdEnergy = EnergyLevel.SOMEWHAT_ENERGETIC;
-	final Set<Long> thirdActivities = new HashSet<Long>();
-	
-	protected BrowserVersion defaultBrowserVersion = BrowserVersion.INTERNET_EXPLORER_7;
+	final static Logger logger = LoggerFactory.getLogger (ExampleWebTestCase.class);
 
-	private static final Logger logger = LoggerFactory.getLogger (ExampleWebTestCase.class);
-
-	@Before
-	public void prepare() 
+	@BeforeClass
+	public static void setUp()
+		throws Exception
 	{
-		firstActivities.add (Activity.WEIGHTS.valueOf());
-		firstActivities.add (Activity.BIKING.valueOf());
+		logger.info ("******** SETTING UP BEFORE TESTS ********");
 		
-		secondActivities.add (Activity.WALKING.valueOf());
-		secondActivities.add (Activity.WORKOUT.valueOf());
+		// initialize sets of activities
+		activities1.add (Activity.WEIGHTS.valueOf());
+		activities1.add (Activity.BIKING.valueOf());
+		activities2.add (Activity.WALKING.valueOf());
+		activities2.add (Activity.WORKOUT.valueOf());
+		activities3.add (Activity.HIKING.valueOf());
 		
-		thirdActivities.add (Activity.HIKING.valueOf());
-		
-		tester = new WebTester();
-		tester.setBaseUrl ("http://localhost:8180/sleep-log");
+		// create a web tester so we don't have to use static JWebUnit methods, 
+		// enabling us to take advantage of Eclipse's auto-completion to see available
+		// methods
+		tester.setBaseUrl (baseUrl);
 
+		// this enables us to use message properties instead of hard-coded text
 		tester.getTestContext().setResourceBundleName ("messages");
 
+		// set default browser
 		tester.getTestContext().setUserAgent (defaultBrowserVersion.getUserAgent());
 		
 		if (tester.getTestingEngine() instanceof HtmlUnitTestingEngineImpl)
 			((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).setDefaultBrowserVersion (defaultBrowserVersion);
+	}
+	
+	@After
+	public void tearDown()
+	{
+		logger.info ("******** TEARING DOWN AFTER TEST ********");
+	}
+	
+	@AfterClass
+	public static void clearApplication()
+	{
+		logger.info ("******** CLEARING APPLICATION ********");
+
+		logger.info ("Going to home page...");
+		tester.beginAt (baseUrl);
+		
+		logger.info ("Clicked View Entries...");
+		tester.clickLink ("viewEntries");
+
+		// delete the two SleepEntries
+		tester.setExpectedJavaScriptConfirm ("Are you sure you want to delete?", true);
+		tester.clickLink ("delete");
+	
+		tester.setExpectedJavaScriptConfirm ("Are you sure you want to delete?", true);
+		tester.clickLink ("delete");
 	}
 	
 	@Test
@@ -83,49 +105,41 @@ public class ExampleWebTestCase {
 		tester.clickLink ("viewEntries");
 		
 		tester.assertTitleEqualsKey ("window.title");
-		
-		assertAveragesLabelsPresent();
+		tester.assertKeyPresent ("no.sleep.entries");
 	}
 
 	@Test
-	public void testBeginAtViewEntries_noEntries() 
+	public void testAddEntries()
 	{
-		tester.beginAt ("/secure/sleep/viewEntries");
-		tester.assertTitleEqualsKey ("window.title");
-		assertAveragesLabelsPresent();
-		tester.assertLinkPresent ("viewEntries");
-	}
-
-	@Test
-	public void testAddEntry()
-	{
-		SleepEntry entry = addEntry (firstDate, firstEnergy, firstRested, firstRestful, firstDrinks, firstActivities);
+		SleepEntry entry = addEntry (firstDate, energy1, rested1, restful1, drinks1, activities1);
 		
 		assertEntryAttributeLabelsPresent();
 		assertEntryValuesPresentAsText (entry);
 		
-		SleepEntry entry2 = addEntry (firstDate.plusDays (1), secondEnergy, secondRested, secondRestful, secondDrinks, secondActivities);
+		SleepEntry entry2 = addEntry (firstDate.plusDays (1), energy2, rested2, restful2, drinks2, activities2);
 		assertEntryValuesPresentAsText (entry2);
 
 		tester.clickLink ("viewEntries");
 		
-		assertAveragesLabelsPresent();
+		tester.assertKeyPresent ("avg.energy.label");
+		tester.assertKeyPresent ("avg.rested.label");
+		tester.assertKeyPresent ("avg.restfulness.label");
+		tester.assertKeyPresent ("avg.drinks.label");
+
 		assertAverages (entry, entry2);
 	}
 	
 	@Test
 	public void testEditInPopup() throws InterruptedException
 	{
-		logger.info ("Clicked View Entries...");
-		
 		if (tester.getTestingEngine() instanceof HtmlUnitTestingEngineImpl)
 		{
 			if (((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).getWebClient() != null)
 				((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).getWebClient().setAjaxController (new NicelyResynchronizingAjaxController());
 		}
 
-		tester.beginAt ("/");
-		tester.clickLink ("viewEntries");
+		logger.info ("Clicked View Entries...");
+		tester.beginAt ("secure/sleep/viewEntries");
 
 		logger.info ("Clicked edit in popup...");
 		tester.clickLink ("editInPopup");
@@ -134,16 +148,14 @@ public class ExampleWebTestCase {
 		Thread.sleep (2000);
 		
 		// focus on the popup iframe
-		tester.assertFramePresent ("editFrame");
-
 		logger.info ("Going to editFrame...");
 		tester.gotoFrame ("editFrame");
 		
 		logger.info ("Waiting for goToFrame()...");
 		Thread.sleep (400);
 
-		assertTextFieldsForEntryEqual (firstEnergy, firstRested, firstRestful, firstDrinks, firstActivities);
-		setFieldValues (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
+		assertTextFieldsForEntryEqual (energy1, rested1, restful1, drinks1, activities1);
+		setFieldValues (energy3, rested3, restful3, drinks3, activities3);
 		
 		tester.assertButtonPresent ("save");
 		tester.assertButtonPresentWithText ("Update Entry");
@@ -155,24 +167,23 @@ public class ExampleWebTestCase {
 		tester.gotoRootWindow();
 		
 		tester.assertTextPresent ("Your Sleep Entry Summary");
-		assertEntryValuesPresentAsText (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
+		assertEntryValuesPresentAsText (energy3, rested3, restful3, drinks3, activities3);
 	}
 
 	@Test
-	public void testDeleteEntries()
+	public void testDeleteEntry()
 	{
 		logger.info ("Clicked View Entries...");
-		tester.beginAt ("/");
-		tester.clickLink ("viewEntries");
+		tester.beginAt ("secure/sleep/viewEntries");
 		
 		tester.setExpectedJavaScriptConfirm ("Are you sure you want to delete?", true);
 		tester.clickLink ("delete");
 	}
 
 	@Test
-	public void testEditEntry() 
-		throws InterruptedException
+	public void testEditEntry() throws InterruptedException
 	{
+		// make Ajax calls run synchronously
 		if (tester.getTestingEngine() instanceof HtmlUnitTestingEngineImpl)
 		{
 			if (((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).getWebClient() != null)
@@ -180,15 +191,10 @@ public class ExampleWebTestCase {
 		}
 
 		logger.info ("Clicked View Entries...");
-		tester.beginAt ("/");
-
-		tester.clickLink ("viewEntries");
+		tester.beginAt ("secure/sleep/viewEntries");
 		tester.clickLink ("edit");
 		
-		logger.info ("Waiting for setWorkingForm()...");
-		Thread.sleep (400);
-
-		assertTextFieldsForEntryEqual (thirdEnergy, thirdRested, thirdRestful, thirdDrinks, thirdActivities);
+		assertTextFieldsForEntryEqual (energy3, rested3, restful3, drinks3, activities3);
 
 		tester.assertTextPresent ("Edit Sleep Entry");
 		
@@ -205,17 +211,10 @@ public class ExampleWebTestCase {
 		logger.info ("Going to home page...");
 		tester.beginAt ("/");
 		
-		SleepEntry entry = new SleepEntry ();
+		tester.clickRadioOption ("restedScore", String.valueOf (rested1.valueOf()));
+		tester.clickRadioOption ("restfulnessScore", String.valueOf (restful1.valueOf()));
 		
-		entry.setRestedScore (firstRested.valueOf());
-		entry.setRestfulnessScore (firstRestful.valueOf());
-		entry.setActivities (firstActivities);
-		entry.setDate (firstDate);
-		
-		tester.clickRadioOption ("restedScore", String.valueOf (firstRested.valueOf()));
-		tester.clickRadioOption ("restfulnessScore", String.valueOf (firstRestful.valueOf()));
-		
-		for (Long act : entry.getActivities())
+		for (Long act : activities1)
 			tester.checkCheckbox ("activities", String.valueOf (act));
 		
 		tester.submit();
@@ -223,18 +222,16 @@ public class ExampleWebTestCase {
 		tester.assertTextPresent ("Please select your level of energy");
 		tester.assertTextPresent ("Please enter the number of drinks you consumed");
 		
-		entry.setEnergyLevel (firstEnergy.valueOf());
-		tester.selectOptionByValue ("energyLevel", String.valueOf (firstEnergy.valueOf()));
+		tester.selectOptionByValue ("energyLevel", String.valueOf (energy1.valueOf()));
 		
 		tester.submit();
 		tester.assertTextPresent ("Please enter the number of drinks you consumed");
 
-		entry.setNumDrinks (firstDrinks);
-		tester.setTextField ("numDrinks", String.valueOf (firstDrinks));
+		tester.setTextField ("numDrinks", String.valueOf (drinks1));
 		tester.submit();
 
 		assertEntryAttributeLabelsPresent();
-		assertEntryValuesPresentAsText (entry);	
+		assertEntryValuesPresentAsText (energy1, rested1, restful1, drinks1, activities1);	
 	}
 	
 	/**
@@ -266,35 +263,12 @@ public class ExampleWebTestCase {
 		logger.info ("Going to home page...");
 		tester.beginAt ("/");
 		
-		SleepEntry entry = new SleepEntry ();
-		
-		entry.setEnergyLevel (energy.valueOf());
-		entry.setRestedScore (rested.valueOf());
-		entry.setRestfulnessScore (restful.valueOf());
-		entry.setNumDrinks (numDrinks);
-		entry.setActivities (activities);
-		entry.setDate (date);
-		entry.setBedTime (date.minusHours (8));
-		entry.setRiseTime (date);
-		entry.setWakeTime (date.plusMinutes (15));
-		
-		setFieldValues (entry);
+		setFieldValues (energy, rested, restful, numDrinks, activities);
 		
 		logger.debug ("Saving entry...");
 		tester.submit();
 		
-		return entry;
-	}
-
-	private void setFieldValues (SleepEntry entry) 
-	{
-		tester.selectOptionByValue ("energyLevel", String.valueOf (entry.getEnergyLevel()));
-		tester.clickRadioOption ("restedScore", String.valueOf (entry.getRestedScore()));
-		tester.clickRadioOption ("restfulnessScore", String.valueOf (entry.getRestfulnessScore()));
-		tester.setTextField ("numDrinks", String.valueOf (entry.getNumDrinks()));
-		
-		for (Long act : entry.getActivities())
-			tester.checkCheckbox ("activities", String.valueOf (act));
+		return new SleepEntry (date, energy, rested, restful, numDrinks, activities);
 	}
 	
 	private void setFieldValues (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) 
@@ -317,14 +291,6 @@ public class ExampleWebTestCase {
 		tester.assertKeyPresent ("activities.label");
 	}
 
-	private void assertAveragesLabelsPresent() 
-	{
-		tester.assertKeyPresent ("avg.energy.label");
-		tester.assertKeyPresent ("avg.rested.label");
-		tester.assertKeyPresent ("avg.restfulness.label");
-		tester.assertKeyPresent ("avg.drinks.label");
-	}
-
 	/**
 	 * We use assertTextInElement() here instead of assertTextPresent() because energyLevel,
 	 * restedScore, restfulnessScore, and numDrinks are just numbers that could appear elsewhere
@@ -336,12 +302,9 @@ public class ExampleWebTestCase {
 		tester.assertTextInElement ("jwebunit_rested", String.valueOf (entry.getRestedScore()));
 		tester.assertTextInElement ("jwebunit_restfulness", String.valueOf (entry.getRestfulnessScore()));
 		tester.assertTextInElement ("jwebunit_drinks", String.valueOf (entry.getNumDrinks()));
-		
-		String activities = entry.getActivitiesAsString();
-		String[] parts = activities.split (",");
-		
-		tester.assertTextInElement ("jwebunit_activities", parts[0].trim());
-		tester.assertTextInElement ("jwebunit_activities", parts[1].trim());
+
+		for (int i = 0; i < entry.getActivitiesAsString().split (",").length; i++)
+			tester.assertTextInElement ("jwebunit_activities", entry.getActivitiesAsString().split (",")[i].trim());
 	}
 
 	/**
@@ -351,24 +314,24 @@ public class ExampleWebTestCase {
 	 */
 	private void assertEntryValuesPresentAsText (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) 
 	{
+		tester.assertTextInElement ("jwebunit_energy", String.valueOf (energy.valueOf()));
 		tester.assertTextInElement ("jwebunit_rested", String.valueOf (rested.valueOf()));
 		tester.assertTextInElement ("jwebunit_restfulness", String.valueOf (restful.valueOf()));
 		tester.assertTextInElement ("jwebunit_drinks", String.valueOf (numDrinks));
-		tester.assertTextInElement ("jwebunit_activities", Activity.asString (activities));
-		tester.assertTextInElement ("jwebunit_energy", String.valueOf (energy.valueOf()));
+		
+		for (Long act : activities)
+			tester.assertTextInElement ("jwebunit_activities", Activity.stringValueOf (act));
 	}
 
-	private void assertTextFieldsForEntryEqual (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) 
-		throws InterruptedException 
+	private void assertTextFieldsForEntryEqual (EnergyLevel energy, SleepQuality rested, Restfulness restful, int numDrinks, Set<Long> activities) throws InterruptedException 
 	{
+		tester.assertSelectedOptionEquals ("energyLevel", energy.qualitative());
 		tester.assertRadioOptionSelected ("restedScore", String.valueOf (rested.valueOf()));
+		tester.assertRadioOptionSelected ("restfulnessScore", String.valueOf (restful.valueOf()));
 		tester.assertTextFieldEquals ("numDrinks", String.valueOf (numDrinks));
 		
 		for (Long act : activities)
 			tester.assertCheckboxSelected ("activities", String.valueOf (act));
-
-		tester.assertSelectedOptionEquals ("energyLevel", energy.qualitative());
-		tester.assertRadioOptionSelected ("restfulnessScore", String.valueOf (restful.valueOf()));
 	}
 
 }
