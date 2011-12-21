@@ -130,16 +130,37 @@ public class ExampleWebTestCase {
 	}
 	
 	@Test
+	public void testPopupFrame() throws InterruptedException
+	{
+		tester.beginAt ("secure/sleep/viewEntries");
+		
+		tester.assertButtonNotPresent ("save");
+
+		tester.clickLink ("editInPopup");
+		Thread.sleep (2000);
+		tester.gotoFrame ("editFrame");
+
+		tester.assertButtonPresent ("save");
+		
+		tester.clickLink ("cancel");
+		tester.gotoRootWindow();
+		
+		tester.assertButtonNotPresent ("save");
+	}
+	
+	@Test
 	public void testEditInPopup() throws InterruptedException
 	{
-		if (tester.getTestingEngine() instanceof HtmlUnitTestingEngineImpl)
-		{
-			if (((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).getWebClient() != null)
-				((HtmlUnitTestingEngineImpl) tester.getTestingEngine()).getWebClient().setAjaxController (new NicelyResynchronizingAjaxController());
+		if (tester.getTestingEngine() instanceof HtmlUnitTestingEngineImpl) {
+			HtmlUnitTestingEngineImpl htmlEngine = (HtmlUnitTestingEngineImpl) tester.getTestingEngine();
+			if (htmlEngine.getWebClient() != null)
+				htmlEngine.getWebClient().setAjaxController (new NicelyResynchronizingAjaxController());
 		}
 
 		logger.info ("Clicked View Entries...");
 		tester.beginAt ("secure/sleep/viewEntries");
+		
+		tester.assertButtonNotPresent ("save");
 
 		logger.info ("Clicked edit in popup...");
 		tester.clickLink ("editInPopup");
